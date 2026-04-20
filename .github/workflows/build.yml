@@ -1,4 +1,4 @@
-name: Build
+name: Build Documents
 
 on:
   push:
@@ -32,8 +32,8 @@ jobs:
           done
 
       - name: Upload PDFs as artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
-          name: pdfs
+          name: PDFs
           path: dist/*.pdf
           retention-days: 30

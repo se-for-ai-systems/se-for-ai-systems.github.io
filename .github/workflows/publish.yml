@@ -30,7 +30,8 @@ jobs:
             cp "$f" "dist/${name}.pdf"
           done
 
-      - name: Upload PDFs to release
-        uses: softprops/action-gh-release@v2
+      - name: Upload PDFs as artifacts
+        uses: actions/upload-artifact@v7
         with:
-          files: dist/*.pdf
+          name: PDFs
+          path: dist/*.pdf
