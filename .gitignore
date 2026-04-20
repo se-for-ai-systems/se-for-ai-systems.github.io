@@ -1,6 +1,9 @@
 ## CI build staging directory
 dist/
 
+# 
+*.pdf
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
