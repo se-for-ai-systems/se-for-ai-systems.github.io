@@ -12,12 +12,13 @@ jobs:
     container: ghcr.io/se-for-ai-systems/materials-texlive:latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Build all documents
         run: make
 
       - name: Collect PDFs
+        shell: bash
         run: |
           mkdir -p dist
           find . \( -path './lectures/*/*/main.pdf' \
