@@ -7,22 +7,12 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    container: ghcr.io/se-for-ai-systems/materials-texlive:latest
     permissions:
       contents: write  # required to upload release assets
 
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Install TeX Live
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            texlive-latex-extra \
-            texlive-fonts-recommended \
-            texlive-fonts-extra \
-            texlive-bibtex-extra \
-            texlive-publishers \
-            latexmk
+      - uses: actions/checkout@v6
 
       - name: Build all documents
         run: make
