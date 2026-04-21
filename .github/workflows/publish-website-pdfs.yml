@@ -37,7 +37,8 @@ jobs:
 
       - name: Copy PDFs to website
         run: |
-          cp ${{ vars.MATERIALS_PATH}}/**/main.pdf ${{ env.REPO_PATH }}/${{ vars.MATERIALS_PATH}}
+          # cp ${{ vars.MATERIALS_PATH}}/**/main.pdf ${{ env.REPO_PATH }}/${{ vars.MATERIALS_PATH}}
+          cp -r ${{ vars.MATERIALS_PATH}} ${{ env.REPO_PATH }}/${{ vars.MATERIALS_PATH}}
 
       - name: Commit and push
         run: |
