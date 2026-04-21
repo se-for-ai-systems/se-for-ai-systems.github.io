@@ -6,6 +6,9 @@ on:
     # workflows: ["Publish"] # TODO:
     types: [completed]
 
+permissions:
+  actions: read
+  contents: read
 
 env:
   MATERIALS_PATH: "assets"
