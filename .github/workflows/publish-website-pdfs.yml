@@ -27,6 +27,10 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           run-id: ${{ github.event.workflow_run.id }}
 
+      - name: Copy PDFs to website
+        run: |
+          echo "PDFs downloaded to dist:"
+          echo ${{ github.repository }}
       - name: Checkout website repository
         uses: actions/checkout@v6
         with:

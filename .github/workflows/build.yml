@@ -2,6 +2,10 @@ name: Build Documents
 
 on:
   push:
+    paths:
+        - "lectures/*"
+        - "assignments/*"
+        - ".github/workflows/build.yml"
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
