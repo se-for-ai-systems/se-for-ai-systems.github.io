@@ -25,20 +25,20 @@ jobs:
       - name: Collect PDFs
         shell: bash
         run: |
-          mkdir -p ${{ vars.MATERIALS_PATH}}
-          find . \( -path './lectures/*/*/main.pdf' \
-                 -o -path './assignments/*/*/main.pdf' \) \
+          find . \( -path './lectures/**/main.pdf' \
+                -o -path './assignments/**/main.pdf' \) \
           | while read f; do
           rel="${f#./}"
-          name="${rel%/main.pdf}"
-          name="${name//\//-}"
-          echo "$f -> ${name}"
-            cp "$f" "${{ vars.MATERIALS_PATH}}/${name}.pdf"
+          filen_path="${{ vars.MATERIALS_PATH}}/${rel%/main.pdf}"
+          mkdir -p "$filen_path"
+          filen_name="${{ vars.MATERIALS_PATH}}/${rel}"
+          cp "$f" "$filen_name"
           done
+        
 
       - name: Upload PDFs as artifacts
         uses: actions/upload-artifact@v7
         with:
           name: PDFs
-          path: ${{ vars.MATERIALS_PATH}}/*.pdf
+          path: ${{ vars.MATERIALS_PATH}}/**/main.pdf
           retention-days: 30
