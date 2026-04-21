@@ -24,10 +24,10 @@ jobs:
           find . \( -path './lectures/*/*/main.pdf' \
                  -o -path './assignments/*/*/main.pdf' \) \
           | while read f; do
-            echo "Processing $f"
-            rel="${f#./}"
-            name="${rel%/main.pdf}"
-            name="${name//\//-}"
+          rel="${f#./}"
+          name="${rel%/main.pdf}"
+          name="${name//\//-}"
+          echo "$f -> ${name}"
             cp "$f" "dist/${name}.pdf"
           done
 
