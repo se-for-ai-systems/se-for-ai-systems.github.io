@@ -30,14 +30,15 @@ jobs:
       - name: Checkout website repository
         uses: actions/checkout@v6
         with:
-          repository: se-for-ai-systems/se-for-ai-systems.github.io.git
+          repository: se-for-ai-systems/se-for-ai-systems.github.io
           token: ${{ secrets.WEBSITE_PAT }}
+          fetch-depth: 0
           path: website
 
       - name: Copy PDFs to website
         run: |
-          # mkdir -p ${{ env.MATERIALS_PATH}}
-          cp dist/*.pdf ${{ env.MATERIALS_PATH}}
+          # mkdir -p website/${{ env.MATERIALS_PATH}}
+          cp dist/*.pdf website/${{ env.MATERIALS_PATH}}
 
       - name: Commit and push
         run: |
