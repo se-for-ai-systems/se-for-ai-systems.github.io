@@ -8,5 +8,6 @@ RUN apt-get update -y && \
       texlive-bibtex-extra \
       texlive-publishers \
       latexmk \
-      make && \
+      make \
+      zip && \
     rm -rf /var/lib/apt/lists/*

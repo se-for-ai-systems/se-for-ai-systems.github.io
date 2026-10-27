@@ -37,6 +37,8 @@
 \newcommand{\weeknumber}[1]{\def\@weeknumber{#1}}
 \def\@lecturenumber{}
 \newcommand{\lecturenumber}[1]{\def\@lecturenumber{#1}}
+\def\@reportsubtitle{}
+\newcommand{\reportsubtitle}[1]{\def\@reportsubtitle{#1}}
 
 % ---------------------------------------------------------------
 % Load base class and mode-specific setup
@@ -69,6 +71,10 @@
   \usepackage{palatino}
   \usepackage{microtype}
   \usepackage[margin=2.5cm]{geometry}
+  \usepackage{amsmath}
+  \usepackage{graphicx}
+  \usepackage{booktabs}
+  \usepackage{tabularx}
   \usepackage{hyperref}
   \usepackage{xcolor}
 
@@ -99,12 +105,17 @@
       \vspace{2cm}
       {\Huge\bfseries \@title\par}
       \vspace{0.8cm}
+      \ifx\@reportsubtitle\@empty\else
+        {\large \@reportsubtitle\par}
+        \vspace{0.5cm}
+      \fi
       \ifx\@weeknumber\@empty\else
         {\large Week \@weeknumber\par}
         \vspace{0.5cm}
       \fi
       \vfill
-      {\large \@author\par}
+      % tabular so that \and separates group members
+      {\large \begin{tabular}[t]{c}\@author\end{tabular}\par}
       \vspace{0.4cm}
       {\normalsize \@date\par}
     \end{titlepage}%

@@ -3,8 +3,10 @@ name: Build Documents
 on:
   push:
     paths:
-        - "lectures/*"
-        - "assignments/*"
+        - "lectures/**"
+        - "assignments/**"
+        - "shared/**"
+        - "Makefile"
         - ".github/workflows/build.yml"
     branches: [ "main" ]
   pull_request:
@@ -22,23 +24,24 @@ jobs:
       - name: Build all documents
         run: make
 
-      - name: Collect PDFs
+      - name: Collect PDFs and template zips
         shell: bash
         run: |
           find . \( -path './lectures/**/main.pdf' \
-                -o -path './assignments/**/main.pdf' \) \
+                -o -path './assignments/**/main.pdf' \
+                -o -path './assignments/**/*.zip' \) \
           | while read f; do
           rel="${f#./}"
-          filen_path="${{ vars.MATERIALS_PATH}}/${rel%/main.pdf}"
-          mkdir -p "$filen_path"
-          filen_name="${{ vars.MATERIALS_PATH}}/${rel}"
-          cp "$f" "$filen_name"
+          mkdir -p "${{ vars.MATERIALS_PATH}}/$(dirname "$rel")"
+          cp "$f" "${{ vars.MATERIALS_PATH}}/${rel}"
           done
-        
+
 
       - name: Upload PDFs as artifacts
         uses: actions/upload-artifact@v7
         with:
           name: PDFs
-          path: ${{ vars.MATERIALS_PATH}}/**/main.pdf
+          path: |
+            ${{ vars.MATERIALS_PATH}}/**/main.pdf
+            ${{ vars.MATERIALS_PATH}}/**/*.zip
           retention-days: 30

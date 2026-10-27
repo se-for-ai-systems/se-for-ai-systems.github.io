@@ -1,0 +1,89 @@
+\documentclass[report]{itvest}
+
+% Document-specific metadata
+\title{Final Report}
+\reportsubtitle{Case: Short Anonymised Case Name}
+\author{Student Name} % group: \author{Name 1 \and Name 2 \and Name 3}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\chapter{Recommendation}
+
+One page for a non-technical decision maker: the options, their cost and
+risks, and what you recommend. Avoid technical terms.
+
+\begin{checkit}
+  \textbf{Recommendation:} State the decision you recommend in one or two
+  sentences.
+\end{checkit}
+
+\chapter{Introduction}
+
+Introduce the company problem: the business goal, the users, the data, and
+the constraint that matters. Describe the system at the level of
+components and data types, and anonymise names where needed.
+
+\chapter{Software Architecture}
+
+Your revised Portfolio 1. Copy its sections here as \verb|\section|s and
+revise them based on peer and lecturer feedback~\cite{bass_software_2021}.
+
+\chapter{Cloud Continuum}
+
+Your revised Portfolio 2~\cite{bass_engineering_2025}.
+
+\chapter{Big Data \& Data Science Technologies}
+
+Your revised Portfolio 3~\cite{huyen_designing_2022}. Dashboards and
+drift evidence from week 6 may be added here.
+
+\chapter{Reflection}
+
+\section{What Changed and Why}
+
+\begin{table}[h]
+  \centering
+  \begin{tabularx}{\textwidth}{lXX}
+    \toprule
+    Portfolio & Feedback & Change made \\
+    \midrule
+    P1 & \ldots & \ldots \\
+    P2 & \ldots & \ldots \\
+    P3 & \ldots & \ldots \\
+    \bottomrule
+  \end{tabularx}
+  \caption{Feedback and revisions.}
+  \label{tab:revisions}
+\end{table}
+
+\section{Next Steps}
+
+What you would do next to take the system to production in a real
+setting.
+
+\section{AI Usage}
+
+Briefly describe your use of AI tools on this report:
+
+\begin{itemize}
+  \item \emph{Code generation:} \ldots
+  \item \emph{Grammar and writing:} \ldots
+  \item \emph{Clarification of technical aspects:} \ldots
+\end{itemize}
+
+\bibliographystyle{IEEEtran}
+\bibliography{bib}
+
+\appendix
+
+\chapter{Evidence}
+
+Repository, \texttt{kubectl} output, pipeline runs, dashboards and other
+evidence referred to in the chapters.
+
+\end{document}

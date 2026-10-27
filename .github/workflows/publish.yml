@@ -29,9 +29,12 @@ jobs:
             name="${name//\//-}"
             cp "$f" "dist/${name}.pdf"
           done
+          cp assignments/portfolio/*/*.zip dist/
 
       - name: Upload PDFs as artifacts
         uses: actions/upload-artifact@v7
         with:
           name: PDFs
-          path: dist/*.pdf
+          path: |
+            dist/*.pdf
+            dist/*.zip

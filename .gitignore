@@ -4,6 +4,9 @@ dist/
 # 
 *.pdf
 
+## Student template zips (built by `make templates`)
+assignments/**/*.zip
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
