@@ -10,37 +10,75 @@
 
 <body>
 
-  <h1>Week 2 &ndash; Topic TBD</h1>
+  <h1>Week 2 &ndash; Architecting AI Systems: From Notebook to Code</h1>
 
   <div class="deadline">
-    <strong>Friday 5 February 2027</strong>
+    <strong>Self-study week</strong> - reading, slides and exercises.<br>
+    <strong>Portfolio 1 due Monday 8 February 2027.</strong>
   </div>
+
+  <h2>Learning Goals</h2>
+  <ul>
+    <li>Describe the AI system lifecycle: design, non-AI modules, build, test, release and deploy.</li>
+    <li>Compare distributed architecture styles (client-server, SOA, microservices) and interface styles (REST,
+      GraphQL, gRPC) for AI systems.</li>
+    <li>Specify quality-attribute scenarios for an AI system (e.g. reliability, performance, modifiability).</li>
+    <li>Document an architecture with C4 diagrams and architecture decision records (ADRs).</li>
+    <li>Restructure notebook code into a tested, containerized service.</li>
+  </ul>
 
   <h2>Literature</h2>
   <ul>
-    <li><strong>Required:</strong> [Author, Year] <em>Title of reading.</em> Chapter/pages TBD. <a href="#">Link</a>
+    <li><strong>Required:</strong> [Bass et al., 2025] <em>Engineering AI Systems.</em> Ch. 2 (Software Engineering
+      Background), sections on distributed software architectures and interface styles.</li>
+    <li><strong>Required:</strong> [Bass et al., 2025] <em>Engineering AI Systems.</em> Ch. 6 (System Life Cycle).
     </li>
-    <li><strong>Required:</strong> [Author, Year] <em>Title of reading.</em> Chapter/pages TBD.</li>
-    <li><strong>Optional:</strong> [Author, Year] <em>Title of supplementary reading.</em> <a href="#">Link</a></li>
+    <li><strong>Required:</strong> [Huyen, 2022] <em>Designing Machine Learning Systems.</em> Ch. 2 (Introduction to
+      ML Systems Design).</li>
+    <li><strong>Optional:</strong> [Bass et al., 2025] Ch. 3 (AI Background) &ndash; a recap of model selection and
+      hyperparameters from your previous module.</li>
+    <li><strong>Required if your case uses an LLM or other foundation model:</strong> [Bass et al., 2025] Ch. 4
+      (Foundation Models) &ndash; customizing FMs and designing systems around them.</li>
+    <li><strong>Optional:</strong> [Bass, Clements &amp; Kazman, 2021] <em>Software Architecture in Practice.</em>
+      Quality-attribute scenarios and tactics.</li>
+    <li><strong>Optional:</strong> [Brown] <em>The C4 model.</em> [Nygard, 2011] <em>Documenting Architecture
+        Decisions.</em></li>
+    <li><strong>Optional:</strong> [EU, 2024] Regulation (EU) 2024/1689 (AI Act), Art. 5, Art. 6 and Annex III
+      &ndash; needed for the risk classification in Portfolio 1.</li>
   </ul>
 
+  <blockquote>
+    <p class="back-link"><a target="_blank" href="../assets/course-books.html">&rarr; Course Books</a></p>
+  </blockquote>
+
   <h2>Slides</h2>
+  <!-- Slides go in ../assets/lectures/week02/ -->
   <ul>
-    <li><a href="../assets/week2/lecture1.pptx">Week 2 &ndash; Lecture 1.pdf</a>
-    <li><a href="../assets/week2/lecture2.pptx">Week 2 &ndash; Lecture 2.pdf</a>
-    <li><a href="../assets/week2/lecture3.pptx">Week 2 &ndash; Lecture 3.pdf</a>
+    <li>Lecture 3 &ndash; Distributed Architectures and Interface Styles (Bass ch. 2) (slides TBA)</li>
+    <li>Lecture 4 &ndash; The AI System Lifecycle (Bass ch. 6) (slides TBA)</li>
+    <li>Lecture 5 &ndash; From Notebook to Production Code (slides TBA)</li>
   </ul>
 
   <h2>Exercises</h2>
   <ul>
-    <li>[Exercise 1 description TBD]</li>
-    <li>[Exercise 2 description TBD]</li>
+    <li><strong>Reference project:</strong> Refactor the notebook into a Python package (<code>src/</code> layout,
+      <code>pyproject.toml</code>) with separate data, training and inference modules.</li>
+    <li><strong>Reference project:</strong> Add unit tests (pytest) for preprocessing and the model's input/output
+      contract, and evaluate the model per component class, not only overall. Split the data by time or block, not
+      randomly: the dataset comes from a single test rig.</li>
+    <li><strong>Reference project:</strong> Serve the model with FastAPI (<code>/predict</code> and
+      <code>/health</code>), write a Dockerfile (start from a slim Python image with CPU-only libraries), and build and
+      run the image locally.</li>
+    <li><strong>Own case:</strong> Write 3&ndash;5 quality-attribute scenarios (at least one about model quality),
+      draw C4 context and container diagrams, write at least two ADRs, and classify the system under the EU AI Act.
+      Finish and submit Portfolio 1.</li>
   </ul>
 
   <h2>Notes</h2>
   <blockquote>
-    <p>[Placeholder for supplementary clarifications, conceptual deep-dives, or worked examples related to this week's
-      topic.]</p>
+    <p>See <a href="../portfolio.html">Portfolio &amp; Exam</a> for the Portfolio 1 brief and assessment criteria.
+      Terms such as ADR, C4 and quality-attribute scenario are explained in the <a href="../glossary.html">Glossary</a>.
+    </p>
   </blockquote>
 
   <hr>

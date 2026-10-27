@@ -1,52 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Week 4 - Software Engineering for AI Systems</title>
   <link rel="stylesheet" href="../style.css">
 </head>
+
 <body>
 
-<h1>Week 4 &ndash; Topic TBD</h1>
+  <h1>Week 4 &ndash; MLOps &amp; GitOps</h1>
 
-<div class="deadline">
-  <strong>Friday 19 February 2027</strong>
-</div>
+  <div class="deadline">
+    <strong>Self-study week</strong> - reading, slides and exercises.<br>
+    <strong>Portfolio 2 due Monday 22 February 2027.</strong>
+  </div>
 
-<h2>Literature</h2>
-<ul>
-  <li><strong>Required:</strong> [Author, Year] <em>Title of reading.</em> Chapter/pages TBD. <a href="#">Link</a></li>
-  <li><strong>Required:</strong> [Author, Year] <em>Title of reading.</em> Chapter/pages TBD.</li>
-  <li><strong>Optional:</strong> [Author, Year] <em>Title of supplementary reading.</em> <a href="#">Link</a></li>
-</ul>
-
-
-  <h2>Slides</h2>
+  <h2>Learning Goals</h2>
   <ul>
-    <li><a href="../assets/week4/lecture1.pptx">Week 4 &ndash; Lecture 1.pdf</a>
-    <li><a href="../assets/week4/lecture2.pptx">Week 4 &ndash; Lecture 2.pdf</a>
-    <li><a href="../assets/week4/lecture3.pptx">Week 4 &ndash; Lecture 3.pdf</a>
+    <li>Describe key MLOps concepts: CI/CD for ML, experiment tracking, model registry and data versioning.</li>
+    <li>Describe the AI model lifecycle (develop, build, test, release) and how it connects to the system lifecycle.
+    </li>
+    <li>Explain infrastructure as code and infrastructure drift, and how GitOps addresses drift.</li>
+    <li>Set up a CI pipeline that tests, builds and publishes an ML service.</li>
+    <li>Version data and models to make training reproducible.</li>
+    <li>Explain the GitOps principles (declarative, versioned, pulled automatically, continuously reconciled) and
+      their trade-offs compared to push-based deployment.</li>
+    <li>Deploy to Kubernetes from a Git repository with a push-based workflow.</li>
   </ul>
 
-<h2>Exercises</h2>
-<ul>
-  <li>[Exercise 1 description TBD]</li>
-  <li>[Exercise 2 description TBD]</li>
-</ul>
+  <h2>Literature</h2>
+  <ul>
+    <li><strong>Required:</strong> [Bass et al., 2025] <em>Engineering AI Systems.</em> Ch. 2 (Software Engineering
+      Background), sections on DevOps (incl. infrastructure as code) and MLOps.</li>
+    <li><strong>Required:</strong> [Bass et al., 2025] <em>Engineering AI Systems.</em> Ch. 5 (AI Model Life Cycle).
+    </li>
+    <li><strong>Required:</strong> [Bass et al., 2025] <em>Engineering AI Systems.</em> Ch. 14 (Case study:
+      Predicting Customer Churn in Banks).</li>
+    <li><strong>Required:</strong> [Huyen, 2022] <em>Designing Machine Learning Systems.</em> Ch. 10 (Infrastructure
+      and Tooling for MLOps).</li>
+    <li><strong>Optional:</strong> [Bass et al., 2025] Ch. 12 (Case study: Using a Pretrained Language Model for
+      Tendering) &ndash; MLOps from proof of concept to production.</li>
+    <li><strong>Optional:</strong> [Huyen, 2022] Ch. 6 (Model Development and Offline Evaluation) &ndash; useful for
+      the evaluation gate in CI.</li>
+    <li><strong>Optional:</strong> [OpenGitOps] <em>GitOps Principles</em> v1.0.0.</li>
+    <li><strong>Optional:</strong> [Breck et al., 2017] <em>The ML Test Score.</em></li>
+  </ul>
 
-<h2>Notes</h2>
-<blockquote>
-  <p>[Placeholder for supplementary clarifications, conceptual deep-dives, or worked examples related to this week's topic.]</p>
-</blockquote>
+  <blockquote>
+    <p class="back-link"><a target="_blank" href="../assets/course-books.html">&rarr; Course Books</a></p>
+  </blockquote>
 
-<hr>
-<p class="back-link"><a href="../index.html">&larr; Back to course menu</a></p>
+  <h2>Slides</h2>
+  <!-- Slides go in ../assets/lectures/week04/ -->
+  <ul>
+    <li>Lecture 8 &ndash; DevOps, Infrastructure as Code and MLOps (Bass ch. 2) (slides TBA)</li>
+    <li>Lecture 9 &ndash; The AI Model Lifecycle: Versioning Data and Models (Bass ch. 5) (slides TBA)
+    </li>
+    <li>Lecture 10 &ndash; GitOps and MLOps Case Studies (Bass ch. 12, 14) (slides TBA)</li>
+  </ul>
+
+  <h2>Exercises</h2>
+  <ul>
+    <li><strong>Core &ndash; Reference project:</strong> Deploy MLflow in your namespace. Log training runs
+      (parameters, metrics, artifacts) from your laptop through <code>kubectl port-forward</code> and register the best
+      model under an alias (e.g. <code>champion</code>).</li>
+    <li><strong>Core &ndash; Reference project:</strong> The image contains code only. At startup the service loads
+      the model from MLflow in your namespace by alias (e.g. <code>models:/hydrawatch@champion</code>). Rolling back
+      means moving the alias, or the pinned version in your Helm values.</li>
+    <li><strong>Core &ndash; Reference project:</strong> Create a CI pipeline (e.g. GitHub Actions) that lints, runs
+      unit and data-schema tests, builds and pushes the image to a public container registry on every push. Add an
+      evaluation gate: fail the pipeline if the model scores below a threshold on a fixed evaluation set.</li>
+    <li><strong>Core &ndash; Reference project:</strong> Set up Git-driven deployment from your laptop: your Git
+      repository (manifests, Helm values, image tags) is the single source of truth, and a script (e.g. a Makefile
+      target) deploys the committed state to your namespace with <code>helm upgrade --install</code>. Use
+      <code>kubectl diff</code> to detect drift between Git and the cluster. A GitOps operator such as Argo CD or Flux
+      would pull and reconcile automatically, but it requires cluster-wide permissions that the course cluster does not
+      grant.</li>
+    <li><strong>Stretch &ndash; Reference project:</strong> Track the training data with DVC so that any model version
+      can be traced back to its data, and scan your image for known vulnerabilities in CI.</li>
+    <li><strong>Own case:</strong> Describe your CI/CD, deployment and versioning workflow, and whether a
+      GitOps operator would fit your company. Finish and submit Portfolio 2.
+    </li>
+  </ul>
+
+  <h2>Notes</h2>
+  <blockquote>
+    <p>Only namespace-scoped installations work on the course cluster: avoid charts that need CustomResourceDefinitions,
+      operators or ClusterRoles. Run MLflow as a single deployment with a SQLite backend on a persistent volume and
+      <code>--serve-artifacts</code>. CI runs outside the cluster and cannot reach it, so the evaluation gate uses an
+      evaluation set stored with the code, and deployment always happens from your laptop.</p>
+  </blockquote>
+
+  <hr>
+  <p class="back-link"><a href="../index.html">&larr; Back to course menu</a></p>
 
 
-<footer>
-  &copy; <script>document.write(new Date().getFullYear())</script> Anders Launer Bæk-Petersen
-</footer>
+  <footer>
+    &copy;
+    <script>document.write(new Date().getFullYear())</script> Anders Launer Bæk-Petersen
+  </footer>
 
 </body>
+
 </html>

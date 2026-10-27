@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio &amp; Exam - Software Engineering for AI Systems</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <h1>Portfolio &amp; Exam</h1>
+  <p class="subtitle">Software Engineering for AI Systems</p>
+
+  <h2>Overview</h2>
+  <p>
+    The portfolio is built around a problem from <strong>your own company</strong>. Each portfolio assignment applies
+    one seminar theme to your case: P1 software architecture, P2 the cloud continuum, P3 big data &amp; data science
+    technologies. It is introduced at that seminar, handed in before the next one, and reviewed by two peers. The three
+    assignments, revised based on the feedback, form your final exam report.
+  </p>
+  <p>
+    Each week, the shared reference project (<em>HydraWatch</em>, a fictional hydraulic condition-monitoring company)
+    shows the techniques, and you then apply them to your own case.
+  </p>
+
+  <h2>Timeline</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Assignment</th>
+        <th>Introduced</th>
+        <th>Due</th>
+        <th>Peer review due</th>
+        <th>Feedback</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>P1 &ndash; Software Architecture</td>
+        <td>Seminar 1 (Fri 29 Jan)</td>
+        <td>Mon 8 Feb</td>
+        <td>Wed 10 Feb</td>
+        <td>Peer review + discussion at Seminar 2 (Fri 12 Feb)</td>
+      </tr>
+      <tr>
+        <td>P2 &ndash; Cloud Continuum</td>
+        <td>Seminar 2 (Fri 12 Feb)</td>
+        <td>Mon 22 Feb</td>
+        <td>Wed 24 Feb</td>
+        <td>Peer review + discussion at Seminar 3 (Fri 26 Feb)</td>
+      </tr>
+      <tr>
+        <td>P3 &ndash; Big Data &amp; Data Science Technologies</td>
+        <td>Seminar 3 (Fri 26 Feb)</td>
+        <td>Wed 3 Mar</td>
+        <td>Fri 5 Mar</td>
+        <td>Written peer review only (no seminar follows)</td>
+      </tr>
+      <tr>
+        <td><strong>Final report</strong></td>
+        <td>&ndash;</td>
+        <td><strong>Mon 8 Mar</strong></td>
+        <td>&ndash;</td>
+        <td>Oral exam (Fri 12 Mar)</td>
+      </tr>
+    </tbody>
+  </table>
+  <ul>
+    <li><strong>Deadline time:</strong> 23:59 on the due date.</li>
+    <li><strong>Submission system:</strong> Moodle (Aalborg University)</li>
+  </ul>
+
+  <h2>Templates</h2>
+  <p>
+    Write each assignment in its LaTeX template. Each template has one section per deliverable, with tables for the
+    scenarios, ADRs, data placement and governance. The assessment criteria are in a box at the top; delete it before
+    submitting. The <code>.pdf</code> shows what the template looks like.
+  </p>
+  <ul>
+    <li>P1 &ndash; Software Architecture &mdash;
+      <a href="assets/assignments/portfolio/p1-software-architecture/p1-software-architecture.zip">.zip</a> /
+      <a href="assets/assignments/portfolio/p1-software-architecture/main.pdf">.pdf</a></li>
+    <li>P2 &ndash; Cloud Continuum &mdash;
+      <a href="assets/assignments/portfolio/p2-cloud-continuum/p2-cloud-continuum.zip">.zip</a> /
+      <a href="assets/assignments/portfolio/p2-cloud-continuum/main.pdf">.pdf</a></li>
+    <li>P3 &ndash; Big Data &amp; Data Science Technologies &mdash;
+      <a href="assets/assignments/portfolio/p3-big-data/p3-big-data.zip">.zip</a> /
+      <a href="assets/assignments/portfolio/p3-big-data/main.pdf">.pdf</a></li>
+    <li>Final report &mdash;
+      <a href="assets/assignments/portfolio/final-report/final-report.zip">.zip</a> /
+      <a href="assets/assignments/portfolio/final-report/main.pdf">.pdf</a></li>
+  </ul>
+  <p>How to use a template:</p>
+  <ol>
+    <li><strong>Overleaf:</strong> New Project &rarr; Upload Project &rarr; choose the <code>.zip</code>.
+      <strong>Locally:</strong> unzip it and run <code>latexmk -pdf main.tex</code> (needs TeX Live, MacTeX or
+      MiKTeX).</li>
+    <li>Set <code>\reportsubtitle{Case: ...}</code> to a short, anonymised case name, and <code>\author{...}</code>
+      to your name. For a group, separate the names with <code>\and</code>.</li>
+    <li>Replace the guidance text in each section and the <code>...</code> in the tables. Number scenarios (QA-1, ...)
+      and ADRs (ADR-1, ...) across all three portfolios, so P2 and P3 can refer back to P1.</li>
+    <li>Submit the compiled PDF.</li>
+  </ol>
+  <p>Each zip also has a <code>README.md</code> with these steps.</p>
+
+  <h2>Your Case</h2>
+  <h3>What makes a suitable case</h3>
+  <ol>
+    <li><strong>An AI component</strong>, existing or planned. A model in a notebook is enough; LLM-based cases are
+      welcome.</li>
+    <li><strong>A deployment context with at least two places to run</strong>, e.g. device, plant, office server and
+      cloud.</li>
+    <li><strong>Data that keeps arriving</strong>, e.g. sensor readings, transactions, logs or documents.</li>
+    <li><strong>At least one constraint that matters</strong>, e.g. latency, availability, privacy, data sovereignty
+      or cost.</li>
+  </ol>
+  <p>
+    You pitch your case at Seminar 1 (3 minutes: context, users, data, why ML, the constraint that matters). A sanitised
+    pitch is fine &ndash; no company names are needed. The course responsible approves the case by
+    <strong>Wed 3 Feb</strong>, or points you to the fallback case.
+  </p>
+
+  <h3>Confidentiality</h3>
+  <ul>
+    <li>Describe your system at the level of components and data types, and anonymise names where needed.</li>
+    <li><strong>Company code, data and model weights never go on the course cluster, into a public container registry
+        or into a public repository.</strong> Use synthetic or public data with the same shape instead. Other students
+      can read the resources in your namespace.</li>
+    <li>Peer reviewers and examiners treat submissions as confidential.</li>
+    <li>If your company cannot share the case, or has no suitable problem, use the <strong>HydraWatch</strong>
+      reference case with the same deliverables.</li>
+  </ul>
+
+  <h3>Evidence</h3>
+  <p>
+    Analysis and design always concern your own case. Hands-on evidence (running deployments, pipelines, dashboards)
+    may come from the reference project where your own case cannot run on public or synthetic data.
+  </p>
+
+  <h3>Groups</h3>
+  <p>
+    You work individually by default. Small groups (at most 3 students) share one case and one report. The oral
+    exam is always individual, covers the whole report, and the grade is individual.
+  </p>
+
+  <h2>P1 &ndash; Software Architecture</h2>
+  <p>Turn your company problem into measurable requirements and an architecture for the AI system.</p>
+  <h3>Guiding questions</h3>
+  <ul>
+    <li>Who are the stakeholders, and what is the business goal?</li>
+    <li>Which quality attributes matter most, and which conflict? What does a wrong prediction cost?</li>
+    <li>Which parts are AI and which are not, and how do they interact?</li>
+    <li>Which existing systems (e.g. ERP, historian, PLC/SCADA, data platform) must it integrate with, and across
+      which network zones?</li>
+    <li>Which risk category of the EU AI Act does the system fall into, and what follows from it?</li>
+    <li>Which technical debt will the design accumulate?</li>
+  </ul>
+  <h3>Deliverables</h3>
+  <ul>
+    <li>Problem and context: business goal, stakeholders, data available, why ML is needed.</li>
+    <li>3&ndash;5 quality-attribute scenarios (source, stimulus, environment, artefact, response, measure), including
+      at least one <strong>model-quality scenario</strong> (e.g. recall on a time-based hold-out set, with the cost of
+      a missed case stated).</li>
+    <li>C4 context and container diagrams, with the AI and non-AI parts marked.</li>
+    <li>At least two architecture decision records (ADRs) with the alternatives considered.</li>
+    <li>EU AI Act risk classification of the system, with a short justification.</li>
+    <li>Technical-debt risks (cf. Sculley et al.) and how the design limits them.</li>
+    <li>If your case uses an LLM: how prompts and model versions are managed, how outputs are evaluated, and which
+      guardrails apply.</li>
+  </ul>
+  <h3>Assessment criteria</h3>
+  <ul>
+    <li>Scenarios are measurable and traceable to the business goal.</li>
+    <li>Diagrams are consistent with the scenarios and the ADRs.</li>
+    <li>ADRs name real alternatives and the trade-off that decided them.</li>
+    <li>Debt risks and the AI Act classification are specific to the case, not a generic list.</li>
+  </ul>
+
+  <h2>P2 &ndash; Cloud Continuum</h2>
+  <p>Decide where each part of your system runs, and how it is secured, deployed and kept reliable.</p>
+  <h3>Guiding questions</h3>
+  <ul>
+    <li>Which component runs where (edge, on-premises, cloud), and why?</li>
+    <li>Which data may leave which tier, and which rule says so (contract, GDPR, customer policy)?</li>
+    <li>How is the infrastructure secured: network boundaries, secrets, least privilege?</li>
+    <li>How does heterogeneous compute (small devices, CPUs, GPUs) constrain the choice of model?</li>
+    <li>Build or buy: a managed cloud or vendor ML platform, or self-hosted? What does each cost, and what is the
+      lock-in?</li>
+    <li>What happens when a part fails or the connection drops?</li>
+  </ul>
+  <h3>Deliverables</h3>
+  <ul>
+    <li>Deployment view: which component runs on which tier, traced to the P1 scenarios.</li>
+    <li>Data-placement table: each data item, where it may be stored and processed, and the rule behind it.</li>
+    <li>An ADR comparing at least one managed or vendor option with self-hosting (cost, lock-in, skills, operations).
+    </li>
+    <li>Security and reliability tactics, mapped to the components they protect.</li>
+    <li>Kubernetes manifests or Helm chart, CI and deployment workflow, and how data and models are versioned (own case
+      or reference project).</li>
+    <li>Evidence: repository (a private repository or a zip upload is fine), <code>kubectl get all</code>, and a
+      deleted pod or failed model showing recovery.</li>
+  </ul>
+  <h3>Assessment criteria</h3>
+  <ul>
+    <li>Placement decisions follow from the P1 quality attributes and constraints.</li>
+    <li>Data flows respect the stated sovereignty rules, and the design enforces them.</li>
+    <li>At least one security and one reliability tactic are demonstrated, not only described.</li>
+    <li>A model can be rebuilt from Git, DVC and an MLflow run id, and one command deploys the system.</li>
+  </ul>
+
+  <h2>P3 &ndash; Big Data &amp; Data Science Technologies</h2>
+  <p>Design how data flows through your system, how it is stored and governed, and how changes in the data are noticed.
+  </p>
+  <h3>Guiding questions</h3>
+  <ul>
+    <li>What data does the system produce and consume, at what volume and rate?</li>
+    <li>Batch, stream or both &ndash; and why?</li>
+    <li>Where are historical and event data stored (topic retention, data lake, warehouse, feature store)?</li>
+    <li>Who owns which data, how long is it kept, and which regulations apply (e.g. GDPR, NIS2, EU AI Act) &ndash;
+      and what do they require of the design?</li>
+    <li>How is data quality checked, and how is drift detected and acted on while labels arrive late?</li>
+  </ul>
+  <h3>Deliverables</h3>
+  <ul>
+    <li>Data-flow diagram from source to storage to model, with the tier boundaries from P2.</li>
+    <li>Volume and rate estimate, with the calculation shown.</li>
+    <li>Processing choice (batch, stream or both) and storage choice, each with an ADR.</li>
+    <li>Governance table: data item, owner, retention, applicable rule, location.</li>
+    <li>Observability design: data-quality checks, drift and proxy metrics, service SLOs vs. model-quality metrics, and
+      the feedback loop (retrain, roll back or reconfigure).</li>
+    <li>Evidence of a running pipeline. Dashboards and drift evidence from week 6 may be added in the final report.
+    </li>
+  </ul>
+  <h3>Assessment criteria</h3>
+  <ul>
+    <li>The volume estimate is calculated and drives the processing and storage choices.</li>
+    <li>Governance rules are concrete and consistent with the P2 data-placement table.</li>
+    <li>Drift and quality signals are defined, measurable and tied to an action.</li>
+  </ul>
+
+  <h2>Peer Review</h2>
+  <p>
+    Each submission is reviewed by two peers before the next seminar. Use the assessment criteria of the assignment,
+    and answer three questions:
+  </p>
+  <ol>
+    <li>Which criterion is met best, and why?</li>
+    <li>Which criterion is met least, and what is the biggest risk or weakness in the design?</li>
+    <li>One question you would ask the author at the exam.</li>
+  </ol>
+
+  <h2>Final Report</h2>
+  <ul>
+    <li>A one-page <strong>recommendation for a non-technical decision maker</strong>: options, cost, risks, and what
+      you recommend.</li>
+    <li>Short introduction to the company problem.</li>
+    <li>P1, P2 and P3, revised based on peer and lecturer feedback.</li>
+    <li>Reflection: what changed and why, and what you would do next in a real production setting.</li>
+    <li>Page limit: 15&ndash;20 pages.</li>
+  </ul>
+
+  <h2>Oral Exam</h2>
+  <p>
+    The oral exam is individual, also for group reports, and takes about 30 minutes:
+  </p>
+  <table>
+    <thead>
+      <tr>
+        <th>Duration</th>
+        <th>Part</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>5&ndash;7 min</td><td>You present your own topic within the project.</td></tr>
+      <tr><td>15&ndash;20 min</td><td>Dialogue and questions, starting from the project report and covering the
+          course curriculum.</td></tr>
+      <tr><td>5 min</td><td>Assessment and awarding of your grade.</td></tr>
+    </tbody>
+  </table>
+  <ul>
+    <li>Grading: individual grade based on an overall assessment of the report and the oral performance, on
+      the Danish 7-point grading scale.</li>
+    <li>Date: Friday 12 March 2027, SDU Odense, room U165 (individual schedule TBA)</li>
+    <li>Re-exam: follows the rules of Aalborg University.</li>
+  </ul>
+  <p><em>The education institution has final authority over the examination format; the structure above is a
+      guide.</em></p>
+
+  <hr>
+  <p class="back-link"><a href="index.html">&larr; Back to course menu</a></p>
+
+  <footer>
+    &copy;
+    <script>document.write(new Date().getFullYear())</script> Anders Launer Bæk-Petersen
+  </footer>
+
+</body>
+
+</html>

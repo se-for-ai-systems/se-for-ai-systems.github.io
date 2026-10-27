@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glossary - Software Engineering for AI Systems</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <h1>Glossary</h1>
+  <p class="subtitle">Short explanations of terms used in the course</p>
+
+  <h2>Course Format</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Term</th>
+        <th>Meaning</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Flipped classroom</td><td>You read and prepare before the seminar; the seminar is used for discussion and
+          hands-on work instead of lecturing.</td></tr>
+      <tr><td>Reference project</td><td>The shared example system (HydraWatch) that you build step by step during the
+          course before applying each step to your own case.</td></tr>
+      <tr><td>Portfolio assignment</td><td>One of three hand-ins on your own case (P1&ndash;P3); revised, they form
+          your exam report.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Software Architecture</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Term</th>
+        <th>Meaning</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Quality attribute</td><td>A measurable property a system must have besides its function, e.g.
+          performance, availability, security, modifiability.</td></tr>
+      <tr><td>Quality-attribute scenario</td><td>A testable requirement in six parts: source, stimulus, environment,
+          artefact, response, response measure.</td></tr>
+      <tr><td>C4 model</td><td>A way to draw architecture at four zoom levels: context, containers, components, code.
+        </td></tr>
+      <tr><td>ADR (architecture decision record)</td><td>A short document recording one design decision: context,
+          options considered, decision, consequences.</td></tr>
+      <tr><td>Technical debt</td><td>Shortcuts that make a system faster to build now but more expensive to change
+          later; in ML systems often hidden in data dependencies and glue code.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Infrastructure</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Term</th>
+        <th>Meaning</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Container / image</td><td>An image packages an application with everything it needs to run; a container
+          is a running instance of an image.</td></tr>
+      <tr><td>Container registry</td><td>A server that stores images, e.g. Docker Hub or GitHub Container Registry.
+        </td></tr>
+      <tr><td>Kubernetes</td><td>A platform that runs and manages containers across a cluster of machines.</td></tr>
+      <tr><td>Namespace</td><td>Your isolated part of the course cluster.</td></tr>
+      <tr><td>Pod, Deployment, Service</td><td>A pod runs one or more containers; a deployment keeps a number of pods
+          running; a service gives them a stable name and address. See the <a href="kubernetes.html">Kubernetes Cluster
+            Guide</a>.</td></tr>
+      <tr><td>ConfigMap / Secret</td><td>Kubernetes objects holding configuration and sensitive values (passwords,
+          tokens) for your pods.</td></tr>
+      <tr><td>NetworkPolicy</td><td>A rule that controls which pods may talk to which.</td></tr>
+      <tr><td>Helm chart</td><td>A package of Kubernetes manifests, configured through values.</td></tr>
+      <tr><td>Cloud continuum</td><td>The range of places where computation can run, from devices at the edge through
+          on-premises servers to public cloud.</td></tr>
+      <tr><td>Edge</td><td>Computation close to where data is produced, e.g. a gateway at a machine.</td></tr>
+      <tr><td>Data sovereignty</td><td>The requirement that data stays under a given jurisdiction or owner, e.g. on the
+          customer's premises or in the EU.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>MLOps and Delivery</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Term</th>
+        <th>Meaning</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>CI/CD</td><td>Continuous integration (automatically test and build every change) and continuous delivery
+          (keep every change deployable).</td></tr>
+      <tr><td>GitOps</td><td>Git holds the desired state of the system, and an agent in the cluster pulls and applies it
+          continuously. On the course cluster you use push-based deployment from Git instead.</td></tr>
+      <tr><td>Push-based deployment</td><td>You (or a script) apply the state committed in Git to the cluster, e.g. with
+          <code>helm upgrade --install</code>.</td></tr>
+      <tr><td>Experiment tracking / model registry</td><td>Recording training runs (parameters, metrics, artifacts) and
+          storing approved model versions, e.g. with MLflow.</td></tr>
+      <tr><td>Data versioning</td><td>Recording which version of the data a model was trained on, e.g. with DVC.</td>
+      </tr>
+      <tr><td>Evaluation gate</td><td>A CI step that stops a model from being released if it scores below a threshold.
+        </td></tr>
+      <tr><td>Shadow / canary deployment</td><td>Running a new model next to the old one without using its output
+          (shadow), or on a small share of traffic (canary), before switching.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Data and Monitoring</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Term</th>
+        <th>Meaning</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Batch vs. stream processing</td><td>Processing data in large chunks at intervals, or continuously as each
+          event arrives.</td></tr>
+      <tr><td>Topic (Kafka)</td><td>A named, ordered log of events that producers write to and consumers read from.
+        </td></tr>
+      <tr><td>Feature store</td><td>A system that stores model input features so training and serving use the same
+          values.</td></tr>
+      <tr><td>Training-serving skew</td><td>Features computed differently in training and in production, so the model
+          sees different data than it learned from.</td></tr>
+      <tr><td>Data drift / concept drift</td><td>The input data changes (data drift), or the relation between input and
+          correct answer changes (concept drift).</td></tr>
+      <tr><td>Proxy metric</td><td>A signal watched while true labels are not yet available, e.g. the distribution of
+          predictions.</td></tr>
+      <tr><td>SLI / SLO</td><td>Service level indicator (a measured value, e.g. latency) and service level objective
+          (its target, e.g. 99% of requests under 200 ms).</td></tr>
+      <tr><td>Observability</td><td>Being able to understand a system's internal state from its outputs: metrics, logs
+          and traces.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Regulation</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Term</th>
+        <th>Meaning</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>GDPR</td><td>EU General Data Protection Regulation, governing personal data.</td></tr>
+      <tr><td>NIS2</td><td>EU directive on cybersecurity requirements for essential and important entities.</td></tr>
+      <tr><td>EU AI Act</td><td>Regulation (EU) 2024/1689. Sorts AI systems by risk (prohibited, high-risk, limited,
+          minimal) with obligations that grow with the risk.</td></tr>
+    </tbody>
+  </table>
+
+  <hr>
+  <p class="back-link"><a href="index.html">&larr; Back to course menu</a></p>
+
+  <footer>
+    &copy;
+    <script>document.write(new Date().getFullYear())</script> Anders Launer Bæk-Petersen
+  </footer>
+
+</body>
+
+</html>

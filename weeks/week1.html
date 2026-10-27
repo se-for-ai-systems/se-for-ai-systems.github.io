@@ -10,24 +10,69 @@
 
 <body>
 
-  <h1>Week 1 &ndash; Topic TBD</h1>
+  <h1>Week 1 &ndash; SE for AI Systems &amp; Software Architecture</h1>
 
   <div class="deadline">
-    <strong>Seminar 1 - Friday 29 January 2027</strong>
+    <strong>Seminar 1 - Friday 29 January 2027, 09:00&ndash;16:00, SDU Odense, room U162</strong><br>
+    Before the seminar: complete the checklist below, read the required literature and prepare a 3-minute pitch of a
+    problem from your company.
   </div>
+
+  <h2 id="before-week-1">Before Week 1</h2>
+  <ul>
+    <li>A laptop where you have <strong>admin rights</strong> (company laptops often block the tools below).</li>
+    <li>Install Python 3.11 or newer, Git, Docker Desktop or Podman, <code>kubectl</code> and Helm (install commands
+      in the <a href="../kubernetes.html">Kubernetes Cluster Guide</a>).</li>
+    <li>Create a GitHub account and a container-registry account (Docker Hub or GitHub Container Registry).</li>
+    <li>Activate your Aalborg University student account and eduroam access. Your personal kubeconfig is sent to you
+      by email before the course starts; add it as described in the Kubernetes Cluster Guide.</li>
+    <li>Get the two course books (Bass et al. and Huyen), see <a href="../assets/course-books.html">Course Books</a>.
+    </li>
+    <li>Do the warm-up exercise in the Kubernetes Cluster Guide.</li>
+    <li>Prepare your case pitch; read <a href="../portfolio.html">Your Case</a> first (a sanitised pitch is fine).</li>
+  </ul>
 
   <h2>Learning Goals</h2>
   <ul>
-    <li>...</li>
-  </ul>
-  <h2>Literature</h2>
-
-
-  <ul>
-    <li><strong>Required:</strong> [Author, Year] <em>Title of reading.</em> Chapter/pages TBD. <a href="#">Link</a>
+    <li>Explain how AI systems differ from traditional software systems and describe the AI system lifecycle.</li>
+    <li>Identify sources of technical debt in ML systems.</li>
+    <li>Use a shared architecture vocabulary: quality attributes, architectural views, tactics and design decisions.
     </li>
-    <li><strong>Required:</strong> [Author, Year] <em>Title of reading.</em> Chapter/pages TBD.</li>
-    <li><strong>Optional:</strong> [Author, Year] <em>Title of supplementary reading.</em> <a href="#">Link</a></li>
+    <li>Formulate a problem from your own company as the basis for the portfolio.</li>
+  </ul>
+
+  <h2>Seminar Agenda</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Activity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>09:00</td><td>Welcome, course overview and flipped discussion of the prep reading</td></tr>
+      <tr><td>09:45</td><td>Lecture: AI systems vs. traditional software, lifecycle and technical debt</td></tr>
+      <tr><td>10:45</td><td>Break</td></tr>
+      <tr><td>11:00</td><td>Lab 1: Access your Kubernetes namespace; walk through the reference-project notebook</td></tr>
+      <tr><td>12:00</td><td>Lunch</td></tr>
+      <tr><td>12:45</td><td>Introductions + 3-minute company-problem pitches</td></tr>
+      <tr><td>13:45</td><td>Lecture + Lab 2: Architecture vocabulary (quality attributes, views, ADRs) applied to the
+          reference project</td></tr>
+      <tr><td>15:15</td><td>Portfolio 1 brief and optional group formation</td></tr>
+      <tr><td>16:00</td><td>End</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Literature</h2>
+  <ul>
+    <li><strong>Required:</strong> [Bass et al., 2025] <em>Engineering AI Systems.</em> Ch. 1 (Introduction:
+      terminology, system quality, lifecycle and processes, software architecture, AI model quality, dealing with
+      uncertainty).</li>
+    <li><strong>Required:</strong> [Sculley et al., 2015] <em>Hidden Technical Debt in Machine Learning Systems.</em>
+      NeurIPS 2015.</li>
+    <li><strong>Required:</strong> [Menzies, 2020] <em>The Five Laws of SE for AI.</em> IEEE Software 37(1).</li>
+    <li><strong>Optional:</strong> [Huyen, 2022] <em>Designing Machine Learning Systems.</em> Ch. 1 (Overview of ML
+      Systems).</li>
   </ul>
 
   <blockquote>
@@ -35,22 +80,31 @@
   </blockquote>
 
   <h2>Slides</h2>
+  <!-- Slides go in ../assets/lectures/week01/ -->
   <ul>
-    <li><a href="../assets/week1/lecture1.pptx">Week 1 &ndash; Lecture 1.pdf</a>
-    <li><a href="../assets/week1/lecture1.pptx">Week 1 &ndash; Lecture 2.pdf</a>
-    <li><a href="../assets/week1/lecture1.pptx">Week 1 &ndash; Lecture 3.pdf</a>
+    <li>Lecture 1 &ndash; Introduction to Engineering AI Systems (Bass ch. 1) (posted after the seminar)</li>
+    <li>Lecture 2 &ndash; Technical Debt and Software Architecture Vocabulary (posted after the seminar)</li>
   </ul>
 
   <h2>Exercises</h2>
   <ul>
-    <li>[Exercise 1 description TBD - e.g., "Explore the provided codebase and identify the main components."]</li>
-    <li>[Exercise 2 description TBD - e.g., "Reflect on the reading and write a short summary."]</li>
+    <li><strong>Before the seminar:</strong> Read the required literature and write down two questions or claims you
+      want to discuss.</li>
+    <li><strong>Before the seminar:</strong> Prepare a 3-minute pitch of a problem from your company: context, users,
+      available data, why ML is needed, and the constraint that matters most. No company names are needed.</li>
+    <li><strong>Before the seminar:</strong> Set up cluster access and do the warm-up exercise in the
+      <a href="../kubernetes.html">Kubernetes Cluster Guide</a>.</li>
+    <li><strong>Reference project:</strong> Run the baseline
+      notebook. Using Sculley et al.'s figure as a checklist, list what is missing before the model could run in
+      production.</li>
+    <li><strong>Own case:</strong> Start Portfolio 1. Identify stakeholders and draft the first quality-attribute
+      scenarios.</li>
   </ul>
 
   <h2>Notes</h2>
   <blockquote>
-    <p>[Placeholder for supplementary clarifications, conceptual deep-dives, or worked examples related to this week's
-      topic.]</p>
+    <p>Reference project repository: [link TBD]. Cluster access: <a href="../kubernetes.html">Kubernetes Cluster
+        Guide</a>. Unfamiliar terms: <a href="../glossary.html">Glossary</a>. Case approval: by Wed 3 Feb.</p>
   </blockquote>
 
   <hr>

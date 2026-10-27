@@ -148,3 +148,23 @@ footer {
   color: #94a3b8;
   text-align: center;
 }
+
+/* Code */
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.9em;
+}
+
+pre {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  overflow-x: auto;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  margin: 0.5rem 0;
+}

@@ -1,52 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Week 3 - Software Engineering for AI Systems</title>
   <link rel="stylesheet" href="../style.css">
 </head>
+
 <body>
 
-<h1>Week 3 &ndash; Topic TBD</h1>
+  <h1>Week 3 &ndash; The Cloud Continuum</h1>
 
-<div class="deadline">
-  <strong>Seminar 2 - Friday 12 February 2027</strong>
-</div>
+  <div class="deadline">
+    <strong>Portfolio 1 due Monday 8 February 2027</strong> &middot; peer review due Wednesday 10 February<br>
+    <strong>Seminar 2 - Friday 12 February 2027, 09:00&ndash;16:00, SDU Odense, room U165</strong>
+  </div>
 
-<h2>Literature</h2>
-<ul>
-  <li><strong>Required:</strong> [Author, Year] <em>Title of reading.</em> Chapter/pages TBD. <a href="#">Link</a></li>
-  <li><strong>Required:</strong> [Author, Year] <em>Title of reading.</em> Chapter/pages TBD.</li>
-  <li><strong>Optional:</strong> [Author, Year] <em>Title of supplementary reading.</em> <a href="#">Link</a></li>
-</ul>
-
-
-  <h2>Slides</h2>
+  <h2>Learning Goals</h2>
   <ul>
-    <li><a href="../assets/week3/lecture1.pptx">Week 3 &ndash; Lecture 1.pdf</a>
-    <li><a href="../assets/week3/lecture2.pptx">Week 3 &ndash; Lecture 2.pdf</a>
-    <li><a href="../assets/week3/lecture3.pptx">Week 3 &ndash; Lecture 3.pdf</a>
+    <li>Explain the cloud continuum (edge, on-premises, cloud) and reason about where AI workloads should run.</li>
+    <li>Explain virtualization, containers, orchestration, autoscaling and service discovery for ML workloads.</li>
+    <li>Apply reliability tactics (health checks, redundancy, circuit breakers, graceful degradation) and
+      performance trade-offs (latency, throughput, resource mapping).</li>
+    <li>Design a secure infrastructure with heterogeneous compute nodes.</li>
+    <li>Handle requirements on data sovereignty and their impact on architecture.</li>
   </ul>
 
-<h2>Exercises</h2>
-<ul>
-  <li>[Exercise 1 description TBD]</li>
-  <li>[Exercise 2 description TBD]</li>
-</ul>
+  <h2>Seminar Agenda</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Activity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>09:00</td><td>Welcome and flipped discussion of the prep reading</td></tr>
+      <tr><td>09:45</td><td>Lecture: The cloud continuum, heterogeneous compute and data sovereignty</td></tr>
+      <tr><td>10:45</td><td>Break</td></tr>
+      <tr><td>11:00</td><td>Lab 1: Deploy the reference-project service to your namespace</td></tr>
+      <tr><td>12:00</td><td>Lunch</td></tr>
+      <tr><td>12:45</td><td>Case discussion: placing AI workloads under security and sovereignty constraints</td></tr>
+      <tr><td>13:45</td><td>Lab 2: Harden the deployment (resources, secrets, network policies) + apply to own case</td></tr>
+      <tr><td>15:15</td><td>Peer-feedback round on Portfolio 1 + Portfolio 2 brief</td></tr>
+      <tr><td>16:00</td><td>End</td></tr>
+    </tbody>
+  </table>
 
-<h2>Notes</h2>
-<blockquote>
-  <p>[Placeholder for supplementary clarifications, conceptual deep-dives, or worked examples related to this week's topic.]</p>
-</blockquote>
+  <h2>Literature</h2>
+  <ul>
+    <li><strong>Required:</strong> [Bass et al., 2025] <em>Engineering AI Systems.</em> Ch. 2 (Software Engineering
+      Background), section on distributed computing.</li>
+    <li><strong>Required:</strong> [Bass et al., 2025] <em>Engineering AI Systems.</em> Ch. 7 (Reliability), 8
+      (Performance) and 9 (Security).</li>
+    <li><strong>Required:</strong> [Huyen, 2022] <em>Designing Machine Learning Systems.</em> Ch. 7 (Model Deployment
+      and Prediction Service).</li>
+    <li><strong>Required:</strong> <a href="../kubernetes.html">Kubernetes Cluster Guide</a> &ndash; key concepts and
+      cheat sheet.</li>
+    <li><strong>Optional:</strong> <em>Kubernetes &ndash; Concepts</em> (official Kubernetes documentation).</li>
+  </ul>
 
-<hr>
-<p class="back-link"><a href="../index.html">&larr; Back to course menu</a></p>
+  <blockquote>
+    <p class="back-link"><a target="_blank" href="../assets/course-books.html">&rarr; Course Books</a></p>
+  </blockquote>
+
+  <h2>Slides</h2>
+  <!-- Slides go in ../assets/lectures/week03/ -->
+  <ul>
+    <li>Lecture 6 &ndash; The Cloud Continuum: Distributed Computing, Containers and Orchestration (Bass ch. 2)
+      (posted after the seminar)</li>
+    <li>Lecture 7 &ndash; Reliability, Performance and Security (Bass ch. 7&ndash;9) (posted after the seminar)</li>
+  </ul>
+
+  <h2>Exercises</h2>
+  <ul>
+    <li><strong>Before the seminar:</strong> Peer-review two Portfolio 1 submissions (see
+      <a href="../portfolio.html">Portfolio &amp; Exam</a>).</li>
+    <li><strong>Reference project:</strong> Push your image to a public container registry (e.g. Docker Hub or GitHub
+      Container Registry; see <em>Before you push</em> below) and deploy it to your namespace with a Deployment and a
+      Service. Add readiness and liveness probes on <code>/health</code>, run multiple replicas, and kill a pod to
+      observe recovery.</li>
+    <li><strong>Reference project:</strong> Add resource requests/limits, move configuration to a ConfigMap/Secret,
+      and restrict traffic with a NetworkPolicy.</li>
+    <li><strong>Own case:</strong> Decide where each component should run (edge, on-premises or cloud). Which data may
+      not leave the company or the country? Which existing systems must it integrate with? Compare one managed or
+      vendor platform with self-hosting (build vs. buy). Start Portfolio 2.</li>
+  </ul>
+
+  <h2>Notes</h2>
+  <h3>Before you push</h3>
+  <ul>
+    <li>On an Apple Silicon Mac, build for the cluster's architecture:
+      <code>docker buildx build --platform linux/amd64 ...</code>. Otherwise pods fail with
+      <code>exec format error</code>.</li>
+    <li>GitHub Container Registry packages are private by default &ndash; make the package public, or the pod fails
+      with <code>ImagePullBackOff</code>.</li>
+    <li>Keep images small: a slim Python base image and CPU-only libraries (aim for under 1 GB).</li>
+    <li>Tag images immutably (e.g. the Git commit SHA), not only <code>latest</code>.</li>
+    <li>Never put company code, data or model weights in a public image.</li>
+  </ul>
+  <blockquote>
+    <p>Pods have no internet access: everything a container needs at runtime (libraries, model files, data) must be in
+      the image or copied into the cluster (e.g. <code>kubectl cp</code> to a volume). A NetworkPolicy that denies all
+      egress also blocks DNS &ndash; allow port 53 to the cluster DNS, or service names stop resolving.</p>
+  </blockquote>
+
+  <hr>
+  <p class="back-link"><a href="../index.html">&larr; Back to course menu</a></p>
 
 
-<footer>
-  &copy; <script>document.write(new Date().getFullYear())</script> Anders Launer Bæk-Petersen
-</footer>
+  <footer>
+    &copy;
+    <script>document.write(new Date().getFullYear())</script> Anders Launer Bæk-Petersen
+  </footer>
 
 </body>
+
 </html>

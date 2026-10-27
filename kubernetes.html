@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kubernetes Cluster Guide - Software Engineering for AI Systems</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <h1>Kubernetes Cluster Guide</h1>
+  <p class="subtitle">How to access and use the course Kubernetes cluster</p>
+
+  <div class="deadline">
+    <strong>Before Seminar 1:</strong> install <code>kubectl</code> and Helm, add your kubeconfig file, and check that
+    you can connect (steps 1&ndash;3 below).
+  </div>
+
+  <h2>What You Get</h2>
+  <ul>
+    <li>Access to a shared course Kubernetes cluster, run by the course staff. You only need the <code>kubectl</code>
+      and <code>helm</code> clients on your own machine.</li>
+    <li>Your own <strong>namespace</strong> (one per student or group). No services are shared between students or
+      groups: you deploy and operate everything yourself (your model service, MLflow, event broker, monitoring, ...).
+    </li>
+    <li>A personal <strong>kubeconfig file</strong>, sent to you by email. It contains your access token &ndash; do
+      not share it or commit it to Git.</li>
+  </ul>
+
+  <h3>Your Permissions</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Scope</th>
+        <th>Access</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Your own namespace</td>
+        <td>Full access to all resource types: <code>get</code>, <code>list</code>, <code>watch</code>,
+          <code>create</code>, <code>update</code>, <code>patch</code>, <code>delete</code>.</td>
+      </tr>
+      <tr>
+        <td>The rest of the cluster</td>
+        <td>Read-only: <code>get</code>, <code>list</code>, <code>watch</code> (e.g. <code>kubectl get nodes</code>).
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <ul>
+    <li>Your kubeconfig sets your namespace as the default, so you do not need <code>-n &lt;namespace&gt;</code> for
+      your own resources.</li>
+    <li>You cannot create cluster-wide resources such as namespaces, ClusterRoles or CustomResourceDefinitions. Tools
+      that require a cluster-wide installation (e.g. operators) can therefore not be installed by you &ndash; choose
+      namespace-scoped alternatives.</li>
+    <li>Over the network, your pods can reach services in your own namespace, but not services in other namespaces.
+    </li>
+    <li><strong>No ingress or egress:</strong> nothing in the cluster can be exposed to the outside world, and your
+      pods cannot reach the internet. Use <code>kubectl port-forward</code> to reach your services from your laptop.
+      Ingress resources and <code>NodePort</code>/<code>LoadBalancer</code> services will not make your application
+      reachable.</li>
+    <li><strong>Container images:</strong> the cluster pulls images from public registries such as Docker Hub or
+      GitHub Container Registry. Push your own images to a public registry and deploy them from there.</li>
+    <li><strong>Deployment:</strong> you deploy from your laptop with <code>kubectl</code> and <code>helm</code>.
+      GitOps operators such as Argo CD or Flux need cluster-wide permissions and cannot be installed.</li>
+    <li><strong>Resources:</strong> CPU, memory and storage are shared between all students; there is no fixed quota
+      per namespace. Keep resource requests small and delete what you no longer use, so everyone can work.</li>
+  </ul>
+
+  <div class="deadline">
+    <strong>Security:</strong> other students can read the resources in your namespace, including pod specifications
+    and environment variables. Never put company code, data, model weights or credentials on the cluster. Keep
+    passwords and tokens in Kubernetes Secrets (referenced with <code>secretKeyRef</code>), never as plain environment
+    values or in ConfigMaps.
+  </div>
+
+  <h2>1. Install the Tools</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>OS</th>
+        <th>kubectl</th>
+        <th>Helm</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>macOS (Homebrew)</td>
+        <td><code>brew install kubectl</code></td>
+        <td><code>brew install helm</code></td>
+      </tr>
+      <tr>
+        <td>Windows (scoop, recommended)</td>
+        <td><code>scoop install kubectl</code></td>
+        <td><code>scoop install helm</code></td>
+      </tr>
+      <tr>
+        <td>Windows (winget)</td>
+        <td><code>winget install -e --id Kubernetes.kubectl</code></td>
+        <td><code>winget install Helm.Helm</code></td>
+      </tr>
+      <tr>
+        <td>Linux (snap)</td>
+        <td><code>sudo snap install kubectl --classic</code></td>
+        <td><code>sudo snap install helm --classic</code></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>Check the installation:</p>
+  <pre><code>kubectl version --client
+helm version</code></pre>
+  <p><em>Optional:</em> <code>kubectx</code> (<code>brew install kubectx</code> / <code>scoop install kubectx</code>)
+    makes it easy to switch between several kubeconfigs.</p>
+
+  <h2>2. Add Your Kubeconfig</h2>
+  <p>
+    <code>kubectl</code> reads its connection and authentication details from <code>~/.kube/config</code> by default.
+    Save the kubeconfig file you received as <code>~/.kube/config</code> (or merge it into your existing file if you
+    already use other clusters).
+  </p>
+  <pre><code>mkdir -p ~/.kube
+cp &lt;your-kubeconfig&gt;.yaml ~/.kube/config</code></pre>
+  <p>Alternatively, point <code>kubectl</code> to the file for the current terminal session:</p>
+  <pre><code>export KUBECONFIG=/path/to/&lt;your-kubeconfig&gt;.yaml</code></pre>
+  <p>On Windows (PowerShell):</p>
+  <pre><code>mkdir $HOME\.kube -Force
+copy &lt;your-kubeconfig&gt;.yaml $HOME\.kube\config
+# or, for the current session only:
+$env:KUBECONFIG = "C:\path\to\&lt;your-kubeconfig&gt;.yaml"</code></pre>
+
+  <h2>3. Connect and Test</h2>
+  <p>To reach the cluster you must be connected to <strong>eduroam</strong>, logged in with your <strong>Aalborg
+      University student account</strong>. Test your configuration:</p>
+  <pre><code>kubectl get nodes
+kubectl get pods</code></pre>
+  <p>
+    The first command should list the cluster's nodes, and the second should report that no resources were found in
+    your namespace. If you get an error, check that you are on eduroam with your Aalborg University student account and
+    that your kubeconfig is in place.
+  </p>
+  <p>
+    <strong>Off campus:</strong> connect through the university VPN, then use <code>kubectl</code> as usual. If you
+    cannot reach the course cluster, most
+    exercises also run on a local Kubernetes cluster on your laptop (e.g. kind, which runs on Docker).
+  </p>
+
+  <h2>Key Concepts</h2>
+  <p>
+    Kubernetes is a production-grade, open-source platform that orchestrates the placement (scheduling) and execution
+    of application containers within and across computer clusters.
+  </p>
+
+  <h3>Cluster and Nodes</h3>
+  <p>
+    A cluster consists of a <strong>control plane</strong> that coordinates all activities, and one or more
+    <strong>nodes</strong> &ndash; worker machines that run your applications. Each node is managed by the control
+    plane and can host many pods.
+  </p>
+  <img src="assets/kubernetes/img/cluster.svg" alt="A Kubernetes cluster: a control plane managing several nodes">
+  <img src="assets/kubernetes/img/nodes.svg" alt="A node hosting several pods">
+
+  <h3>Deployments and Pods</h3>
+  <p>
+    A <strong>Deployment</strong> is the recipe for running your application: which container image, how many
+    replicas, which configuration. The control plane continuously keeps the actual state equal to the desired state
+    and replaces pods that fail (self-healing). A <strong>Pod</strong> is the smallest deployable unit: a logical host
+    for one or more containers that share storage and network. Pods are short-lived, and their IP addresses change when
+    they are rescheduled.
+  </p>
+  <img src="assets/kubernetes/img/deployment.svg" alt="A deployment running a containerized app on a node">
+  <img src="assets/kubernetes/img/pods.svg" alt="Pods containing one or more containers and volumes">
+
+  <h3>Services, Labels and Selectors</h3>
+  <p>
+    A <strong>Service</strong> gives a set of pods a stable name and address, providing load balancing and service
+    discovery. It finds its pods through <strong>labels</strong> (key-value pairs on resources) and
+    <strong>selectors</strong>. Service types: <code>ClusterIP</code> (default, reachable only inside the cluster),
+    <code>NodePort</code>, <code>LoadBalancer</code> and <code>ExternalName</code>. On the course cluster, use
+    <code>ClusterIP</code> and reach your service with <code>kubectl port-forward</code>. Inside your namespace, a
+    service is reachable by its name, e.g. <code>http://my-service:8080</code>.
+  </p>
+  <img src="assets/kubernetes/img/services.svg" alt="A service routing traffic to pods selected by labels">
+
+  <h3>Helm</h3>
+  <p>
+    <strong>Helm</strong> is a package manager for Kubernetes. A <strong>chart</strong> is a package of Kubernetes
+    resources that you configure through <code>values</code>. An installed chart is called a <strong>release</strong>.
+  </p>
+
+  <h2>kubectl Cheat Sheet</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Command</th>
+        <th>What it does</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><code>kubectl apply -f app.yaml</code></td><td>Create or update the resources in a manifest</td></tr>
+      <tr><td><code>kubectl get pods</code> / <code>services</code> / <code>all</code></td><td>List resources in your
+          namespace</td></tr>
+      <tr><td><code>kubectl describe pod &lt;pod&gt;</code></td><td>Show details and events (useful when a pod does not
+          start)</td></tr>
+      <tr><td><code>kubectl logs &lt;pod&gt;</code></td><td>Show a container's logs (add <code>-f</code> to follow)</td>
+      </tr>
+      <tr><td><code>kubectl port-forward svc/&lt;service&gt; 8080:8080</code></td><td>Forward
+          <code>localhost:8080</code> to a service in the cluster</td></tr>
+      <tr><td><code>kubectl scale deployment/&lt;name&gt; --replicas=5</code></td><td>Scale a deployment manually
+          (or edit it with <code>kubectl edit deployment/&lt;name&gt;</code>)</td></tr>
+      <tr><td><code>kubectl exec -it &lt;pod&gt; -- /bin/sh</code></td><td>Open an interactive shell in a running
+          container</td></tr>
+      <tr><td><code>kubectl run tmp --rm -it --image ubuntu -- bash</code></td><td>Start a temporary pod for debugging
+          from inside the cluster; deleted when you exit</td></tr>
+      <tr><td><code>kubectl cp file.txt &lt;pod&gt;:/file.txt</code></td><td>Copy a file into a container</td></tr>
+      <tr><td><code>kubectl delete -f app.yaml</code></td><td>Delete the resources in a manifest</td></tr>
+      <tr><td><code>helm install &lt;release&gt; &lt;chart&gt;</code></td><td>Install a Helm chart</td></tr>
+      <tr><td><code>helm upgrade &lt;release&gt; &lt;chart&gt; --set key=value</code></td><td>Change the configuration of
+          a release</td></tr>
+      <tr><td><code>helm list</code> / <code>helm status &lt;release&gt;</code></td><td>List releases / show the status
+          of one</td></tr>
+      <tr><td><code>helm uninstall &lt;release&gt;</code></td><td>Remove a release and its resources</td></tr>
+      <tr><td><code>kubectl get events --sort-by=.lastTimestamp</code></td><td>Show recent events in your namespace
+          (scheduling, image pulls, crashes)</td></tr>
+      <tr><td><code>kubectl rollout history deployment/&lt;name&gt;</code> / <code>kubectl rollout undo
+            deployment/&lt;name&gt;</code></td><td>Show revisions of a deployment / roll back to the previous one</td>
+      </tr>
+      <tr><td><code>helm rollback &lt;release&gt; &lt;revision&gt;</code></td><td>Roll a Helm release back to an
+          earlier revision</td></tr>
+      <tr><td><code>kubectl auth can-i --list</code></td><td>Show what you are allowed to do in your namespace</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Warm-up Exercise: Hello Kubernetes</h2>
+  <p>
+    Use this exercise to get familiar with the cluster before the reference project. Download the files first:
+  </p>
+  <ul>
+    <li><a href="assets/kubernetes/hello-kubernetes.yaml" download>hello-kubernetes.yaml</a> &ndash; a manifest with a
+      Deployment and a Service.</li>
+    <li><a href="assets/kubernetes/hello-kubernetes-1.0.0.tgz" download>hello-kubernetes-1.0.0.tgz</a> &ndash; the same
+      application packaged as a Helm chart (default values:
+      <a href="assets/kubernetes/hello-kubernetes/values.yaml">values.yaml</a>).</li>
+  </ul>
+
+  <h3>Deploy with kubectl</h3>
+  <ol>
+    <li>Inspect <code>hello-kubernetes.yaml</code>. Identify the two resources (separated by <code>---</code>), the
+      labels and selectors, and how the environment variables are injected with <code>fieldRef</code>
+      (<code>metadata.namespace</code>, <code>metadata.name</code>, <code>spec.nodeName</code>).</li>
+    <li>Deploy it and list what was created:
+      <pre><code>kubectl apply -f hello-kubernetes.yaml
+kubectl get pods
+kubectl get services</code></pre>
+    </li>
+    <li>Connect through the service and open <code>http://localhost:8080</code> in your browser. Refresh a few times:
+      the page shows which pod, namespace and node handled your request.
+      <pre><code>kubectl port-forward svc/hello-kubernetes 8080:8080</code></pre>
+    </li>
+    <li>Scale the deployment to 5 replicas, check that there are 5 pods and the application still works, then scale
+      back to 3:
+      <pre><code>kubectl scale deployment/hello-kubernetes --replicas=5
+kubectl get pods
+kubectl scale deployment/hello-kubernetes --replicas=3</code></pre>
+    </li>
+  </ol>
+
+  <h3>Work inside the cluster</h3>
+  <ol start="5">
+    <li>Open a shell in one of the pods, look around (it is a Node.js application; try
+      <code>cat server.js</code>), and <code>exit</code>:
+      <pre><code>kubectl exec -it pods/&lt;name-of-pod&gt; -- /bin/sh</code></pre>
+    </li>
+    <li>Start a temporary BusyBox pod and call the service from inside the cluster, without port-forwarding:
+      <pre><code>kubectl run busybox --rm -it --image busybox -- sh
+wget -qO- hello-kubernetes:8080</code></pre>
+      Ask a classmate for their namespace and try <code>wget -qO- -T 5
+        hello-kubernetes.&lt;their-namespace&gt;:8080</code> &ndash; services in other namespaces are not reachable,
+      so the request times out. Note that you cannot install packages inside a running pod (e.g. <code>apt
+        install</code>), because pods have no internet access.
+    </li>
+    <li>Start an Ubuntu pod that is <em>not</em> removed when you exit, copy a local file into it, then reattach and
+      check that the file is there:
+      <pre><code>kubectl run ubuntu -it --image ubuntu -- bash
+kubectl cp README.md ubuntu:/README.md
+kubectl attach ubuntu -c ubuntu -i -t</code></pre>
+    </li>
+  </ol>
+
+  <h3>Deploy with Helm</h3>
+  <ol start="8">
+    <li>Install the chart as a release, using a <code>ClusterIP</code> service:
+      <pre><code>helm install hello-kubernetes-helm ./hello-kubernetes-1.0.0.tgz --set service.type=ClusterIP
+helm status hello-kubernetes-helm
+kubectl get pods,services</code></pre>
+      The chart creates 2 pods and a service named <code>hello-kubernetes-hello-kubernetes-helm</code> on port 80.
+      Connect with <code>kubectl port-forward svc/hello-kubernetes-hello-kubernetes-helm 8081:80</code>.
+    </li>
+    <li>Change the configuration of the release through its values and check that the number of pods changes:
+      <pre><code>helm upgrade hello-kubernetes-helm ./hello-kubernetes-1.0.0.tgz \
+  --set service.type=ClusterIP --set deployment.replicaCount=5
+helm list</code></pre>
+    </li>
+  </ol>
+
+  <h3>Clean up</h3>
+  <pre><code>kubectl delete -f hello-kubernetes.yaml
+helm uninstall hello-kubernetes-helm
+kubectl delete pod ubuntu
+kubectl get all</code></pre>
+
+  <h2>Good Practice</h2>
+  <ul>
+    <li>The cluster is shared: set resource requests/limits and delete what you no longer use
+      (<code>kubectl get all</code> shows what is running).</li>
+    <li>Build all dependencies into your container images. Pods have no internet access, so <code>pip install</code>
+      or <code>apt install</code> at runtime will fail.</li>
+    <li>Keep your manifests and Helm values in Git &ndash; never secrets or your kubeconfig.</li>
+    <li>When a pod does not start, check <code>kubectl describe pod</code>, <code>kubectl get events</code> and
+      <code>kubectl logs</code> before asking for help.</li>
+  </ul>
+
+  <h2>Troubleshooting</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Symptom</th>
+        <th>Likely cause</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><code>ImagePullBackOff</code></td><td>Wrong image name or tag, or the image is private (GitHub Container
+          Registry packages are private by default). Public registries may also rate-limit pulls; retry later.</td></tr>
+      <tr><td><code>exec format error</code></td><td>The image was built for ARM (e.g. on an Apple Silicon Mac).
+          Rebuild with <code>docker buildx build --platform linux/amd64</code>.</td></tr>
+      <tr><td><code>CrashLoopBackOff</code></td><td>The container starts and exits. Read <code>kubectl logs
+            &lt;pod&gt; --previous</code>; often a missing file, a missing environment variable, or a download that
+          needs internet access.</td></tr>
+      <tr><td>Pod stays <code>Pending</code></td><td>Not enough free CPU or memory on the shared cluster (lower your requests, or delete
+          what you no longer use), or a volume that cannot be bound. See <code>kubectl describe pod</code>.</td></tr>
+      <tr><td>Service names stop resolving</td><td>A NetworkPolicy blocks DNS. Allow egress on port 53 to the cluster
+          DNS.</td></tr>
+      <tr><td>Port-forward works for HTTP but not for Kafka</td><td>The broker advertises its in-cluster address. Run
+          clients as pods in your namespace.</td></tr>
+    </tbody>
+  </table>
+
+  <blockquote>
+    <p>The hello-kubernetes application and Helm chart are by Paul Bouwer (MIT License; see
+      <a href="assets/kubernetes/hello-kubernetes/LICENSE">LICENSE</a>). Diagrams are from the Kubernetes Basics
+      tutorial, &copy; The Kubernetes Authors (CC BY 4.0).</p>
+  </blockquote>
+
+  <hr>
+  <p class="back-link"><a href="index.html">&larr; Back to course menu</a></p>
+
+  <footer>
+    &copy;
+    <script>document.write(new Date().getFullYear())</script> Anders Launer Bæk-Petersen
+  </footer>
+
+</body>
+
+</html>

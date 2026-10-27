@@ -1,52 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Week 6 - Software Engineering for AI Systems</title>
   <link rel="stylesheet" href="../style.css">
 </head>
+
 <body>
 
-<h1>Week 6 &ndash; Topic TBD</h1>
+  <h1>Week 6 &ndash; Observability &amp; Feedback Loops</h1>
 
-<div class="deadline">
-  <strong>Friday 5 March 2027</strong>
-</div>
+  <div class="deadline">
+    <strong>Self-study week</strong> - reading, slides and exercises.<br>
+    <strong>Portfolio 3 due Wednesday 3 March 2027</strong> &middot; peer review due Friday 5 March<br>
+    Portfolio 3 requires the observability <em>design</em>; dashboards and drift evidence from this week may be added
+    in the final report.
+  </div>
 
-<h2>Literature</h2>
-<ul>
-  <li><strong>Required:</strong> [Author, Year] <em>Title of reading.</em> Chapter/pages TBD. <a href="#">Link</a></li>
-  <li><strong>Required:</strong> [Author, Year] <em>Title of reading.</em> Chapter/pages TBD.</li>
-  <li><strong>Optional:</strong> [Author, Year] <em>Title of supplementary reading.</em> <a href="#">Link</a></li>
-</ul>
-
-
-  <h2>Slides</h2>
+  <h2>Learning Goals</h2>
   <ul>
-    <li><a href="../assets/week6/lecture1.pptx">Week 6 &ndash; Lecture 1.pdf</a>
-    <li><a href="../assets/week6/lecture2.pptx">Week 6 &ndash; Lecture 2.pdf</a>
-    <li><a href="../assets/week6/lecture3.pptx">Week 6 &ndash; Lecture 3.pdf</a>
+    <li>Explain metrics, logs and traces, and what is specific about monitoring ML systems.</li>
+    <li>Detect data and concept drift and monitor model performance in production, using proxy metrics while labels
+      arrive late.</li>
+    <li>Define SLIs and SLOs and set up dashboards and alerts for Site Reliability Engineering teams, keeping service
+      health and model quality apart.</li>
+    <li>Design feedback loops that trigger retraining, rollback or runtime reconfiguration.</li>
   </ul>
 
-<h2>Exercises</h2>
-<ul>
-  <li>[Exercise 1 description TBD]</li>
-  <li>[Exercise 2 description TBD]</li>
-</ul>
+  <h2>Literature</h2>
+  <ul>
+    <li><strong>Required:</strong> [Bass et al., 2025] <em>Engineering AI Systems.</em> Ch. 11 (Observability).</li>
+    <li><strong>Required:</strong> [Bass et al., 2025] <em>Engineering AI Systems.</em> Ch. 8 (Performance), revisit
+      the sections on SLAs, SLOs and monitoring.</li>
+    <li><strong>Required:</strong> [Huyen, 2022] <em>Designing Machine Learning Systems.</em> Ch. 8 (Data
+      Distribution Shifts and Monitoring) and 9 (Continual Learning and Test in Production).</li>
+    <li><strong>Optional:</strong> [Bass et al., 2025] Ch. 15 (The Future of AI Engineering) &ndash; DevOps 2.0 and
+      the future of MLOps and observability.</li>
+    <li><strong>Optional:</strong> [Beyer et al., 2016] <em>Site Reliability Engineering.</em> Ch. 4 and 6.</li>
+    <li><strong>Optional:</strong> [Mitchell et al., 2019] <em>Model Cards for Model Reporting.</em></li>
+  </ul>
 
-<h2>Notes</h2>
-<blockquote>
-  <p>[Placeholder for supplementary clarifications, conceptual deep-dives, or worked examples related to this week's topic.]</p>
-</blockquote>
+  <blockquote>
+    <p class="back-link"><a target="_blank" href="../assets/course-books.html">&rarr; Course Books</a></p>
+  </blockquote>
 
-<hr>
-<p class="back-link"><a href="../index.html">&larr; Back to course menu</a></p>
+  <h2>Slides</h2>
+  <!-- Slides go in ../assets/lectures/week06/ -->
+  <ul>
+    <li>Lecture 13 &ndash; Observability for AI Systems (Bass ch. 11) (slides TBA)</li>
+    <li>Lecture 14 &ndash; Drift, Feedback Loops and the Future of AI Engineering (Bass ch. 15) (slides TBA)</li>
+  </ul>
+
+  <h2>Exercises</h2>
+  <ul>
+    <li><strong>Core &ndash; Reference project:</strong> Deploy Prometheus and Grafana in your namespace and
+      instrument the FastAPI service (request rate, latency, errors, prediction distribution).</li>
+    <li><strong>Core &ndash; Reference project:</strong> Add drift detection on the streaming data (compare live
+      features with the training data), inject drift by replaying degraded cycles, and visualize it in a dashboard.
+    </li>
+    <li><strong>Core &ndash; Reference project:</strong> Define a service SLO (e.g. latency) and a separate
+      model-quality signal (drift or a proxy metric), each with an alert rule. When the model-quality alert fires, roll
+      back to the previous model version (move the registry alias, or revert the commit in Git and redeploy from your
+      laptop).</li>
+    <li><strong>Stretch &ndash; Reference project:</strong> Run a new model version in shadow mode next to the current
+      one and compare their predictions before switching.</li>
+    <li><strong>Own case:</strong> Design the observability and feedback loop for your system. Finish and submit
+      Portfolio 3.</li>
+  </ul>
+
+  <h2>Notes</h2>
+  <blockquote>
+    <p>Install Prometheus and Grafana namespace-scoped: no operator-based stacks, no ClusterRoles (disable RBAC
+      creation, node exporters and cluster-wide metrics), static scrape targets for your own services, and Grafana
+      dashboards provisioned from a ConfigMap. Alerts cannot be sent out of the cluster; view them in the Prometheus
+      and Grafana UIs through <code>kubectl port-forward</code>.</p>
+  </blockquote>
+
+  <hr>
+  <p class="back-link"><a href="../index.html">&larr; Back to course menu</a></p>
 
 
-<footer>
-  &copy; <script>document.write(new Date().getFullYear())</script> Anders Launer Bæk-Petersen
-</footer>
+  <footer>
+    &copy;
+    <script>document.write(new Date().getFullYear())</script> Anders Launer Bæk-Petersen
+  </footer>
 
 </body>
+
 </html>
