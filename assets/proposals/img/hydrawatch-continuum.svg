@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" width="900" height="470" role="img" aria-label="HydraWatch across the cloud continuum: raw sensor data never leaves the customer premises" font-family="system-ui, -apple-system, Segoe UI, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#475569"/>
+    </marker>
+  </defs>
+  <rect width="900" height="470" fill="#ffffff"/>
+  <text x="20" y="28" font-size="15" font-weight="600" fill="#1a1a2e">HydraWatch across the cloud continuum: raw sensor data never leaves the customer premises</text>
+
+  <!-- sovereignty boundary -->
+  <rect x="10" y="46" width="570" height="346" rx="10" fill="none" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="22" y="63" font-size="11" font-weight="600" fill="#92400e">Customer premises: raw sensor data stays here</text>
+
+  <!-- tiers -->
+  <g fill="#f8fafc" stroke="#94a3b8" stroke-width="1">
+    <rect x="20" y="72" width="240" height="308" rx="8"/>
+    <rect x="330" y="72" width="240" height="308" rx="8"/>
+    <rect x="640" y="72" width="240" height="308" rx="8"/>
+  </g>
+  <g font-size="14" font-weight="600" fill="#1a1a2e" text-anchor="middle">
+    <text x="140" y="96">Edge gateway</text>
+    <text x="450" y="96">Customer site</text>
+    <text x="760" y="96">HydraWatch cloud</text>
+  </g>
+  <g font-size="11" fill="#64748b" text-anchor="middle">
+    <text x="140" y="113">at the machine, intermittent uplink</text>
+    <text x="450" y="113">on-premises server</text>
+    <text x="760" y="113">EU region</text>
+  </g>
+
+  <!-- components -->
+  <g fill="#ffffff" stroke="#64748b" stroke-width="1">
+    <rect x="40" y="130" width="200" height="46" rx="6"/>
+    <rect x="40" y="192" width="200" height="46" rx="6"/>
+    <rect x="40" y="254" width="200" height="46" rx="6"/>
+    <rect x="40" y="316" width="200" height="46" rx="6"/>
+    <rect x="350" y="130" width="200" height="46" rx="6"/>
+    <rect x="350" y="192" width="200" height="46" rx="6"/>
+    <rect x="350" y="254" width="200" height="46" rx="6"/>
+    <rect x="350" y="316" width="200" height="46" rx="6"/>
+    <rect x="660" y="130" width="200" height="46" rx="6"/>
+    <rect x="660" y="192" width="200" height="46" rx="6"/>
+    <rect x="660" y="254" width="200" height="46" rx="6"/>
+    <rect x="660" y="316" width="200" height="46" rx="6"/>
+  </g>
+  <g text-anchor="middle">
+    <g font-size="12.5" font-weight="600" fill="#1a1a2e">
+      <text x="140" y="149">Sensor reader</text>
+      <text x="140" y="211">Inference service</text>
+      <text x="140" y="273">Local alarm rules</text>
+      <text x="140" y="335">Raw cycle buffer</text>
+      <text x="450" y="149">Event broker</text>
+      <text x="450" y="211">Feature aggregation</text>
+      <text x="450" y="273">Site uplink</text>
+      <text x="450" y="335">Technician view</text>
+      <text x="760" y="149">Fleet API and dashboard</text>
+      <text x="760" y="211">Feature and prediction store</text>
+      <text x="760" y="273">Training and model registry</text>
+      <text x="760" y="335">Monitoring</text>
+    </g>
+    <g font-size="11" fill="#475569">
+      <text x="140" y="166">17 sensors, 1-100 Hz</text>
+      <text x="140" y="228">model from registry, small CPU</text>
+      <text x="140" y="290">fallback if the model fails</text>
+      <text x="140" y="352">holds data while offline</text>
+      <text x="450" y="166">raw and feature topics</text>
+      <text x="450" y="228">one row per 60 s load cycle</text>
+      <text x="450" y="290">features and predictions only</text>
+      <text x="450" y="352">alarms and component health</text>
+      <text x="760" y="166">2 replicas, health probes</text>
+      <text x="760" y="228">history for retraining</text>
+      <text x="760" y="290">MLflow, DVC and Git</text>
+      <text x="760" y="352">Prometheus and Grafana</text>
+    </g>
+  </g>
+
+  <!-- flows -->
+  <g fill="none" stroke="#475569" stroke-width="1.5">
+    <path d="M260 153 H328" marker-end="url(#arrow)"/>
+    <path d="M570 277 H638" marker-end="url(#arrow)"/>
+    <path d="M760 380 V420 H140 V382" marker-end="url(#arrow)"/>
+  </g>
+  <g font-size="10.5" fill="#475569" text-anchor="middle">
+    <text x="295" y="133">raw cycles,</text>
+    <text x="295" y="145">predictions</text>
+    <text x="605" y="257">features,</text>
+    <text x="605" y="269">predictions</text>
+  </g>
+  <text x="450" y="440" font-size="11" fill="#475569" text-anchor="middle">new model version and configuration, deployed from Git with Helm</text>
+</svg>
