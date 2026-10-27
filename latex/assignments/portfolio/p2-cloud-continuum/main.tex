@@ -1,0 +1,164 @@
+\documentclass[report]{itvest}
+
+% Document-specific metadata
+\title{Portfolio 2: Cloud Continuum}
+\reportsubtitle{Case: Short Anonymised Case Name}
+\author{Student Name} % group: \author{Name 1 \and Name 2 \and Name 3}
+\date{\today}
+
+% Portfolios use sections only, numbered 1, 2, ...
+\renewcommand{\thesection}{\arabic{section}}
+
+\begin{document}
+
+\maketitle
+
+\begin{checkit}
+  \textbf{Assessment criteria} (delete this box before submitting):
+  \begin{itemize}
+    \item Placement decisions follow from the P1 quality attributes and
+      constraints.
+    \item Data flows respect the stated sovereignty rules, and the design
+      enforces them.
+    \item At least one security and one reliability tactic are
+      demonstrated, not only described.
+    \item A model can be rebuilt from Git, DVC and an MLflow run id, and
+      one command deploys the system.
+  \end{itemize}
+\end{checkit}
+
+\section{Deployment View}
+
+Show which component runs on which tier (edge, on-premises, cloud), and
+trace each placement to the P1 scenarios. Say how heterogeneous compute
+(small devices, CPUs, GPUs) constrains the choice of model.
+
+\begin{figure}[h]
+  \centering
+  % Replace the box with: \includegraphics[width=\textwidth]{deployment}
+  \fbox{\parbox[c][7cm][c]{0.9\textwidth}{\centering
+    Replace with the deployment view: components on tiers.}}
+  \caption{Deployment view.}
+  \label{fig:deployment}
+\end{figure}
+
+\begin{table}[h]
+  \centering
+  \begin{tabularx}{\textwidth}{llXl}
+    \toprule
+    Component & Tier & Why here & Scenario \\
+    \midrule
+    \ldots & \ldots & \ldots & QA-\ldots \\
+    \ldots & \ldots & \ldots & QA-\ldots \\
+    \bottomrule
+  \end{tabularx}
+  \caption{Component placement.}
+  \label{tab:placement}
+\end{table}
+
+\section{Data Placement}
+
+For each data item, state where it may be stored and processed, and the
+rule behind it (contract, GDPR, customer policy). Say how the design
+enforces the rule.
+
+\begin{table}[h]
+  \centering
+  \begin{tabularx}{\textwidth}{XXXX}
+    \toprule
+    Data item & Stored at & Processed at & Rule \\
+    \midrule
+    \ldots & \ldots & \ldots & \ldots \\
+    \ldots & \ldots & \ldots & \ldots \\
+    \bottomrule
+  \end{tabularx}
+  \caption{Data placement.}
+  \label{tab:data-placement}
+\end{table}
+
+\section{Build or Buy}
+
+Compare at least one managed cloud or vendor ML platform with
+self-hosting~\cite{bass_engineering_2025}, and record the decision as an
+ADR.
+
+\begin{table}[h]
+  \centering
+  \begin{tabularx}{\textwidth}{lXX}
+    \toprule
+    Criterion & Managed / vendor option & Self-hosted \\
+    \midrule
+    Cost & \ldots & \ldots \\
+    Lock-in & \ldots & \ldots \\
+    Skills & \ldots & \ldots \\
+    Operations & \ldots & \ldots \\
+    \bottomrule
+  \end{tabularx}
+  \caption{Managed versus self-hosted.}
+  \label{tab:build-buy}
+\end{table}
+
+\subsection{ADR-3: Title of the Decision}
+
+\begin{description}
+  \item[Status:] Proposed / accepted.
+  \item[Context:] The problem and the scenarios (QA-\ldots) that drive it.
+  \item[Alternatives:] The managed or vendor option, and self-hosting.
+  \item[Decision:] The chosen alternative.
+  \item[Consequences:] The trade-off that decided it, and what gets harder.
+\end{description}
+
+\section{Security and Reliability Tactics}
+
+Map each tactic to the component it protects. Mark which tactics are
+demonstrated in Section~\ref{sec:evidence}. Say what happens when a part
+fails or the connection drops.
+
+\begin{table}[h]
+  \centering
+  \begin{tabularx}{\textwidth}{XlXll}
+    \toprule
+    Tactic & Type & Component & Scenario & Demonstrated \\
+    \midrule
+    \ldots & Security & \ldots & QA-\ldots & Yes / no \\
+    \ldots & Reliability & \ldots & QA-\ldots & Yes / no \\
+    \bottomrule
+  \end{tabularx}
+  \caption{Security and reliability tactics.}
+  \label{tab:tactics}
+\end{table}
+
+\section{Deployment and Versioning}
+
+Describe the Kubernetes manifests or Helm chart, the CI and deployment
+workflow, and how data and models are versioned. Show how a model is
+rebuilt from a Git commit, a DVC data version and an MLflow run id, and
+the one command that deploys the system.
+
+\section{Evidence}
+\label{sec:evidence}
+
+State whether the evidence comes from your own case or from the reference
+project. Give the repository (a private repository or a zip upload is
+fine), the output of \texttt{kubectl get all}, and a deleted pod or a
+failed model showing recovery.
+
+\begin{verbatim}
+$ kubectl get all
+...
+\end{verbatim}
+
+\section{AI Usage}
+
+Briefly describe your use of AI tools on this assignment:
+
+\begin{itemize}
+  \item \emph{Code generation:} \ldots
+  \item \emph{Grammar and writing:} \ldots
+  \item \emph{Clarification of technical aspects:} \ldots
+\end{itemize}
+
+\bibliographystyle{IEEEtran}
+\bibliography{bib}
+
+\end{document}

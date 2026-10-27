@@ -1,0 +1,169 @@
+\documentclass[report]{itvest}
+
+% Document-specific metadata
+\title{Portfolio 1: Software Architecture}
+\reportsubtitle{Case: Short Anonymised Case Name}
+\author{Student Name} % group: \author{Name 1 \and Name 2 \and Name 3}
+\date{\today}
+
+% Portfolios use sections only, numbered 1, 2, ...
+\renewcommand{\thesection}{\arabic{section}}
+
+\begin{document}
+
+\maketitle
+
+\begin{checkit}
+  \textbf{Assessment criteria} (delete this box before submitting):
+  \begin{itemize}
+    \item Scenarios are measurable and traceable to the business goal.
+    \item Diagrams are consistent with the scenarios and the ADRs.
+    \item ADRs name real alternatives and the trade-off that decided them.
+    \item Debt risks and the AI Act classification are specific to the case,
+      not a generic list.
+  \end{itemize}
+\end{checkit}
+
+\section{Problem and Context}
+
+State the business goal, the data available, and why ML is needed rather
+than fixed rules. Describe the system at the level of components and data
+types, and anonymise names where needed.
+
+\begin{table}[h]
+  \centering
+  \begin{tabularx}{\textwidth}{lX}
+    \toprule
+    Stakeholder & Interest in the system \\
+    \midrule
+    \ldots & \ldots \\
+    \ldots & \ldots \\
+    \bottomrule
+  \end{tabularx}
+  \caption{Stakeholders.}
+  \label{tab:stakeholders}
+\end{table}
+
+\section{Quality-Attribute Scenarios}
+\label{sec:scenarios}
+
+Give 3--5 scenarios in six-part form~\cite{bass_software_2021}. Say which
+qualities matter most, which conflict, and what a wrong prediction costs.
+
+\begin{checkit}
+  At least one scenario is a \emph{model-quality scenario}, e.g.\ recall on
+  a time-based hold-out set, with the cost of a missed case stated.
+\end{checkit}
+
+\begin{table}[h]
+  \centering
+  \footnotesize
+  \begin{tabularx}{\textwidth}{lXXXXXX}
+    \toprule
+    ID & Source & Stimulus & Environment & Artefact & Response & Measure \\
+    \midrule
+    QA-1 & \ldots & \ldots & \ldots & \ldots & \ldots & \ldots \\
+    QA-2 & \ldots & \ldots & \ldots & \ldots & \ldots & \ldots \\
+    QA-3 & \ldots & \ldots & \ldots & \ldots & \ldots & \ldots \\
+    \bottomrule
+  \end{tabularx}
+  \caption{Quality-attribute scenarios.}
+  \label{tab:scenarios}
+\end{table}
+
+\section{Architecture}
+
+Show the system as C4 context and container diagrams, with the AI and
+non-AI parts marked. Name the existing systems it must integrate with
+(e.g.\ ERP, historian, PLC/SCADA, data platform) and the network zones
+it crosses.
+
+\begin{figure}[h]
+  \centering
+  % Replace the box with: \includegraphics[width=\textwidth]{c4-context}
+  \fbox{\parbox[c][5cm][c]{0.9\textwidth}{\centering
+    Replace with the C4 context diagram.}}
+  \caption{System context.}
+  \label{fig:c4-context}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  % Replace the box with: \includegraphics[width=\textwidth]{c4-container}
+  \fbox{\parbox[c][7cm][c]{0.9\textwidth}{\centering
+    Replace with the C4 container diagram, AI and non-AI parts marked.}}
+  \caption{Containers.}
+  \label{fig:c4-container}
+\end{figure}
+
+\section{Architecture Decisions}
+
+Record at least two decisions. Each ADR names the scenarios from
+Table~\ref{tab:scenarios} that drove it.
+
+\subsection{ADR-1: Title of the Decision}
+
+\begin{description}
+  \item[Status:] Proposed / accepted.
+  \item[Context:] The problem and the scenarios (QA-\ldots) that drive it.
+  \item[Alternatives:] At least two real alternatives.
+  \item[Decision:] The chosen alternative.
+  \item[Consequences:] The trade-off that decided it, and what gets harder.
+\end{description}
+
+\subsection{ADR-2: Title of the Decision}
+
+\begin{description}
+  \item[Status:] \ldots
+  \item[Context:] \ldots
+  \item[Alternatives:] \ldots
+  \item[Decision:] \ldots
+  \item[Consequences:] \ldots
+\end{description}
+
+\section{EU AI Act Classification}
+
+State the risk category of the system under the AI
+Act~\cite{eu_ai_act_2024}, justify it with reference to the relevant
+article or annex, and say what follows from it for the design.
+
+\section{Technical-Debt Risks}
+
+Name the debt the design will accumulate~\cite{sculley_hidden_2015}, and
+how the design limits it.
+
+\begin{table}[h]
+  \centering
+  \begin{tabularx}{\textwidth}{XXX}
+    \toprule
+    Debt risk & Where in the system & How the design limits it \\
+    \midrule
+    \ldots & \ldots & \ldots \\
+    \ldots & \ldots & \ldots \\
+    \bottomrule
+  \end{tabularx}
+  \caption{Technical-debt risks.}
+  \label{tab:debt}
+\end{table}
+
+\section{LLM Considerations}
+
+Only if your case uses an LLM or another foundation
+model~\cite{bass_engineering_2025}: how prompts and model versions are
+managed, how outputs are evaluated, and which guardrails apply. Otherwise
+delete this section.
+
+\section{AI Usage}
+
+Briefly describe your use of AI tools on this assignment:
+
+\begin{itemize}
+  \item \emph{Code generation:} \ldots
+  \item \emph{Grammar and writing:} \ldots
+  \item \emph{Clarification of technical aspects:} \ldots
+\end{itemize}
+
+\bibliographystyle{IEEEtran}
+\bibliography{bib}
+
+\end{document}

@@ -1,0 +1,81 @@
+{
+  // LaTeX Workshop — build via the root Makefile
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "make (all)",
+      "tools": ["make-all"]
+    },
+    {
+      "name": "make lectures",
+      "tools": ["make-lectures"]
+    },
+    {
+      "name": "make assignments",
+      "tools": ["make-assignments"]
+    },
+    {
+      "name": "latexmk (current file)",
+      "tools": ["latexmk"]
+    },
+    {
+      "name": "latexmk clean + build (current file)",
+      "tools": ["latexmk-clean", "latexmk"]
+    }
+  ],
+
+  "latex-workshop.latex.tools": [
+    {
+      "name": "make-all",
+      "command": "make",
+      "args": ["%WORKSPACE_FOLDER%"],
+      "env": {}
+    },
+    {
+      "name": "make-lectures",
+      "command": "make",
+      "args": ["%WORKSPACE_FOLDER%", "lectures"],
+      "env": {}
+    },
+    {
+      "name": "make-assignments",
+      "command": "make",
+      "args": ["%WORKSPACE_FOLDER%", "assignments"],
+      "env": {}
+    },
+    {
+      "name": "latexmk",
+      "command": "latexmk",
+      "args": [
+        "-cd",
+        "-pdf",
+        "-bibtex",
+        "-interaction=nonstopmode",
+        "-halt-on-error",
+        "-e", "ensure_path('TEXINPUTS', '%WORKSPACE_FOLDER%/shared//')",
+        "-e", "ensure_path('BIBINPUTS', '%WORKSPACE_FOLDER%/shared//')",
+        "%DOC%"
+      ],
+      "env": {}
+    },
+    {
+      "name": "latexmk-clean",
+      "command": "latexmk",
+      "args": [
+        "-cd",
+        "-C",
+        "%DOC%"
+      ],
+      "env": {}
+    }
+  ],
+
+  // Use the first recipe by default when saving
+  "latex-workshop.latex.recipe.default": "latexmk clean + build (current file)",
+  // "latex-workshop.latex.recipe.default": "first",
+
+  // Auto-build on save
+  "latex-workshop.latex.autoBuild.run": "onSave",
+
+  // Show the PDF viewer in a side tab
+  "latex-workshop.view.pdf.viewer": "tab"
+}

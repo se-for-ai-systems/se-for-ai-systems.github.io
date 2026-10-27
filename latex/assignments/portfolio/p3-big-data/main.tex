@@ -1,0 +1,180 @@
+\documentclass[report]{itvest}
+
+% Document-specific metadata
+\title{Portfolio 3: Big Data \& Data Science Technologies}
+\reportsubtitle{Case: Short Anonymised Case Name}
+\author{Student Name} % group: \author{Name 1 \and Name 2 \and Name 3}
+\date{\today}
+
+% Portfolios use sections only, numbered 1, 2, ...
+\renewcommand{\thesection}{\arabic{section}}
+
+\begin{document}
+
+\maketitle
+
+\begin{checkit}
+  \textbf{Assessment criteria} (delete this box before submitting):
+  \begin{itemize}
+    \item The volume estimate is calculated and drives the processing and
+      storage choices.
+    \item Governance rules are concrete and consistent with the P2
+      data-placement table.
+    \item Drift and quality signals are defined, measurable and tied to an
+      action.
+  \end{itemize}
+\end{checkit}
+
+\section{Data Flow}
+
+Show how data flows from source to storage to model, with the tier
+boundaries from P2.
+
+\begin{figure}[h]
+  \centering
+  % Replace the box with: \includegraphics[width=\textwidth]{data-flow}
+  \fbox{\parbox[c][7cm][c]{0.9\textwidth}{\centering
+    Replace with the data-flow diagram, tier boundaries marked.}}
+  \caption{Data flow.}
+  \label{fig:data-flow}
+\end{figure}
+
+\section{Volume and Rate}
+
+Estimate what data the system produces and consumes, at what volume and
+rate. Show the calculation, e.g.
+\[
+  \text{volume per day} =
+  \text{sources} \times \text{records per second} \times
+  \text{bytes per record} \times 86\,400 .
+\]
+
+\begin{table}[h]
+  \centering
+  \begin{tabularx}{\textwidth}{Xlll}
+    \toprule
+    Data source & Rate & Size per record & Volume per day \\
+    \midrule
+    \ldots & \ldots & \ldots & \ldots \\
+    \ldots & \ldots & \ldots & \ldots \\
+    \bottomrule
+  \end{tabularx}
+  \caption{Volume and rate estimate.}
+  \label{tab:volume}
+\end{table}
+
+\section{Processing and Storage}
+
+Choose batch, stream or both, and where historical and event data are
+stored (topic retention, data lake, warehouse, feature
+store)~\cite{huyen_designing_2022}. Use the estimate in
+Table~\ref{tab:volume} as an argument.
+
+\subsection{ADR-4: Processing}
+
+\begin{description}
+  \item[Status:] Proposed / accepted.
+  \item[Context:] The volume, rate and latency that drive the choice.
+  \item[Alternatives:] Batch, stream, or both.
+  \item[Decision:] The chosen alternative.
+  \item[Consequences:] The trade-off that decided it, and what gets harder.
+\end{description}
+
+\subsection{ADR-5: Storage}
+
+\begin{description}
+  \item[Status:] \ldots
+  \item[Context:] \ldots
+  \item[Alternatives:] \ldots
+  \item[Decision:] \ldots
+  \item[Consequences:] \ldots
+\end{description}
+
+\section{Data Governance}
+
+State who owns which data, how long it is kept, and which regulations
+apply (e.g.\ GDPR, NIS2, EU AI Act), and what they require of the design.
+The locations must match the P2 data-placement table.
+
+\begin{table}[h]
+  \centering
+  \begin{tabularx}{\textwidth}{XlllX}
+    \toprule
+    Data item & Owner & Retention & Location & Applicable rule \\
+    \midrule
+    \ldots & \ldots & \ldots & \ldots & \ldots \\
+    \ldots & \ldots & \ldots & \ldots & \ldots \\
+    \bottomrule
+  \end{tabularx}
+  \caption{Data governance.}
+  \label{tab:governance}
+\end{table}
+
+\section{Observability}
+
+\subsection{Data Quality}
+
+Describe the checks on incoming data (e.g.\ schema, ranges, missing
+values) and where they run.
+
+\subsection{Drift and Proxy Metrics}
+
+Describe how drift is detected while labels arrive late, and which proxy
+metrics stand in for model quality until they do.
+
+\subsection{Service and Model Quality}
+
+Separate service SLOs from model-quality metrics.
+
+\begin{table}[h]
+  \centering
+  \begin{tabularx}{\textwidth}{XllX}
+    \toprule
+    Metric & Kind & Target & Measured where \\
+    \midrule
+    \ldots & Service SLO & \ldots & \ldots \\
+    \ldots & Model quality & \ldots & \ldots \\
+    \ldots & Data quality / drift & \ldots & \ldots \\
+    \bottomrule
+  \end{tabularx}
+  \caption{Observability metrics.}
+  \label{tab:metrics}
+\end{table}
+
+\subsection{Feedback Loop}
+
+Tie each signal to an action: retrain, roll back or reconfigure.
+
+\begin{table}[h]
+  \centering
+  \begin{tabularx}{\textwidth}{XXX}
+    \toprule
+    Signal & Threshold & Action \\
+    \midrule
+    \ldots & \ldots & \ldots \\
+    \bottomrule
+  \end{tabularx}
+  \caption{Signals and actions.}
+  \label{tab:feedback}
+\end{table}
+
+\section{Evidence}
+
+State whether the evidence comes from your own case or from the reference
+project, and show the running pipeline. Dashboards and drift evidence from
+week 6 may be added in the final report.
+
+\section{AI Usage}
+
+Briefly describe your use of AI tools on this assignment:
+
+\begin{itemize}
+  \item \emph{Code generation:} \ldots
+  \item \emph{Grammar and writing:} \ldots
+  \item \emph{Clarification of technical aspects:} \ldots
+\end{itemize}
+
+\bibliographystyle{IEEEtran}
+\bibliography{bib}
+
+\end{document}
