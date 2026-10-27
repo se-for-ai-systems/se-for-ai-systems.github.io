@@ -4,11 +4,12 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - Dockerfile
+      - latex/Dockerfile
+      - .github/workflows/docker.yml
   workflow_dispatch:
 
 env:
-  IMAGE: ghcr.io/se-for-ai-systems/materials-texlive
+  IMAGE: ghcr.io/se-for-ai-systems/course-texlive
 
 jobs:
   build-and-push:
@@ -30,7 +31,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v7
         with:
-          context: .
+          context: latex
           push: true
           tags: |
             ${{ env.IMAGE }}:latest

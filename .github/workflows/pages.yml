@@ -1,0 +1,69 @@
+name: Build and Deploy Site
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/se-for-ai-systems/course-texlive:latest
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Build LaTeX documents and template zips
+        run: make -C latex
+
+      - name: Assemble site
+        shell: bash
+        run: |
+          mkdir -p _site
+          # Everything except sources and repo metadata is served as-is.
+          tar --exclude=./latex --exclude=./.git --exclude=./.github --exclude=./_site \
+              --exclude=./README.md --exclude=./.gitignore -cf - . | tar -xf - -C _site
+          # Built PDFs and template zips go to the same paths under assets/ as before.
+          cd latex
+          for d in lectures assignments; do
+            [ -d "$d" ] || continue
+            find "$d" \( -name main.pdf -o -name '*.zip' \) | while read -r f; do
+              mkdir -p "../_site/assets/$(dirname "$f")"
+              cp "$f" "../_site/assets/$f"
+            done
+          done
+
+      - name: Upload site
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

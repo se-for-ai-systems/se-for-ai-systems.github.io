@@ -2,3 +2,8 @@
 CLAUDE.md
 .claude/
 materials/
+
+# Built from latex/ by the Pages workflow (make -C latex)
+assets/assignments/
+assets/lectures/
+_site/
