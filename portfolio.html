@@ -16,9 +16,10 @@
   <h2>Overview</h2>
   <p>
     The portfolio is built around a problem from <strong>your own company</strong>. Each portfolio assignment applies
-    one seminar theme to your case: P1 software architecture, P2 the cloud continuum, P3 big data &amp; data science
-    technologies. It is introduced at that seminar, handed in before the next one, and reviewed by two peers. The three
-    assignments, revised based on the feedback, form your final exam report.
+    one seminar theme to your case: P1 software architecture, P2 the cloud continuum, P3 observability with knowledge graphs.
+    Together they cover the three focus areas of the module description: architecture, implementation and deployment,
+    and observability with proactive feedback. Each assignment is introduced at that seminar, handed in before the
+    next one, and reviewed by two peers. The three assignments, revised based on the feedback, form your final exam report.
   </p>
   <p>
     Each week, the shared reference project (<em>HydraWatch</em>, a fictional hydraulic condition-monitoring company)
@@ -52,7 +53,7 @@
         <td>Peer review + discussion at Seminar 3 (Fri 26 Feb)</td>
       </tr>
       <tr>
-        <td>P3 &ndash; Big Data &amp; Data Science Technologies</td>
+        <td>P3 &ndash; Observability with Knowledge Graphs</td>
         <td>Seminar 3 (Fri 26 Feb)</td>
         <td>Wed 3 Mar</td>
         <td>Fri 5 Mar</td>
@@ -85,7 +86,7 @@
     <li>P2 &ndash; Cloud Continuum &mdash;
       <a href="assets/assignments/portfolio/p2-cloud-continuum/p2-cloud-continuum.zip">.zip</a> /
       <a href="assets/assignments/portfolio/p2-cloud-continuum/main.pdf">.pdf</a></li>
-    <li>P3 &ndash; Big Data &amp; Data Science Technologies &mdash;
+    <li>P3 &ndash; Observability with Knowledge Graphs &mdash;
       <a href="assets/assignments/portfolio/p3-big-data/p3-big-data.zip">.zip</a> /
       <a href="assets/assignments/portfolio/p3-big-data/main.pdf">.pdf</a></li>
     <li>Final report &mdash;
@@ -147,6 +148,7 @@
 
   <h2>P1 &ndash; Software Architecture</h2>
   <p>Turn your company problem into measurable requirements and an architecture for the AI system.</p>
+  <p><em>Module focus area: analysis, requirements and design of the software architecture.</em></p>
   <h3>Guiding questions</h3>
   <ul>
     <li>Who are the stakeholders, and what is the business goal?</li>
@@ -180,6 +182,7 @@
 
   <h2>P2 &ndash; Cloud Continuum</h2>
   <p>Decide where each part of your system runs, and how it is secured, deployed and kept reliable.</p>
+  <p><em>Module focus area: implementation and deployment of the AI system.</em></p>
   <h3>Guiding questions</h3>
   <ul>
     <li>Which component runs where (edge, on-premises, cloud), and why?</li>
@@ -210,34 +213,48 @@
     <li>A model can be rebuilt from Git, DVC and an MLflow run id, and one command deploys the system.</li>
   </ul>
 
-  <h2>P3 &ndash; Big Data &amp; Data Science Technologies</h2>
-  <p>Design how data flows through your system, how it is stored and governed, and how changes in the data are noticed.
-  </p>
+  <h2>P3 &ndash; Observability with Knowledge Graphs</h2>
+  <p>Model your AI system and its domain as a knowledge graph, connect it to the data your pipelines produce, and use it
+    to observe the running system and feed back: feedback loops that monitor its performance and reconfigure it at run
+    time.</p>
+  <p><em>Module focus area: observability and proactive feedback.</em></p>
   <h3>Guiding questions</h3>
   <ul>
-    <li>What data does the system produce and consume, at what volume and rate?</li>
-    <li>Batch, stream or both &ndash; and why?</li>
-    <li>Where are historical and event data stored (topic retention, data lake, warehouse, feature store)?</li>
-    <li>Who owns which data, how long is it kept, and which regulations apply (e.g. GDPR, NIS2, EU AI Act) &ndash;
-      and what do they require of the design?</li>
-    <li>How is data quality checked, and how is drift detected and acted on while labels arrive late?</li>
+    <li>Which entities and relations describe your system: components, data sources, datasets, features, model
+      versions and deployments? How is lineage from data to deployed model recorded?</li>
+    <li>Which domain concepts give the observations meaning (e.g. assets, sensors, observable properties,
+      observations)? Can you reuse an existing ontology instead of inventing your own?</li>
+    <li>Which observability questions must the graph answer, e.g. "what is affected if this sensor drifts?" or "which
+      data trained the model in production?"</li>
+    <li>What data feeds the graph, at what volume and rate, and through batch or stream pipelines?</li>
+    <li>Who owns which data, how long is it kept, and which regulations apply (e.g. GDPR, NIS2, EU AI Act)?</li>
+    <li>How are data quality and drift detected while labels arrive late, and how is the system reconfigured at run
+      time (e.g. switching model version, adjusting a threshold, falling back to a simpler model) without a manual
+      redeploy?</li>
   </ul>
   <h3>Deliverables</h3>
   <ul>
-    <li>Data-flow diagram from source to storage to model, with the tier boundaries from P2.</li>
-    <li>Volume and rate estimate, with the calculation shown.</li>
-    <li>Processing choice (batch, stream or both) and storage choice, each with an ADR.</li>
-    <li>Governance table: data item, owner, retention, applicable rule, location.</li>
-    <li>Observability design: data-quality checks, drift and proxy metrics, service SLOs vs. model-quality metrics, and
-      the feedback loop (retrain, roll back or reconfigure).</li>
-    <li>Evidence of a running pipeline. Dashboards and drift evidence from week 6 may be added in the final report.
-    </li>
+    <li>Data-flow diagram from source to graph to model, with the tier boundaries from P2, and a volume and rate
+      estimate with the calculation shown.</li>
+    <li>Knowledge-graph model: the schema (classes and relations) for the system-and-lineage part and the domain part,
+      with the vocabularies you reuse.</li>
+    <li>An ADR on how the knowledge graph is built, stored and queried.</li>
+    <li>At least three observability questions, each with the query that answers it and an example result.</li>
+    <li>Governance table: data item, owner, retention, applicable rule, location (may be kept in the graph).</li>
+    <li>Observability design: data-quality checks, drift and proxy metrics, and service SLOs vs. model-quality metrics,
+      each linked to the graph nodes they concern.</li>
+    <li>Proactive feedback: each signal tied to an action (retrain, roll back or reconfigure), including at least one
+      reconfiguration of the running system.</li>
+    <li>Evidence: the populated graph and running queries (own case or reference project). Dashboards and drift
+      evidence from week 6 may be added in the final report.</li>
   </ul>
   <h3>Assessment criteria</h3>
   <ul>
-    <li>The volume estimate is calculated and drives the processing and storage choices.</li>
+    <li>The graph covers both the system and lineage part and the domain part.</li>
+    <li>The queries answer concrete observability questions for the case.</li>
     <li>Governance rules are concrete and consistent with the P2 data-placement table.</li>
-    <li>Drift and quality signals are defined, measurable and tied to an action.</li>
+    <li>Drift and quality signals are defined, measurable, linked to the graph and tied to an action.</li>
+    <li>At least one feedback loop reconfigures the running system, designed concretely enough to be built.</li>
   </ul>
 
   <h2>Peer Review</h2>
@@ -281,7 +298,7 @@
   </table>
   <ul>
     <li>Grading: individual grade based on an overall assessment of the report and the oral performance, on
-      the Danish 7-point grading scale.</li>
+      the Danish 7-point grading scale, with an external examiner (censor).</li>
     <li>Date: Friday 12 March 2027, SDU Odense, room U165 (individual schedule TBA)</li>
     <li>Re-exam: follows the rules of Aalborg University.</li>
   </ul>

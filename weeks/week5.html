@@ -10,7 +10,7 @@
 
 <body>
 
-  <h1>Week 5 &ndash; Big Data &amp; Data Science Technologies</h1>
+  <h1>Week 5 &ndash; Observability with Knowledge Graphs</h1>
 
   <div class="deadline">
     <strong>Portfolio 2 due Monday 22 February 2027</strong> &middot; peer review due Wednesday 24 February<br>
@@ -19,12 +19,15 @@
 
   <h2>Learning Goals</h2>
   <ul>
-    <li>Compare batch and stream processing for AI systems.</li>
-    <li>Design event-driven pipelines and explain core Kafka concepts (topics, partitions, consumer groups).</li>
-    <li>Describe storage technologies for historical and event data (data lake, warehouse, lakehouse, feature store).
-    </li>
-    <li>Validate data in a pipeline and avoid training-serving skew.</li>
-    <li>Discuss data governance, privacy, fairness and the regulations that apply (GDPR, NIS2, EU AI Act).</li>
+    <li>Explain what a knowledge graph is: entities, relations and a schema (ontology).</li>
+    <li>Model an AI system as a knowledge graph: components, data sources, datasets, features, model versions and
+      deployments, with their lineage.</li>
+    <li>Use domain semantics (e.g. assets, sensors, observable properties, observations) to give monitoring data
+      meaning.</li>
+    <li>Query the graph to answer observability questions, such as impact analysis ("what is affected if this sensor
+      drifts?") and provenance ("which data trained the model in production?").</li>
+    <li>Relate the graph to the data pipelines that feed it (batch vs. stream) and to data governance (GDPR, NIS2, EU AI
+      Act).</li>
   </ul>
 
   <h2>Seminar Agenda</h2>
@@ -40,12 +43,15 @@
     <tbody>
       <tr><td>09:00</td><td>Welcome by the course responsible and introduction of the lecturer of the day</td></tr>
       <tr><td>09:15</td><td>Discussion of the prep reading</td></tr>
-      <tr><td>09:45</td><td>Lecture: Data pipelines and event-driven AI systems</td></tr>
+      <tr><td>09:45</td><td>Lecture: Knowledge graphs for observing AI systems &ndash; system, lineage and domain models
+        </td></tr>
       <tr><td>10:45</td><td>Break</td></tr>
-      <tr><td>11:00</td><td>Lab 1: Run an event broker in your namespace and stream events</td></tr>
+      <tr><td>11:00</td><td>Lab 1: Build a knowledge graph of the reference project (components, data, model versions,
+          deployments) and query its lineage</td></tr>
       <tr><td>12:00</td><td>Lunch</td></tr>
-      <tr><td>12:45</td><td>Industry talk: data infrastructure in industry (speaker TBA)</td></tr>
-      <tr><td>13:30</td><td>Lab 2: Streaming inference with the reference-project model + apply to own case</td></tr>
+      <tr><td>12:45</td><td>Industry talk (speaker TBA)</td></tr>
+      <tr><td>13:30</td><td>Lab 2: Link sensor observations and predictions to the graph with domain semantics + apply to
+          own case</td></tr>
       <tr><td>15:15</td><td>Peer-feedback round on Portfolio 2 + Portfolio 3 brief</td></tr>
       <tr><td>16:00</td><td>End</td></tr>
     </tbody>
@@ -53,17 +59,15 @@
 
   <h2>Literature</h2>
   <ul>
+    <li><strong>Required:</strong> [Hogan et al., 2021] <em>Knowledge Graphs.</em> ACM Computing Surveys 54(4).
+      Sections 1&ndash;3 (introduction, data graphs, schema, identity and context).</li>
     <li><strong>Required:</strong> [Huyen, 2022] <em>Designing Machine Learning Systems.</em> Ch. 3 (Data Engineering
-      Fundamentals) and 4 (Training Data).</li>
+      Fundamentals).</li>
     <li><strong>Required:</strong> [Bass et al., 2025] <em>Engineering AI Systems.</em> Ch. 10 (Privacy and
       Fairness).</li>
-    <li><strong>Optional:</strong> [Bass et al., 2025] Ch. 13 (Case study: ARM Hub &ndash; a RAG-based chatbot and
-      LLMOps).</li>
-    <li><strong>Optional:</strong> [Huyen, 2022] Ch. 5 (Feature Engineering) &ndash; data leakage and
-      training-serving skew.</li>
+    <li><strong>Optional:</strong> [Huyen, 2022] Ch. 4 (Training Data).</li>
     <li><strong>Optional:</strong> [EU, 2024] Regulation (EU) 2024/1689 (AI Act), Art. 10 (data and data governance).
     </li>
-    <li><strong>Optional:</strong> <em>Apache Kafka &ndash; Introduction</em> (official Kafka documentation).</li>
   </ul>
 
   <blockquote>
@@ -73,32 +77,35 @@
   <h2>Slides</h2>
   <!-- Slides go in ../assets/lectures/week05/ -->
   <ul>
-    <li>Lecture 11 &ndash; Data Pipelines and Event-Driven AI Systems (posted after the seminar)</li>
-    <li>Lecture 12 &ndash; Data Governance, Privacy and Fairness (Bass ch. 10) (posted after the seminar)</li>
+    <li>Lecture 11 &ndash; Knowledge Graphs for Observing AI Systems (posted after the seminar)</li>
+    <li>Lecture 12 &ndash; Lineage, Domain Semantics and Data Governance (Bass ch. 10) (posted after the seminar)</li>
   </ul>
 
   <h2>Exercises</h2>
   <ul>
     <li><strong>Before the seminar:</strong> Peer-review two Portfolio 2 submissions (see
       <a href="../portfolio.html">Portfolio &amp; Exam</a>).</li>
-    <li><strong>Core &ndash; Reference project:</strong> Deploy a single-node event broker (e.g. Kafka or Redpanda)
-      in your namespace and write a producer that replays the dataset as incoming events. Run producer and consumer as
-      pods in the namespace, not on your laptop.</li>
-    <li><strong>Core &ndash; Reference project:</strong> Write a consumer that validates events (schema, value ranges),
-      computes features with the same code as training, calls the model service, and publishes predictions to an
-      output topic.</li>
-    <li><strong>Stretch &ndash; Reference project:</strong> Batch features and predictions to Parquet files in object
-      storage in your namespace, as history for retraining and drift analysis.</li>
-    <li><strong>Own case:</strong> Draw the data flow of your system: sources, volume and rate, batch vs. streaming,
-      storage, data ownership and the regulations that apply. Start Portfolio 3.</li>
+    <li><strong>Core &ndash; Reference project:</strong> Build a knowledge graph of the reference project: services,
+      datasets and their versions, training runs, model versions and deployments, connected by lineage relations.
+      Query it: which data trained the model in production, and which deployments use a given dataset?
+    </li>
+    <li><strong>Core &ndash; Reference project:</strong> Add the domain: the hydraulic system, its components and
+      sensors, and each load cycle as an observation with its sensor results and the model's prediction. Query it: which predictions and deployments are affected if one sensor drifts?</li>
+    <li><strong>Stretch &ndash; Reference project:</strong> Replay the dataset as events through an event broker in
+      your namespace and update the graph as observations arrive.</li>
+    <li><strong>Own case:</strong> Sketch the knowledge graph of your system: the system and lineage part, the domain
+      part, and three observability questions it should answer. Note where the data comes from (batch or stream), who
+      owns it and which regulations apply. Start Portfolio 3.</li>
   </ul>
 
   <h2>Notes</h2>
   <blockquote>
-    <p>A Kafka-compatible broker advertises its in-cluster address, so clients on your laptop behind
-      <code>kubectl port-forward</code> usually fail to connect &ndash; run clients as pods. Run the broker as a single
-      node in development mode without operators or cert-manager. If your case uses an LLM: pods have no internet, so
-      use a small open model packaged in the image, and evaluate it with a fixed evaluation set.</p>
+    <p>The choice of knowledge-graph technology is open: it can be a library in your own code or a graph database in
+      your namespace. A database image must come from a public registry, and its data must be kept on a volume. If you
+      stream events
+      through a Kafka-compatible broker, run the clients as pods: the broker advertises its in-cluster address, so
+      clients behind <code>kubectl port-forward</code> usually fail to connect. Unfamiliar terms are in the
+      <a href="../glossary.html">Glossary</a>.</p>
   </blockquote>
 
   <hr>

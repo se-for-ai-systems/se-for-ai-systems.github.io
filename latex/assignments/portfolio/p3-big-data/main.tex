@@ -1,7 +1,7 @@
 \documentclass[report]{itvest}
 
 % Document-specific metadata
-\title{Portfolio 3: Big Data \& Data Science Technologies}
+\title{Portfolio 3: Observability with Knowledge Graphs}
 \reportsubtitle{Case: Short Anonymised Case Name}
 \author{Student Name} % group: \author{Name 1 \and Name 2 \and Name 3}
 \date{\today}
@@ -16,19 +16,22 @@
 \begin{checkit}
   \textbf{Assessment criteria} (delete this box before submitting):
   \begin{itemize}
-    \item The volume estimate is calculated and drives the processing and
-      storage choices.
+    \item The graph covers both the system and lineage part and the domain
+      part.
+    \item The queries answer concrete observability questions for the case.
     \item Governance rules are concrete and consistent with the P2
       data-placement table.
-    \item Drift and quality signals are defined, measurable and tied to an
-      action.
+    \item Drift and quality signals are defined, measurable, linked to the
+      graph and tied to an action.
+    \item At least one feedback loop reconfigures the running system,
+      designed concretely enough to be built.
   \end{itemize}
 \end{checkit}
 
 \section{Data Flow}
 
-Show how data flows from source to storage to model, with the tier
-boundaries from P2.
+Show how data flows from its sources through the pipelines into the
+knowledge graph and the model, with the tier boundaries from P2.
 
 \begin{figure}[h]
   \centering
@@ -39,10 +42,9 @@ boundaries from P2.
   \label{fig:data-flow}
 \end{figure}
 
-\section{Volume and Rate}
-
-Estimate what data the system produces and consumes, at what volume and
-rate. Show the calculation, e.g.
+Estimate what data feeds the graph, at what volume and rate, and whether it
+arrives in batches or as a stream~\cite{huyen_designing_2022}. Show the
+calculation, e.g.
 \[
   \text{volume per day} =
   \text{sources} \times \text{records per second} \times
@@ -51,50 +53,89 @@ rate. Show the calculation, e.g.
 
 \begin{table}[h]
   \centering
-  \begin{tabularx}{\textwidth}{Xlll}
+  \begin{tabularx}{\textwidth}{Xllll}
     \toprule
-    Data source & Rate & Size per record & Volume per day \\
+    Data source & Batch / stream & Rate & Size per record & Volume per day \\
     \midrule
-    \ldots & \ldots & \ldots & \ldots \\
-    \ldots & \ldots & \ldots & \ldots \\
+    \ldots & \ldots & \ldots & \ldots & \ldots \\
+    \ldots & \ldots & \ldots & \ldots & \ldots \\
     \bottomrule
   \end{tabularx}
   \caption{Volume and rate estimate.}
   \label{tab:volume}
 \end{table}
 
-\section{Processing and Storage}
+\section{Knowledge-Graph Model}
 
-Choose batch, stream or both, and where historical and event data are
-stored (topic retention, data lake, warehouse, feature
-store)~\cite{huyen_designing_2022}. Use the estimate in
-Table~\ref{tab:volume} as an argument.
+Model your system and its domain as a knowledge graph. The
+\emph{system and lineage} part describes components, data sources,
+datasets, features, model versions and deployments, and how a deployed
+model can be traced back to the data it was trained on. The \emph{domain}
+part gives the observations meaning, e.g.\ assets, sensors, the properties
+they observe, and the observations themselves.
 
-\subsection{ADR-4: Processing}
+\begin{figure}[h]
+  \centering
+  % Replace the box with: \includegraphics[width=\textwidth]{graph-schema}
+  \fbox{\parbox[c][7cm][c]{0.9\textwidth}{\centering
+    Replace with the graph schema: classes as nodes, relations as edges.}}
+  \caption{Knowledge-graph schema.}
+  \label{fig:schema}
+\end{figure}
+
+\begin{table}[h]
+  \centering
+  \begin{tabularx}{\textwidth}{llX}
+    \toprule
+    Class or relation & Part & Meaning \\
+    \midrule
+    \ldots & System and lineage & \ldots \\
+    \ldots & Domain & \ldots \\
+    \bottomrule
+  \end{tabularx}
+  \caption{Classes and relations.}
+  \label{tab:schema}
+\end{table}
+
+\subsection{ADR-4: Building, Storing and Querying the Graph}
 
 \begin{description}
   \item[Status:] Proposed / accepted.
-  \item[Context:] The volume, rate and latency that drive the choice.
-  \item[Alternatives:] Batch, stream, or both.
+  \item[Context:] What the graph must answer, how often it changes, and the
+    constraints from P2.
+  \item[Alternatives:] The options you considered.
   \item[Decision:] The chosen alternative.
   \item[Consequences:] The trade-off that decided it, and what gets harder.
 \end{description}
 
-\subsection{ADR-5: Storage}
+\section{Observability Questions}
 
-\begin{description}
-  \item[Status:] \ldots
-  \item[Context:] \ldots
-  \item[Alternatives:] \ldots
-  \item[Decision:] \ldots
-  \item[Consequences:] \ldots
-\end{description}
+Give at least three questions the graph must answer, e.g.\ ``what is
+affected if this sensor drifts?'' or ``which data trained the model in
+production?'', each with the query that answers it and an example result.
+Put long queries in an appendix.
+
+\begin{table}[h]
+  \centering
+  \begin{tabularx}{\textwidth}{XXX}
+    \toprule
+    Question & Query (summary) & Example result \\
+    \midrule
+    \ldots & \ldots & \ldots \\
+    \ldots & \ldots & \ldots \\
+    \ldots & \ldots & \ldots \\
+    \bottomrule
+  \end{tabularx}
+  \caption{Observability questions.}
+  \label{tab:questions}
+\end{table}
 
 \section{Data Governance}
 
 State who owns which data, how long it is kept, and which regulations
 apply (e.g.\ GDPR, NIS2, EU AI Act), and what they require of the design.
-The locations must match the P2 data-placement table.
+The locations must match the P2 data-placement table. The governance
+information may also be kept in the graph.
 
 \begin{table}[h]
   \centering
@@ -124,26 +165,30 @@ metrics stand in for model quality until they do.
 
 \subsection{Service and Model Quality}
 
-Separate service SLOs from model-quality metrics.
+Separate service SLOs from model-quality metrics, and link each metric to
+the graph nodes it concerns.
 
 \begin{table}[h]
   \centering
-  \begin{tabularx}{\textwidth}{XllX}
+  \begin{tabularx}{\textwidth}{XllXX}
     \toprule
-    Metric & Kind & Target & Measured where \\
+    Metric & Kind & Target & Measured where & Graph node \\
     \midrule
-    \ldots & Service SLO & \ldots & \ldots \\
-    \ldots & Model quality & \ldots & \ldots \\
-    \ldots & Data quality / drift & \ldots & \ldots \\
+    \ldots & Service SLO & \ldots & \ldots & \ldots \\
+    \ldots & Model quality & \ldots & \ldots & \ldots \\
+    \ldots & Data quality / drift & \ldots & \ldots & \ldots \\
     \bottomrule
   \end{tabularx}
   \caption{Observability metrics.}
   \label{tab:metrics}
 \end{table}
 
-\subsection{Feedback Loop}
+\subsection{Proactive Feedback}
 
-Tie each signal to an action: retrain, roll back or reconfigure.
+Tie each signal to an action: retrain, roll back or reconfigure. At least
+one action must reconfigure the running system without a manual redeploy,
+e.g.\ switching the model version, adjusting a threshold, or falling back
+to a simpler model. Use the graph to show what the action affects.
 
 \begin{table}[h]
   \centering
@@ -161,8 +206,8 @@ Tie each signal to an action: retrain, roll back or reconfigure.
 \section{Evidence}
 
 State whether the evidence comes from your own case or from the reference
-project, and show the running pipeline. Dashboards and drift evidence from
-week 6 may be added in the final report.
+project, and show the populated graph and the queries running. Dashboards
+and drift evidence from week 6 may be added in the final report.
 
 \section{AI Usage}
 

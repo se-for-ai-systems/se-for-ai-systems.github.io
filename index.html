@@ -40,7 +40,7 @@
     <li><strong>Workload:</strong> 5 ECTS, about 137 hours in total &ndash; roughly 19 hours per week over 7 weeks,
       including the three seminar days.</li>
     <li><strong>Three seminar days</strong> (Fridays, 09:00&ndash;16:00, on-site at SDU Odense; rooms on the week pages), one per theme:
-      software architecture, the cloud continuum, and big data &amp; data science technologies. Each day is led by a
+      software architecture, the cloud continuum, and observability with knowledge graphs. Each day is led by a
       lecturer of the day, who decides the format; expect a mix of discussion of the prep reading, short lectures and
       labs. Every day opens with a welcome at 09:00 and has a talk by an industry speaker after lunch. Read the
       preparation listed on the week page before each seminar.</li>
@@ -95,7 +95,7 @@
       </tr>
       <tr>
         <td>8: 22-26 Feb 2027</td>
-        <td>Big Data &amp; Data Science Technologies</td>
+        <td>Observability with Knowledge Graphs</td>
         <td><strong>Portfolio 2 due</strong> (Mon 22 Feb)<br><strong>Seminar 3</strong> (Fri 26 Feb)</td>
         <td><a href="weeks/week5.html">Week 5</a></td>
       </tr>
@@ -127,50 +127,82 @@
   </ul>
 
   <h2>Learning Goals</h2>
-  <p>After completing this course, students will be able to:</p>
+  <p>
+    The learning goals are the approved learning objectives of the module <em>Software Engineering af AI systemer</em>
+    (DSNITEV33), 2026/2027. The official wording is in Danish; the English translation is for convenience.
+  </p>
+
+  <h3>Knowledge</h3>
+  <p>The student can:</p>
+  <table>
+    <thead>
+      <tr>
+        <th>English</th>
+        <th>Official wording (Danish)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Explain the lifecycle of AI systems and how they differ from traditional systems.</td><td>Forklare
+          livscyklussen for AI-systemer og forskelle fra traditionelle systemer</td></tr>
+      <tr><td>Describe central Machine Learning Operations (MLOps) principles (Continuous Integration/Continuous
+          Deployment (CI/CD), monitoring, data versioning).</td><td>Beskrive centrale Machine Learning (ML)
+          Ops-principper (Continuous Integration/Continuous Deployment (CI/CD), overvågning, dataversionering)</td>
+      </tr>
+      <tr><td>Identify technical debt in AI systems and its consequences.</td><td>Identificere teknisk gæld i
+          AI-systemer og dens konsekvenser</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Skills</h3>
+  <p>The student will be able to:</p>
+  <table>
+    <thead>
+      <tr>
+        <th>English</th>
+        <th>Official wording (Danish)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Design scalable software architectures for AI systems.</td><td>Designe skalerbare softwarearkitekturer
+          til AI-systemer</td></tr>
+      <tr><td>Implement Machine Learning (ML) models with containerisation and Continuous Integration/Continuous
+          Deployment (CI/CD) pipelines.</td><td>Implementere Machine Learning (ML)-modeller med containerisering og
+          Continuous Integration/Continuous Deployment (CI/CD)-pipelines</td></tr>
+      <tr><td>Set up monitoring of AI systems for Site Reliability Engineering (SRE) teams.</td><td>Opsætte
+          monitorering af AI-systemer for Site Reliability Engineering (SRE) teams</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Competences</h3>
+  <p>The student applies knowledge and skills in context:</p>
+  <table>
+    <thead>
+      <tr>
+        <th>English</th>
+        <th>Official wording (Danish)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Apply MLOps practices to manage the entire lifecycle.</td><td>Anvende MLOps-praksis til styring af hele
+          livscyklussen</td></tr>
+      <tr><td>Make informed decisions about architecture and quality attributes.</td><td>Træffe informerede
+          beslutninger om arkitektur og kvalitetsegenskaber</td></tr>
+      <tr><td>Communicate software architecture choices to stakeholders.</td><td>Formidle softwarearkitekturvalg til
+          interessenter</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Programme and Module</h3>
+  <p>
+    This course is the module <em>Software Engineering af AI systemer</em> (DSNITEV33, 5 ECTS), the second of three
+    courses in the subject package <em>Udvikling af AI</em> (Development of AI) of the Master in Information Technology,
+    Software Construction (<em>Master i IT, softwarekonstruktion</em>) at Aalborg University, offered through IT-Vest.
+  </p>
   <ul>
-    <li>
-      <strong>Knowledge</strong>
-      <ul>
-        <li>Describe the lifecycle and architecture of AI systems and how they differ from traditional software
-          systems.</li>
-        <li>Identify sources of technical debt in AI systems and explain their long-term implications.</li>
-        <li>Describe key MLOps concepts, including CI/CD, ML model monitoring, and data versioning for
-          reproducibility.</li>
-        <li>Describe key concepts of data pipelines, including storage technologies for historical and event-driven
-          AI systems.</li>
-        <li>Explain the role of cloud-native and open-source tools in building scalable infrastructure for AI
-          systems.</li>
-      </ul>
-    </li>
-    <li>
-      <strong>Skills</strong>
-      <ul>
-        <li>Perform a requirements analysis and define quality attributes for an AI system.</li>
-        <li>Design and maintain modular, scalable software architectures for AI systems that can adapt to data sources
-          and model requirements.</li>
-        <li>Implement versioning of data and ML models using tools such as MLflow or similar.</li>
-        <li>Build and deploy ML models using containerization and orchestration tools (e.g. Docker, Podman,
-          Kubernetes).</li>
-        <li>Set up CI/CD pipelines for ML workflows and monitor models in production.</li>
-        <li>Set up observability pipelines for ML workflows to ensure system reliability and performance over time.
-        </li>
-        <li>Set up a scalable infrastructure for AI systems.</li>
-      </ul>
-    </li>
-    <li>
-      <strong>Competences</strong>
-      <ul>
-        <li>Drive the development of AI systems to achieve relevant quality attributes in production environments,
-          including critical evaluation and continuous improvement.</li>
-        <li>Make informed decisions about trade-offs in software architecture design, deployment strategies and
-          observability.</li>
-        <li>Communicate technical decisions and system design clearly to both technical and non-technical
-          stakeholders.</li>
-        <li>Apply MLOps practices to manage the full lifecycle in production environments and reflect on the needs of
-          different industrial contexts.</li>
-      </ul>
-    </li>
+    <li>Curriculum: <a href="https://studieordninger.aau.dk/2026/60/6837"><em>Studieordning for master i IT,
+          softwarekonstruktion, 2026</em></a></li>
+    <li>Module description: <a href="https://moduler.aau.dk/course/2026-2027/DSNITEV33?lang=da-DK"><em>Software
+          Engineering af AI systemer</em> (2026/2027)</a></li>
   </ul>
 
   <h2>Assessment &amp; Exam</h2>
@@ -182,7 +214,8 @@
     allowed, but the oral exam and the grade are individual.
   </p>
   <ul>
-    <li><strong>Format:</strong> Project report (revised portfolio) + individual oral exam of about 30 minutes</li>
+    <li><strong>Format:</strong> Project report (revised portfolio) + individual oral exam of about 30 minutes, based
+      on the project, with an external examiner; Danish 7-point grading scale</li>
     <li><strong>Submission system:</strong> Moodle (Aalborg University)</li>
     <li><strong>Final submission deadline:</strong> Monday 8 March 2027</li>
     <li><strong>Exam date:</strong> Friday 12 March 2027, SDU Odense, room U165 (individual schedule TBA)</li>
@@ -204,6 +237,7 @@
     <strong>Email:</strong> <a href="mailto:anbae@mmmi.sdu.dk">anbae@mmmi.sdu.dk</a><br>
     <strong>Phone:</strong> +45 6550 4579<br>
     <strong>Office:</strong> SDU Ø20-608b-2<br>
+    <strong>Module responsible (AAU):</strong> Manfred Jaeger<br>
     <!-- <strong>Office hours:</strong> [Day TBD], [Time TBD] -->
   </div>
 
