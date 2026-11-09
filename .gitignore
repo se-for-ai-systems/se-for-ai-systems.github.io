@@ -7,3 +7,7 @@ materials/
 assets/assignments/
 assets/lectures/
 _site/
+
+# Licensed course book and publisher instructor slides: local reference only, never publish
+Engineering AI Systems*.epub/
+Instructors Slides for AI Engineering Book by Bass et al/

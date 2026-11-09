@@ -5,13 +5,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Glossary - Software Engineering for AI Systems</title>
+  <meta name="description" content="Short explanations of the terms used in Software Engineering for AI Systems.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Software Engineering for AI Systems">
+  <meta property="og:title" content="Glossary - Software Engineering for AI Systems">
+  <meta property="og:description" content="Short explanations of the terms used in Software Engineering for AI Systems.">
+  <meta property="og:url" content="https://se-for-ai-systems.github.io/glossary.html">
+  <meta property="og:image" content="https://se-for-ai-systems.github.io/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Software Engineering for AI Systems: course title over a row of server racks">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
   <h1>Glossary</h1>
-  <p class="subtitle">Short explanations of terms used in the course</p>
+  <p class="subtitle">Software Engineering for AI Systems</p>
+  <p>Short explanations of terms used in the course.</p>
 
   <h2>Course Format</h2>
   <table>
@@ -22,8 +34,6 @@
       </tr>
     </thead>
     <tbody>
-      <tr><td>Reference project</td><td>The shared example system (HydraWatch) that you build step by step during the
-          course before applying each step to your own case.</td></tr>
       <tr><td>Portfolio assignment</td><td>One of three hand-ins on your own case (P1&ndash;P3); revised, they form
           your exam report.</td></tr>
     </tbody>
@@ -41,7 +51,7 @@
       <tr><td>Quality attribute</td><td>A measurable property a system must have besides its function, e.g.
           performance, availability, security, modifiability.</td></tr>
       <tr><td>Quality-attribute scenario</td><td>A testable requirement in six parts: source, stimulus, environment,
-          artefact, response, response measure.</td></tr>
+          artifact, response, response measure.</td></tr>
       <tr><td>C4 model</td><td>A way to draw architecture at four zoom levels: context, containers, components, code.
         </td></tr>
       <tr><td>ADR (architecture decision record)</td><td>A short document recording one design decision: context,
@@ -144,7 +154,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr><td>Knowledge graph</td><td>Data organised as entities (nodes) and their relations (edges), with a schema
+      <tr><td>Knowledge graph</td><td>Data organized as entities (nodes) and their relations (edges), with a schema
           that gives them meaning.</td></tr>
       <tr><td>Ontology</td><td>The schema of a knowledge graph: the classes of things and the relations allowed between
           them.</td></tr>
@@ -173,9 +183,9 @@
   <p class="back-link"><a href="index.html">&larr; Back to course menu</a></p>
 
   <footer>
-    &copy;
-    <script>document.write(new Date().getFullYear())</script> Anders Launer Bæk-Petersen
+    &copy; <span id="year"></span> DECO Lab · University of Southern Denmark
   </footer>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 
 </body>
 

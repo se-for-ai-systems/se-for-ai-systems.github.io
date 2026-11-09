@@ -5,13 +5,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kubernetes Cluster Guide - Software Engineering for AI Systems</title>
+  <meta name="description" content="How to access and use the shared course Kubernetes cluster: setup, key concepts, a kubectl cheat sheet and a warm-up exercise.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Software Engineering for AI Systems">
+  <meta property="og:title" content="Kubernetes Cluster Guide - Software Engineering for AI Systems">
+  <meta property="og:description" content="How to access and use the shared course Kubernetes cluster: setup, key concepts, a kubectl cheat sheet and a warm-up exercise.">
+  <meta property="og:url" content="https://se-for-ai-systems.github.io/kubernetes.html">
+  <meta property="og:image" content="https://se-for-ai-systems.github.io/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Software Engineering for AI Systems: course title over a row of server racks">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
   <h1>Kubernetes Cluster Guide</h1>
-  <p class="subtitle">How to access and use the course Kubernetes cluster</p>
+  <p class="subtitle">Software Engineering for AI Systems</p>
+  <p>How to access and use the course Kubernetes cluster.</p>
 
   <div class="deadline">
     <strong>Before Seminar 1:</strong> install <code>kubectl</code> and Helm, add your kubeconfig file, and check that
@@ -22,9 +34,9 @@
   <ul>
     <li>Access to a shared course Kubernetes cluster, run by the course staff. You only need the <code>kubectl</code>
       and <code>helm</code> clients on your own machine.</li>
-    <li>Your own <strong>namespace</strong> (one per student or group). No services are shared between students or
-      groups: you deploy and operate everything yourself (your model service, MLflow, event broker, monitoring, ...).
-    </li>
+    <li>Your own <strong>namespace</strong> (one per student or group). No infrastructure is shared between students
+      or groups: you deploy and operate everything yourself (your model service, MLflow, event broker, monitoring,
+      ...).</li>
     <li>A personal <strong>kubeconfig file</strong>, sent to you by email. It contains your access token &ndash; do
       not share it or commit it to Git.</li>
   </ul>
@@ -45,16 +57,16 @@
       </tr>
       <tr>
         <td>The rest of the cluster</td>
-        <td>Read-only: <code>get</code>, <code>list</code>, <code>watch</code> (e.g. <code>kubectl get nodes</code>).
-        </td>
+        <td>Read-only: <code>get</code>, <code>list</code>, <code>watch</code> (e.g. <code>kubectl get nodes</code>),
+          except Secrets.</td>
       </tr>
     </tbody>
   </table>
   <ul>
     <li>Your kubeconfig sets your namespace as the default, so you do not need <code>-n &lt;namespace&gt;</code> for
       your own resources.</li>
-    <li>You cannot create cluster-wide resources such as namespaces, ClusterRoles or CustomResourceDefinitions. Tools
-      that require a cluster-wide installation (e.g. operators) can therefore not be installed by you &ndash; choose
+    <li>You cannot create cluster-wide resources such as namespaces, ClusterRoles or CustomResourceDefinitions, so
+      tools that require a cluster-wide installation (e.g. operators) are not available to you &ndash; choose
       namespace-scoped alternatives.</li>
     <li>Over the network, your pods can reach services in your own namespace, but not services in other namespaces.
     </li>
@@ -142,9 +154,9 @@ kubectl get pods</code></pre>
     that your kubeconfig is in place.
   </p>
   <p>
-    <strong>Off campus:</strong> connect through the university VPN, then use <code>kubectl</code> as usual. If you
+    <strong>Off campus:</strong> connect through the AAU VPN, then use <code>kubectl</code> as usual. If you
     cannot reach the course cluster, most
-    exercises also run on a local Kubernetes cluster on your laptop (e.g. kind, which runs on Docker).
+    exercises also work on a local Kubernetes cluster on your laptop (e.g. kind, which runs on Docker).
   </p>
 
   <h2>Key Concepts</h2>
@@ -155,7 +167,7 @@ kubectl get pods</code></pre>
 
   <h3>Cluster and Nodes</h3>
   <p>
-    A cluster consists of a <strong>control plane</strong> that coordinates all activities, and one or more
+    A cluster consists of a <strong>control plane</strong> that coordinates all activities and one or more
     <strong>nodes</strong> &ndash; worker machines that run your applications. Each node is managed by the control
     plane and can host many pods.
   </p>
@@ -165,9 +177,9 @@ kubectl get pods</code></pre>
   <h3>Deployments and Pods</h3>
   <p>
     A <strong>Deployment</strong> is the recipe for running your application: which container image, how many
-    replicas, which configuration. The control plane continuously keeps the actual state equal to the desired state
-    and replaces pods that fail (self-healing). A <strong>Pod</strong> is the smallest deployable unit: a logical host
-    for one or more containers that share storage and network. Pods are short-lived, and their IP addresses change when
+    replicas, which configuration. The control plane continuously reconciles the actual state with the desired
+    state and replaces pods that fail (self-healing). A <strong>Pod</strong> is the smallest deployable unit: a
+    logical host for one or more containers that share storage and network. Pods are short-lived, and their IP addresses change when
     they are rescheduled.
   </p>
   <img src="assets/kubernetes/img/deployment.svg" alt="A deployment running a containerized app on a node">
@@ -206,14 +218,14 @@ kubectl get pods</code></pre>
           start)</td></tr>
       <tr><td><code>kubectl logs &lt;pod&gt;</code></td><td>Show a container's logs (add <code>-f</code> to follow)</td>
       </tr>
-      <tr><td><code>kubectl port-forward svc/&lt;service&gt; 8080:8080</code></td><td>Forward
-          <code>localhost:8080</code> to a service in the cluster</td></tr>
+      <tr><td><code>kubectl port-forward svc/&lt;service&gt; 8080:8080</code></td><td>Expose a service in the
+          cluster at <code>localhost:8080</code> on your laptop</td></tr>
       <tr><td><code>kubectl scale deployment/&lt;name&gt; --replicas=5</code></td><td>Scale a deployment manually
           (or edit it with <code>kubectl edit deployment/&lt;name&gt;</code>)</td></tr>
       <tr><td><code>kubectl exec -it &lt;pod&gt; -- /bin/sh</code></td><td>Open an interactive shell in a running
           container</td></tr>
-      <tr><td><code>kubectl run tmp --rm -it --image ubuntu -- bash</code></td><td>Start a temporary pod for debugging
-          from inside the cluster; deleted when you exit</td></tr>
+      <tr><td><code>kubectl run tmp --rm -it --image ubuntu -- bash</code></td><td>Start a temporary pod for
+          debugging inside the cluster; it is deleted when you exit</td></tr>
       <tr><td><code>kubectl cp file.txt &lt;pod&gt;:/file.txt</code></td><td>Copy a file into a container</td></tr>
       <tr><td><code>kubectl delete -f app.yaml</code></td><td>Delete the resources in a manifest</td></tr>
       <tr><td><code>helm install &lt;release&gt; &lt;chart&gt;</code></td><td>Install a Helm chart</td></tr>
@@ -236,7 +248,7 @@ kubectl get pods</code></pre>
 
   <h2>Warm-up Exercise: Hello Kubernetes</h2>
   <p>
-    Use this exercise to get familiar with the cluster before the reference project. Download the files first:
+    Use this exercise to get familiar with the cluster before the hands-on exercises. Download the files first:
   </p>
   <ul>
     <li><a href="assets/kubernetes/hello-kubernetes.yaml" download>hello-kubernetes.yaml</a> &ndash; a manifest with a
@@ -256,9 +268,9 @@ kubectl get pods</code></pre>
 kubectl get pods
 kubectl get services</code></pre>
     </li>
-    <li>Connect through the service and open <code>http://localhost:8080</code> in your browser. Refresh a few times:
-      the page shows which pod, namespace and node handled your request.
+    <li>Start a port-forward to the service, then open <code>http://localhost:8080</code> in your browser:
       <pre><code>kubectl port-forward svc/hello-kubernetes 8080:8080</code></pre>
+      Refresh a few times: the page shows which pod, namespace and node handled your request.
     </li>
     <li>Scale the deployment to 5 replicas, check that there are 5 pods and the application still works, then scale
       back to 3:
@@ -282,8 +294,8 @@ wget -qO- hello-kubernetes:8080</code></pre>
       so the request times out. Note that you cannot install packages inside a running pod (e.g. <code>apt
         install</code>), because pods have no internet access.
     </li>
-    <li>Start an Ubuntu pod that is <em>not</em> removed when you exit, copy a local file into it, then reattach and
-      check that the file is there:
+    <li>Start an Ubuntu pod that is <em>not</em> removed when you exit, copy a local file into it (e.g.
+      <code>README.md</code>, or the manifest you just downloaded), then reattach and check that the file is there:
       <pre><code>kubectl run ubuntu -it --image ubuntu -- bash
 kubectl cp README.md ubuntu:/README.md
 kubectl attach ubuntu -c ubuntu -i -t</code></pre>
@@ -318,7 +330,7 @@ kubectl get all</code></pre>
       (<code>kubectl get all</code> shows what is running).</li>
     <li>Build all dependencies into your container images. Pods have no internet access, so <code>pip install</code>
       or <code>apt install</code> at runtime will fail.</li>
-    <li>Keep your manifests and Helm values in Git &ndash; never secrets or your kubeconfig.</li>
+    <li>Keep your manifests and Helm values in Git, but never commit secrets or your kubeconfig.</li>
     <li>When a pod does not start, check <code>kubectl describe pod</code>, <code>kubectl get events</code> and
       <code>kubectl logs</code> before asking for help.</li>
   </ul>
@@ -339,8 +351,9 @@ kubectl get all</code></pre>
       <tr><td><code>CrashLoopBackOff</code></td><td>The container starts and exits. Read <code>kubectl logs
             &lt;pod&gt; --previous</code>; often a missing file, a missing environment variable, or a download that
           needs internet access.</td></tr>
-      <tr><td>Pod stays <code>Pending</code></td><td>Not enough free CPU or memory on the shared cluster (lower your requests, or delete
-          what you no longer use), or a volume that cannot be bound. See <code>kubectl describe pod</code>.</td></tr>
+      <tr><td>Pod stays <code>Pending</code></td><td>Not enough free CPU or memory on the shared cluster (lower your
+          requests, or delete what you no longer use), or a volume that cannot be bound. See
+          <code>kubectl describe pod</code>.</td></tr>
       <tr><td>Service names stop resolving</td><td>A NetworkPolicy blocks DNS. Allow egress on port 53 to the cluster
           DNS.</td></tr>
       <tr><td>Port-forward works for HTTP but not for Kafka</td><td>The broker advertises its in-cluster address. Run
@@ -358,9 +371,9 @@ kubectl get all</code></pre>
   <p class="back-link"><a href="index.html">&larr; Back to course menu</a></p>
 
   <footer>
-    &copy;
-    <script>document.write(new Date().getFullYear())</script> Anders Launer Bæk-Petersen
+    &copy; <span id="year"></span> DECO Lab · University of Southern Denmark
   </footer>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 
 </body>
 

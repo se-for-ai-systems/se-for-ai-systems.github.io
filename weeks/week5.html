@@ -5,16 +5,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Week 5 - Software Engineering for AI Systems</title>
+  <meta name="description" content="Week 5: Observability with Knowledge Graphs. Seminar 3 on Friday 26 February 2027 at SDU Odense, with literature, slides and exercises.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Software Engineering for AI Systems">
+  <meta property="og:title" content="Week 5 - Software Engineering for AI Systems">
+  <meta property="og:description" content="Week 5: Observability with Knowledge Graphs. Seminar 3 on Friday 26 February 2027 at SDU Odense, with literature, slides and exercises.">
+  <meta property="og:url" content="https://se-for-ai-systems.github.io/weeks/week5.html">
+  <meta property="og:image" content="https://se-for-ai-systems.github.io/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Software Engineering for AI Systems: course title over a row of server racks">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="../style.css">
 </head>
 
 <body>
 
   <h1>Week 5 &ndash; Observability with Knowledge Graphs</h1>
+  <p class="subtitle">Software Engineering for AI Systems</p>
 
   <div class="deadline">
     <strong>Portfolio 2 due Monday 22 February 2027</strong> &middot; peer review due Wednesday 24 February<br>
-    <strong>Seminar 3 - Friday 26 February 2027, 09:00&ndash;16:00, SDU Odense, room U165</strong>
+    <strong>Seminar 3 &ndash; Friday 26 February 2027, 09:00&ndash;16:00, SDU Odense, room U165</strong>
   </div>
 
   <h2>Learning Goals</h2>
@@ -46,13 +58,12 @@
       <tr><td>09:45</td><td>Lecture: Knowledge graphs for observing AI systems &ndash; system, lineage and domain models
         </td></tr>
       <tr><td>10:45</td><td>Break</td></tr>
-      <tr><td>11:00</td><td>Lab 1: Build a knowledge graph of the reference project (components, data, model versions,
+      <tr><td>11:00</td><td>Lab 1: Build a knowledge graph of your system (components, data, model versions,
           deployments) and query its lineage</td></tr>
       <tr><td>12:00</td><td>Lunch</td></tr>
       <tr><td>12:45</td><td>Industry talk (speaker TBA)</td></tr>
-      <tr><td>13:30</td><td>Lab 2: Link sensor observations and predictions to the graph with domain semantics + apply to
-          own case</td></tr>
-      <tr><td>15:15</td><td>Peer-feedback round on Portfolio 2 + Portfolio 3 brief</td></tr>
+      <tr><td>13:30</td><td>Lab 2: Link observations and predictions to the graph with domain semantics</td></tr>
+      <tr><td>15:15</td><td>Peer-feedback round on Portfolio&nbsp;2 + Portfolio&nbsp;3 brief</td></tr>
       <tr><td>16:00</td><td>End</td></tr>
     </tbody>
   </table>
@@ -75,7 +86,6 @@
   </blockquote>
 
   <h2>Slides</h2>
-  <!-- Slides go in ../assets/lectures/week05/ -->
   <ul>
     <li>Lecture 11 &ndash; Knowledge Graphs for Observing AI Systems (posted after the seminar)</li>
     <li>Lecture 12 &ndash; Lineage, Domain Semantics and Data Governance (Bass ch. 10) (posted after the seminar)</li>
@@ -84,14 +94,15 @@
   <h2>Exercises</h2>
   <ul>
     <li><strong>Before the seminar:</strong> Peer-review two Portfolio 2 submissions (see
-      <a href="../portfolio.html">Portfolio &amp; Exam</a>).</li>
-    <li><strong>Core &ndash; Reference project:</strong> Build a knowledge graph of the reference project: services,
+      <a href="../portfolio.html#peer-review">Portfolio &amp; Exam</a>).</li>
+    <li><strong>Hands-on:</strong> Build a knowledge graph of your system: services,
       datasets and their versions, training runs, model versions and deployments, connected by lineage relations.
       Query it: which data trained the model in production, and which deployments use a given dataset?
     </li>
-    <li><strong>Core &ndash; Reference project:</strong> Add the domain: the hydraulic system, its components and
-      sensors, and each load cycle as an observation with its sensor results and the model's prediction. Query it: which predictions and deployments are affected if one sensor drifts?</li>
-    <li><strong>Stretch &ndash; Reference project:</strong> Replay the dataset as events through an event broker in
+    <li><strong>Hands-on:</strong> Add the domain: the things your model observes (e.g. machines, components and
+      sensors), and each observation with its input data and the model's prediction. Query it: which predictions and
+      deployments are affected if one data source drifts?</li>
+    <li><strong>Stretch:</strong> Replay your dataset as events through an event broker in
       your namespace and update the graph as observations arrive.</li>
     <li><strong>Own case:</strong> Sketch the knowledge graph of your system: the system and lineage part, the domain
       part, and three observability questions it should answer. Note where the data comes from (batch or stream), who
@@ -111,11 +122,10 @@
   <hr>
   <p class="back-link"><a href="../index.html">&larr; Back to course menu</a></p>
 
-
   <footer>
-    &copy;
-    <script>document.write(new Date().getFullYear())</script> Anders Launer Bæk-Petersen
+    &copy; <span id="year"></span> DECO Lab · University of Southern Denmark
   </footer>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 
 </body>
 

@@ -5,40 +5,61 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Week 2 - Software Engineering for AI Systems</title>
+  <meta name="description" content="Week 2: Architecting AI Systems, from notebook to code. Self-study week with reading, slides and exercises.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Software Engineering for AI Systems">
+  <meta property="og:title" content="Week 2 - Software Engineering for AI Systems">
+  <meta property="og:description" content="Week 2: Architecting AI Systems, from notebook to code. Self-study week with reading, slides and exercises.">
+  <meta property="og:url" content="https://se-for-ai-systems.github.io/weeks/week2.html">
+  <meta property="og:image" content="https://se-for-ai-systems.github.io/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Software Engineering for AI Systems: course title over a row of server racks">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="../style.css">
 </head>
 
 <body>
 
   <h1>Week 2 &ndash; Architecting AI Systems: From Notebook to Code</h1>
+  <p class="subtitle">Software Engineering for AI Systems</p>
 
   <div class="deadline">
-    <strong>Self-study week</strong> - reading, slides and exercises.<br>
+    <strong>Self-study week</strong> &ndash; reading, slides and exercises.<br>
     <strong>Portfolio 1 due Monday 8 February 2027.</strong>
   </div>
 
   <h2>Learning Goals</h2>
   <ul>
-    <li>Describe the AI system lifecycle: design, non-AI modules, build, test, release and deploy.</li>
+    <li>Describe the AI system lifecycle from design to system test, and how a trained model is wrapped as a
+      service. Release and deployment follow in week 4.</li>
     <li>Compare distributed architecture styles (client-server, SOA, microservices) and interface styles (REST,
       GraphQL, gRPC) for AI systems.</li>
     <li>Specify quality-attribute scenarios for an AI system (e.g. reliability, performance, modifiability).</li>
     <li>Document an architecture with C4 diagrams and architecture decision records (ADRs).</li>
-    <li>Restructure notebook code into a tested, containerized service.</li>
+    <li>Restructure notebook code into a tested, containerized service, with low coupling between the API and the
+      model so that the model can be replaced without changing the clients.</li>
   </ul>
 
   <h2>Literature</h2>
+  <p>The week follows [Bass et al., 2025] <em>Engineering AI Systems.</em> Read the Bass sections in the order
+    listed. Each exercise below names the section it builds on. Bass Ch. 6 organizes the system lifecycle into
+    design, development, build, test, release and deployment, and operation and monitoring. This week covers design
+    through test.</p>
   <ul>
-    <li><strong>Required:</strong> [Bass et al., 2025] <em>Engineering AI Systems.</em> Ch. 2 (Software Engineering
-      Background), sections on distributed software architectures and interface styles.</li>
-    <li><strong>Required:</strong> [Bass et al., 2025] <em>Engineering AI Systems.</em> Ch. 6 (System Life Cycle).
-    </li>
+    <li><strong>Required:</strong> [Bass et al., 2025] Sec. 2.1.2&ndash;2.1.3 (distributed software architectures
+      and interface styles) &ndash; the options behind your C4 container diagram and ADRs.</li>
+    <li><strong>Required:</strong> [Bass et al., 2025] Sec. 5.1.3&ndash;5.1.4, 5.2 and 5.3 (dividing the data,
+      generating, building and testing the model) &ndash; from the exploratory notebook phase to a model wrapped as a
+      tested service.</li>
+    <li><strong>Required:</strong> [Bass et al., 2025] Sec. 6.1&ndash;6.4 (design, non-AI modules, build and test)
+      &ndash; the system lifecycle up to release. Sec. 6.5 (release and deploy) follows in week 4.</li>
     <li><strong>Required:</strong> [Huyen, 2022] <em>Designing Machine Learning Systems.</em> Ch. 2 (Introduction to
       ML Systems Design).</li>
     <li><strong>Optional:</strong> [Bass et al., 2025] Ch. 3 (AI Background) &ndash; a recap of model selection and
       hyperparameters from your previous module.</li>
-    <li><strong>Required if your case uses an LLM or other foundation model:</strong> [Bass et al., 2025] Ch. 4
-      (Foundation Models) &ndash; customizing FMs and designing systems around them.</li>
+    <li><strong>Required if your case uses an LLM or other foundation model:</strong> [Bass et al., 2025] Sec.
+      4.4&ndash;4.5 (customizing FMs, designing a system using FMs).</li>
     <li><strong>Optional:</strong> [Bass, Clements &amp; Kazman, 2021] <em>Software Architecture in Practice.</em>
       Quality-attribute scenarios and tactics.</li>
     <li><strong>Optional:</strong> [Brown] <em>The C4 model.</em> [Nygard, 2011] <em>Documenting Architecture
@@ -52,31 +73,37 @@
   </blockquote>
 
   <h2>Slides</h2>
-  <!-- Slides go in ../assets/lectures/week02/ -->
   <ul>
-    <li>Lecture 3 &ndash; Distributed Architectures and Interface Styles (Bass ch. 2) (slides TBA)</li>
-    <li>Lecture 4 &ndash; The AI System Lifecycle (Bass ch. 6) (slides TBA)</li>
-    <li>Lecture 5 &ndash; From Notebook to Production Code (slides TBA)</li>
+    <li>Lecture 3 &ndash; Distributed Architectures and Interface Styles (Bass 2.1.2&ndash;2.1.3) (slides TBA)</li>
+    <li>Lecture 4 &ndash; The AI System Lifecycle (Bass 6.1&ndash;6.4) (slides TBA)</li>
+    <li>Lecture 5 &ndash; From Notebook to Production Code (Bass 5.1.3&ndash;5.3) (slides TBA)</li>
   </ul>
 
   <h2>Exercises</h2>
   <ul>
-    <li><strong>Reference project:</strong> Refactor the notebook into a Python package (<code>src/</code> layout,
-      <code>pyproject.toml</code>) with separate data, training and inference modules.</li>
-    <li><strong>Reference project:</strong> Add unit tests (pytest) for preprocessing and the model's input/output
-      contract, and evaluate the model per component class, not only overall. Split the data by time or block, not
-      randomly: the dataset comes from a single test rig.</li>
-    <li><strong>Reference project:</strong> Serve the model with FastAPI (<code>/predict</code> and
+    <li><strong>Hands-on:</strong> Refactor your notebook into a Python package (<code>src/</code> layout,
+      <code>pyproject.toml</code>) with separate data, training and inference modules. Let the inference module act as
+      the intermediary between the API and the model, so that a new model version does not change the API. (Bass 5.1.4,
+      6.1.3)</li>
+    <li><strong>Hands-on:</strong> Add unit tests (pytest) for preprocessing and the model's input/output
+      contract, covering common, edge and negative cases, and fix the random seeds so the tests are repeatable.
+      Evaluate the model per class or segment, not only overall. If your observations are correlated (e.g. from the
+      same machine or site), split the data by time or block, not randomly. (Bass 5.1.3, 5.3, 6.2)</li>
+    <li><strong>Hands-on:</strong> Serve the model with FastAPI (<code>/predict</code> and
       <code>/health</code>), write a Dockerfile (start from a slim Python image with CPU-only libraries), and build and
-      run the image locally.</li>
+      run the image locally. (Bass 5.2, 6.3)</li>
     <li><strong>Own case:</strong> Write 3&ndash;5 quality-attribute scenarios (at least one about model quality),
-      draw C4 context and container diagrams, write at least two ADRs, and classify the system under the EU AI Act.
-      Finish and submit Portfolio 1.</li>
+      draw C4 context and container diagrams, write at least two ADRs and classify the system under the EU AI Act.
+      Base at least one ADR on a trade-off from Bass 2.1.2&ndash;2.1.3, 5.2 or 6.1.2 (e.g. architecture or interface
+      style, the model as a library call or as a separate service, or what not to package as a microservice). Finish
+      and submit Portfolio 1.</li>
+    <li><strong>Reading check:</strong> Answer Bass 6.8, questions 1 and 2 (must a system pass all tests before
+      production; why repeat the unit tests in the system test?). Discuss on the course Discord server.</li>
   </ul>
 
   <h2>Notes</h2>
   <blockquote>
-    <p>See <a href="../portfolio.html">Portfolio &amp; Exam</a> for the Portfolio 1 brief and assessment criteria.
+    <p>See <a href="../portfolio.html#p1">Portfolio &amp; Exam</a> for the Portfolio 1 brief and assessment criteria.
       Terms such as ADR, C4 and quality-attribute scenario are explained in the <a href="../glossary.html">Glossary</a>.
     </p>
   </blockquote>
@@ -84,11 +111,10 @@
   <hr>
   <p class="back-link"><a href="../index.html">&larr; Back to course menu</a></p>
 
-
   <footer>
-    &copy;
-    <script>document.write(new Date().getFullYear())</script> Anders Launer Bæk-Petersen
+    &copy; <span id="year"></span> DECO Lab · University of Southern Denmark
   </footer>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 
 </body>
 

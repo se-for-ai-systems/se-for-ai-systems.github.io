@@ -5,16 +5,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Week 3 - Software Engineering for AI Systems</title>
+  <meta name="description" content="Week 3: The Cloud Continuum. Seminar 2 on Friday 12 February 2027 at SDU Odense, with literature, slides and exercises.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Software Engineering for AI Systems">
+  <meta property="og:title" content="Week 3 - Software Engineering for AI Systems">
+  <meta property="og:description" content="Week 3: The Cloud Continuum. Seminar 2 on Friday 12 February 2027 at SDU Odense, with literature, slides and exercises.">
+  <meta property="og:url" content="https://se-for-ai-systems.github.io/weeks/week3.html">
+  <meta property="og:image" content="https://se-for-ai-systems.github.io/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Software Engineering for AI Systems: course title over a row of server racks">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="../style.css">
 </head>
 
 <body>
 
   <h1>Week 3 &ndash; The Cloud Continuum</h1>
+  <p class="subtitle">Software Engineering for AI Systems</p>
 
   <div class="deadline">
     <strong>Portfolio 1 due Monday 8 February 2027</strong> &middot; peer review due Wednesday 10 February<br>
-    <strong>Seminar 2 - Friday 12 February 2027, 09:00&ndash;16:00, SDU Odense, room U165</strong>
+    <strong>Seminar 2 &ndash; Friday 12 February 2027, 09:00&ndash;16:00, SDU Odense, room U165</strong>
   </div>
 
   <h2>Learning Goals</h2>
@@ -24,7 +36,7 @@
     <li>Apply reliability tactics (health checks, redundancy, circuit breakers, graceful degradation) and
       performance trade-offs (latency, throughput, resource mapping).</li>
     <li>Design a secure infrastructure with heterogeneous compute nodes.</li>
-    <li>Handle requirements on data sovereignty and their impact on architecture.</li>
+    <li>Address data-sovereignty requirements and their impact on architecture.</li>
   </ul>
 
   <h2>Seminar Agenda</h2>
@@ -42,12 +54,12 @@
       <tr><td>09:15</td><td>Discussion of the prep reading</td></tr>
       <tr><td>09:45</td><td>Lecture: The cloud continuum, heterogeneous compute and data sovereignty</td></tr>
       <tr><td>10:45</td><td>Break</td></tr>
-      <tr><td>11:00</td><td>Lab 1: Deploy the reference-project service to your namespace</td></tr>
+      <tr><td>11:00</td><td>Lab 1: Deploy your service from week 2 to your namespace</td></tr>
       <tr><td>12:00</td><td>Lunch</td></tr>
       <tr><td>12:45</td><td>Industry talk (speaker TBA)</td></tr>
       <tr><td>13:30</td><td>Case discussion: placing AI workloads under security and sovereignty constraints</td></tr>
-      <tr><td>14:00</td><td>Lab 2: Harden the deployment (resources, secrets, network policies) + apply to own case</td></tr>
-      <tr><td>15:15</td><td>Peer-feedback round on Portfolio 1 + Portfolio 2 brief</td></tr>
+      <tr><td>14:00</td><td>Lab 2: Harden the deployment (resources, secrets, network policies)</td></tr>
+      <tr><td>15:15</td><td>Peer-feedback round on Portfolio&nbsp;1 + Portfolio&nbsp;2 brief</td></tr>
       <tr><td>16:00</td><td>End</td></tr>
     </tbody>
   </table>
@@ -55,7 +67,7 @@
   <h2>Literature</h2>
   <ul>
     <li><strong>Required:</strong> [Bass et al., 2025] <em>Engineering AI Systems.</em> Ch. 2 (Software Engineering
-      Background), section on distributed computing.</li>
+      Background), the sections on distributed computing, virtualization and orchestration.</li>
     <li><strong>Required:</strong> [Bass et al., 2025] <em>Engineering AI Systems.</em> Ch. 7 (Reliability), 8
       (Performance) and 9 (Security).</li>
     <li><strong>Required:</strong> [Huyen, 2022] <em>Designing Machine Learning Systems.</em> Ch. 7 (Model Deployment
@@ -70,7 +82,6 @@
   </blockquote>
 
   <h2>Slides</h2>
-  <!-- Slides go in ../assets/lectures/week03/ -->
   <ul>
     <li>Lecture 6 &ndash; The Cloud Continuum: Distributed Computing, Containers and Orchestration (Bass ch. 2)
       (posted after the seminar)</li>
@@ -80,15 +91,15 @@
   <h2>Exercises</h2>
   <ul>
     <li><strong>Before the seminar:</strong> Peer-review two Portfolio 1 submissions (see
-      <a href="../portfolio.html">Portfolio &amp; Exam</a>).</li>
-    <li><strong>Reference project:</strong> Push your image to a public container registry (e.g. Docker Hub or GitHub
+      <a href="../portfolio.html#peer-review">Portfolio &amp; Exam</a>).</li>
+    <li><strong>Hands-on:</strong> Push your image to a public container registry (e.g. Docker Hub or GitHub
       Container Registry; see <em>Before you push</em> below) and deploy it to your namespace with a Deployment and a
       Service. Add readiness and liveness probes on <code>/health</code>, run multiple replicas, and kill a pod to
       observe recovery.</li>
-    <li><strong>Reference project:</strong> Add resource requests/limits, move configuration to a ConfigMap/Secret,
+    <li><strong>Hands-on:</strong> Add resource requests/limits, move configuration to a ConfigMap/Secret,
       and restrict traffic with a NetworkPolicy.</li>
     <li><strong>Own case:</strong> Decide where each component should run (edge, on-premises or cloud). Which data may
-      not leave the company or the country? Which existing systems must it integrate with? Compare one managed or
+      not leave the company or the country? Which existing systems must your system integrate with? Compare one managed or
       vendor platform with self-hosting (build vs. buy). Start Portfolio 2.</li>
   </ul>
 
@@ -113,11 +124,10 @@
   <hr>
   <p class="back-link"><a href="../index.html">&larr; Back to course menu</a></p>
 
-
   <footer>
-    &copy;
-    <script>document.write(new Date().getFullYear())</script> Anders Launer Bæk-Petersen
+    &copy; <span id="year"></span> DECO Lab · University of Southern Denmark
   </footer>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 
 </body>
 

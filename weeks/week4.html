@@ -5,15 +5,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Week 4 - Software Engineering for AI Systems</title>
+  <meta name="description" content="Week 4: MLOps &amp; GitOps. Self-study week with reading, slides and exercises.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Software Engineering for AI Systems">
+  <meta property="og:title" content="Week 4 - Software Engineering for AI Systems">
+  <meta property="og:description" content="Week 4: MLOps &amp; GitOps. Self-study week with reading, slides and exercises.">
+  <meta property="og:url" content="https://se-for-ai-systems.github.io/weeks/week4.html">
+  <meta property="og:image" content="https://se-for-ai-systems.github.io/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Software Engineering for AI Systems: course title over a row of server racks">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="../style.css">
 </head>
 
 <body>
 
   <h1>Week 4 &ndash; MLOps &amp; GitOps</h1>
+  <p class="subtitle">Software Engineering for AI Systems</p>
 
   <div class="deadline">
-    <strong>Self-study week</strong> - reading, slides and exercises.<br>
+    <strong>Self-study week</strong> &ndash; reading, slides and exercises.<br>
     <strong>Portfolio 2 due Monday 22 February 2027.</strong>
   </div>
 
@@ -22,7 +34,9 @@
     <li>Describe key MLOps concepts: CI/CD for ML, experiment tracking, model registry and data versioning.</li>
     <li>Describe the AI model lifecycle (develop, build, test, release) and how it connects to the system lifecycle.
     </li>
-    <li>Explain infrastructure as code and infrastructure drift, and how GitOps addresses drift.</li>
+    <li>Compare continuous delivery and continuous deployment, deployment patterns (rolling upgrade, blue/green,
+      canary) and rollback, and explain version skew.</li>
+    <li>Explain infrastructure as code, idempotence and infrastructure drift, and how GitOps addresses drift.</li>
     <li>Set up a CI pipeline that tests, builds and publishes an ML service.</li>
     <li>Version data and models to make training reproducible.</li>
     <li>Explain the GitOps principles (declarative, versioned, pulled automatically, continuously reconciled) and
@@ -31,20 +45,26 @@
   </ul>
 
   <h2>Literature</h2>
+  <p>The week follows [Bass et al., 2025] <em>Engineering AI Systems.</em> Read the Bass sections in the order
+    listed. Each exercise below names the section it builds on. Of the lifecycle stages in Bass Ch. 6, this week
+    covers build, release and deployment, and connects them to the model lifecycle in Ch. 5.</p>
   <ul>
-    <li><strong>Required:</strong> [Bass et al., 2025] <em>Engineering AI Systems.</em> Ch. 2 (Software Engineering
-      Background), sections on DevOps (incl. infrastructure as code) and MLOps.</li>
-    <li><strong>Required:</strong> [Bass et al., 2025] <em>Engineering AI Systems.</em> Ch. 5 (AI Model Life Cycle).
-    </li>
-    <li><strong>Required:</strong> [Bass et al., 2025] <em>Engineering AI Systems.</em> Ch. 14 (Case study:
-      Predicting Customer Churn in Banks).</li>
+    <li><strong>Required:</strong> [Bass et al., 2025] Sec. 2.2&ndash;2.3 (DevOps and MLOps background) &ndash; in
+      particular the parts of Sec. 2.2.1 on idempotence and infrastructure drift.</li>
+    <li><strong>Required:</strong> [Bass et al., 2025] Sec. 5.1.1&ndash;5.1.2, 5.1.5 and 5.4 (data management,
+      feature engineering, model registry, release). You read Sec. 5.2&ndash;5.3 in week 2.</li>
+    <li><strong>Required:</strong> [Bass et al., 2025] Sec. 6.5 (release and deploy: continuous deployment,
+      deployment patterns, rollback, version skew) and 6.6.4 (dynamic model updating).</li>
+    <li><strong>Required:</strong> [Bass et al., 2025] Ch. 14 (Case study: Predicting Customer Churn in Banks)
+      &ndash; MLflow, a model registry and Kubernetes in a regulated setting.</li>
+    <li><strong>Required:</strong> [OpenGitOps] <em>GitOps Principles</em> v1.0.0. Bass does not cover GitOps; it
+      extends the infrastructure-as-code ideas of Sec. 2.2.1.</li>
     <li><strong>Required:</strong> [Huyen, 2022] <em>Designing Machine Learning Systems.</em> Ch. 10 (Infrastructure
       and Tooling for MLOps).</li>
     <li><strong>Optional:</strong> [Bass et al., 2025] Ch. 12 (Case study: Using a Pretrained Language Model for
       Tendering) &ndash; MLOps from proof of concept to production.</li>
     <li><strong>Optional:</strong> [Huyen, 2022] Ch. 6 (Model Development and Offline Evaluation) &ndash; useful for
       the evaluation gate in CI.</li>
-    <li><strong>Optional:</strong> [OpenGitOps] <em>GitOps Principles</em> v1.0.0.</li>
     <li><strong>Optional:</strong> [Breck et al., 2017] <em>The ML Test Score.</em></li>
   </ul>
 
@@ -53,36 +73,46 @@
   </blockquote>
 
   <h2>Slides</h2>
-  <!-- Slides go in ../assets/lectures/week04/ -->
   <ul>
-    <li>Lecture 8 &ndash; DevOps, Infrastructure as Code and MLOps (Bass ch. 2) (slides TBA)</li>
-    <li>Lecture 9 &ndash; The AI Model Lifecycle: Versioning Data and Models (Bass ch. 5) (slides TBA)
-    </li>
-    <li>Lecture 10 &ndash; GitOps and MLOps Case Studies (Bass ch. 12, 14) (slides TBA)</li>
+    <li>Lecture 8 &ndash; DevOps, Infrastructure as Code and MLOps (Bass 2.2&ndash;2.3) (slides TBA)</li>
+    <li>Lecture 9 &ndash; The AI Model Lifecycle: Versioning Data and Models (Bass 5.1, 5.4) (slides TBA)</li>
+    <li>Lecture 10 &ndash; Release, Deployment and GitOps, with MLOps Case Studies (Bass 6.5, ch. 12, 14) (slides
+      TBA)</li>
   </ul>
 
   <h2>Exercises</h2>
   <ul>
-    <li><strong>Core &ndash; Reference project:</strong> Deploy MLflow in your namespace. Log training runs
+    <li><strong>Hands-on:</strong> Deploy MLflow in your namespace. Log training runs
       (parameters, metrics, artifacts) from your laptop through <code>kubectl port-forward</code> and register the best
-      model under an alias (e.g. <code>champion</code>).</li>
-    <li><strong>Core &ndash; Reference project:</strong> The image contains code only. At startup the service loads
-      the model from MLflow in your namespace by alias (e.g. <code>models:/hydrawatch@champion</code>). Rolling back
-      means moving the alias, or the pinned version in your Helm values.</li>
-    <li><strong>Core &ndash; Reference project:</strong> Create a CI pipeline (e.g. GitHub Actions) that lints, runs
-      unit and data-schema tests, builds and pushes the image to a public container registry on every push. Add an
-      evaluation gate: fail the pipeline if the model scores below a threshold on a fixed evaluation set.</li>
-    <li><strong>Core &ndash; Reference project:</strong> Set up Git-driven deployment from your laptop: your Git
+      model under an alias (e.g. <code>champion</code>). (Bass 5.1.5, 14.1.4)</li>
+    <li><strong>Hands-on:</strong> The image contains code only. At startup the service loads the model from MLflow
+      in your namespace by alias (e.g. <code>models:/&lt;model-name&gt;@champion</code>). Rolling back means moving
+      the alias, or the pinned version in your Helm values. (Bass 6.5.2, Rollback)</li>
+    <li><strong>Hands-on:</strong> Create a CI pipeline (e.g. GitHub Actions) that lints, runs
+      unit and data-schema tests, builds the image and pushes it to a public container registry on every push. Add an
+      evaluation gate: fail the pipeline if the model scores below a threshold on a fixed evaluation set.
+      (Bass 6.3, 6.5)</li>
+    <li><strong>Hands-on:</strong> Set up Git-driven deployment from your laptop: your Git
       repository (manifests, Helm values, image tags) is the single source of truth, and a script (e.g. a Makefile
       target) deploys the committed state to your namespace with <code>helm upgrade --install</code>. Use
-      <code>kubectl diff</code> to detect drift between Git and the cluster. A GitOps operator such as Argo CD or Flux
-      would pull and reconcile automatically, but it requires cluster-wide permissions that the course cluster does not
-      grant.</li>
-    <li><strong>Stretch &ndash; Reference project:</strong> Track the training data with DVC so that any model version
-      can be traced back to its data, and scan your image for known vulnerabilities in CI.</li>
+      <code>kubectl diff</code> to detect drift between Git and the cluster: change a resource limit by hand with
+      <code>kubectl edit</code>, detect the change, and remove it by redeploying from Git. A GitOps operator such as
+      Argo CD or Flux would pull and reconcile automatically, but it requires cluster-wide permissions that the course
+      cluster does not grant. (Bass 2.2.1, Idempotence and Infrastructure Drift)</li>
+    <li><strong>Hands-on:</strong> Track the training data with DVC so that any model version
+      can be traced back to its data. (Bass 5.1.1)</li>
+    <li><strong>Stretch:</strong> In CI, generate a software bill of materials (SBOM) for the image and scan it for
+      known vulnerabilities (e.g. with Syft and Grype, or Trivy). (Bass 5.1.1, 6.3, 6.4)</li>
     <li><strong>Own case:</strong> Describe your CI/CD, deployment and versioning workflow, and whether a
-      GitOps operator would fit your company. Finish and submit Portfolio 2.
+      GitOps operator would fit your company. Name the triggers that will force a new model version in your case
+      (data drift, new data, changed requirements, detected bias, security issues) and how often you expect them.
+      State whether you need continuous delivery with a human sign-off or
+      continuous deployment, and which deployment pattern you would use. (Bass 5.4, 6.5.1&ndash;6.5.2) Finish and
+      submit Portfolio 2.
     </li>
+    <li><strong>Reading check:</strong> Answer Bass 5.6 (how DevOps relates to MLOps, the core components of an MLOps
+      pipeline, how IaC is used in MLOps) and Bass 14.5, question 3 (how a model registry helps with compliance).
+      Discuss on the course Discord server.</li>
   </ul>
 
   <h2>Notes</h2>
@@ -96,11 +126,10 @@
   <hr>
   <p class="back-link"><a href="../index.html">&larr; Back to course menu</a></p>
 
-
   <footer>
-    &copy;
-    <script>document.write(new Date().getFullYear())</script> Anders Launer Bæk-Petersen
+    &copy; <span id="year"></span> DECO Lab · University of Southern Denmark
   </footer>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 
 </body>
 

@@ -5,15 +5,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Week 6 - Software Engineering for AI Systems</title>
+  <meta name="description" content="Week 6: Observability &amp; Feedback Loops. Self-study week with reading, slides and exercises.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Software Engineering for AI Systems">
+  <meta property="og:title" content="Week 6 - Software Engineering for AI Systems">
+  <meta property="og:description" content="Week 6: Observability &amp; Feedback Loops. Self-study week with reading, slides and exercises.">
+  <meta property="og:url" content="https://se-for-ai-systems.github.io/weeks/week6.html">
+  <meta property="og:image" content="https://se-for-ai-systems.github.io/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Software Engineering for AI Systems: course title over a row of server racks">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="../style.css">
 </head>
 
 <body>
 
   <h1>Week 6 &ndash; Observability &amp; Feedback Loops</h1>
+  <p class="subtitle">Software Engineering for AI Systems</p>
 
   <div class="deadline">
-    <strong>Self-study week</strong> - reading, slides and exercises.<br>
+    <strong>Self-study week</strong> &ndash; reading, slides and exercises.<br>
     <strong>Portfolio 3 due Wednesday 3 March 2027</strong> &middot; peer review due Friday 5 March<br>
     Portfolio 3 requires the observability <em>design</em>; dashboards and drift evidence from this week may be added
     in the final report.
@@ -21,21 +33,33 @@
 
   <h2>Learning Goals</h2>
   <ul>
-    <li>Explain metrics, logs and traces, and what is specific about monitoring ML systems.</li>
+    <li>Explain metrics, logs and traces, and what is specific to monitoring ML systems. Distinguish monitoring
+      (reactive, predefined metrics) from observability (understanding the system's internal state from its outputs,
+      including questions nobody anticipated).</li>
     <li>Detect data and concept drift and monitor model performance in production, using proxy metrics while labels
       arrive late.</li>
-    <li>Define SLIs and SLOs and set up dashboards and alerts for Site Reliability Engineering teams, keeping service
+    <li>Define SLIs and SLOs, set up dashboards and alerts as in Site Reliability Engineering, and keep service
       health and model quality apart.</li>
-    <li>Design feedback loops that trigger retraining, rollback or runtime reconfiguration.</li>
+    <li>Design feedback loops that trigger retraining, rollback or runtime reconfiguration, including a fallback
+      when neither rolling back nor rolling forward is possible.</li>
   </ul>
 
   <h2>Literature</h2>
+  <p>The week follows [Bass et al., 2025] <em>Engineering AI Systems.</em> Read the Bass sections in the order
+    listed. Each exercise below names the section it builds on. Of the lifecycle stages in Bass Ch. 6, this week
+    covers the last one: operate, monitor and analyze, and feed the results back into the next iteration.</p>
   <ul>
-    <li><strong>Required:</strong> [Bass et al., 2025] <em>Engineering AI Systems.</em> Ch. 11 (Observability).</li>
-    <li><strong>Required:</strong> [Bass et al., 2025] <em>Engineering AI Systems.</em> Ch. 8 (Performance), revisit
-      the sections on SLAs, SLOs and monitoring.</li>
+    <li><strong>Required:</strong> [Bass et al., 2025] Sec. 6.6 (operate, monitor and analyze: monitoring,
+      incidents, data drift, dynamic model updating, chaos engineering, analysis).</li>
+    <li><strong>Required:</strong> [Bass et al., 2025] Ch. 11 (Observability) &ndash; from monitorability to
+      observability, and how to design it into the architecture, build, test and operations.</li>
+    <li><strong>Required:</strong> [Bass et al., 2025] Ch. 8 (Performance), revisit the &ldquo;Operation&rdquo; part
+      of Sec. 8.1.2 (alerts to first responders, SLAs and SLOs) and the &ldquo;Operations&rdquo; part of Sec. 8.2.2
+      (measuring accuracy in production).</li>
     <li><strong>Required:</strong> [Huyen, 2022] <em>Designing Machine Learning Systems.</em> Ch. 8 (Data
       Distribution Shifts and Monitoring) and 9 (Continual Learning and Test in Production).</li>
+    <li><strong>Optional:</strong> [Bass et al., 2025] Sec. 14.1.5 (model performance monitoring in the banking case)
+      &ndash; a monitoring architecture and drift measures.</li>
     <li><strong>Optional:</strong> [Bass et al., 2025] Ch. 15 (The Future of AI Engineering) &ndash; DevOps 2.0 and
       the future of MLOps and observability.</li>
     <li><strong>Optional:</strong> [Beyer et al., 2016] <em>Site Reliability Engineering.</em> Ch. 4 and 6.</li>
@@ -47,27 +71,36 @@
   </blockquote>
 
   <h2>Slides</h2>
-  <!-- Slides go in ../assets/lectures/week06/ -->
   <ul>
-    <li>Lecture 13 &ndash; Observability for AI Systems (Bass ch. 11) (slides TBA)</li>
-    <li>Lecture 14 &ndash; Drift, Feedback Loops and the Future of AI Engineering (Bass ch. 15) (slides TBA)</li>
+    <li>Lecture 13 &ndash; Observability for AI Systems (Bass 6.6.1&ndash;6.6.2, ch. 11) (slides TBA)</li>
+    <li>Lecture 14 &ndash; Drift, Feedback Loops and the Future of AI Engineering (Bass 6.6.3&ndash;6.6.6, ch. 15)
+      (slides TBA)</li>
   </ul>
 
   <h2>Exercises</h2>
   <ul>
-    <li><strong>Core &ndash; Reference project:</strong> Deploy Prometheus and Grafana in your namespace and
-      instrument the FastAPI service (request rate, latency, errors, prediction distribution).</li>
-    <li><strong>Core &ndash; Reference project:</strong> Add drift detection on the streaming data (compare live
-      features with the training data), inject drift by replaying degraded cycles, and visualize it in a dashboard.
-    </li>
-    <li><strong>Core &ndash; Reference project:</strong> Define a service SLO (e.g. latency) and a separate
+    <li><strong>Hands-on:</strong> Deploy Prometheus and Grafana in your namespace and
+      instrument the FastAPI service (request rate, latency, errors, prediction distribution). Log each prediction as
+      a structured JSON line with a timestamp, request ID and model version, so that any prediction can be traced to
+      the model that made it. (Bass 6.6.1, 11.3.1)</li>
+    <li><strong>Hands-on:</strong> Add drift detection on the incoming data (compare live
+      features with the training data, e.g. with a Kolmogorov&ndash;Smirnov test or the population stability index),
+      inject drift by replaying degraded or shifted data, and visualize it in a dashboard. Injecting drift is a
+      chaos-engineering experiment applied to your data. (Bass 6.6.3, 6.6.5, 14.1.5)</li>
+    <li><strong>Hands-on:</strong> Define a service SLO (e.g. latency) and a separate
       model-quality signal (drift or a proxy metric), each with an alert rule. When the model-quality alert fires, roll
       back to the previous model version (move the registry alias, or revert the commit in Git and redeploy from your
-      laptop).</li>
-    <li><strong>Stretch &ndash; Reference project:</strong> Run a new model version in shadow mode next to the current
-      one and compare their predictions before switching.</li>
-    <li><strong>Own case:</strong> Design the observability and feedback loop for your system. Finish and submit
-      Portfolio 3.</li>
+      laptop). (Bass 8.1.2, 6.6.2&ndash;6.6.3, 6.5.2)</li>
+    <li><strong>Stretch:</strong> Run a new model version in shadow mode next to the current
+      one and compare their predictions before switching. The course books do not cover shadow deployment; compare
+      it with canary and A/B testing yourself. (Bass 6.5.2)</li>
+    <li><strong>Own case:</strong> Design the observability and feedback loop for your system, including the
+      thresholds (drift, performance degradation, amount of new data) that trigger retraining, and what the system
+      falls back to (e.g. a rule-based baseline) when neither the old nor the new model is good enough. (Bass 6.5.2,
+      6.6.6, 11.3) Finish and submit Portfolio 3.</li>
+    <li><strong>Reading check:</strong> Answer Bass 11.5, questions 2 and 3 (how to define and measure the health of an
+      AI system; how an SRE analyzes a data-drift alert, and whether it can be repaired in real time). Discuss on the
+      course Discord server.</li>
   </ul>
 
   <h2>Notes</h2>
@@ -81,11 +114,10 @@
   <hr>
   <p class="back-link"><a href="../index.html">&larr; Back to course menu</a></p>
 
-
   <footer>
-    &copy;
-    <script>document.write(new Date().getFullYear())</script> Anders Launer Bæk-Petersen
+    &copy; <span id="year"></span> DECO Lab · University of Southern Denmark
   </footer>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 
 </body>
 

@@ -5,58 +5,48 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Software Engineering for AI Systems</title>
+  <meta name="description" content="Master-level course (5 ECTS, IT-Vest / Aalborg University, Q1 2027) on taking AI systems from notebook to production: software architecture, the cloud continuum, MLOps and observability.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Software Engineering for AI Systems">
+  <meta property="og:title" content="Software Engineering for AI Systems">
+  <meta property="og:description" content="Master-level course (5 ECTS, IT-Vest / Aalborg University, Q1 2027) on taking AI systems from notebook to production: software architecture, the cloud continuum, MLOps and observability.">
+  <meta property="og:url" content="https://se-for-ai-systems.github.io/">
+  <meta property="og:image" content="https://se-for-ai-systems.github.io/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Software Engineering for AI Systems: course title over a row of server racks">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
   <h1>Software Engineering for AI Systems</h1>
-  <p class="subtitle">IT-Vest &middot; 5 ECTS &middot; Course website - Q1 2027</p>
+  <p class="subtitle">IT-Vest &middot; 5 ECTS &middot; Q1 2027</p>
 
   <h2>Course Description</h2>
   <p>
-    AI systems differ from conventional software: their behaviour is learned from data rather than specified, they can
+    AI systems differ from conventional software: their behavior is learned from data rather than specified, they can
     fail silently and degrade as the data changes, and with foundation models their outputs can be hard to evaluate at
-    all. Software Engineering for AI Systems is a Master-level course that teaches the engineering practices that make
-    such systems dependable in production.
+    all. Software Engineering for AI Systems is a Master-level course on the engineering practices that make such
+    systems reliable in production.
     <br><br>
-    Motivated by work such as <em>The Five Laws of SE for AI</em> (Menzies, 2020) and <em>Hidden Technical Debt in
-      Machine Learning Systems</em> (Sculley et al., 2015), the course addresses the complexity of data dependencies, ML
-    lifecycles, system integration, and the often overlooked technical debt that accumulates in AI systems.
+    Building on work such as <em>The Five Laws of SE for AI</em> (Menzies, 2020) and <em>Hidden Technical Debt in
+      Machine Learning Systems</em> (Sculley et al., 2015), the course addresses the complexity of data dependencies,
+    machine learning lifecycles, system integration, and the technical debt that accumulates in AI systems. It
+    follows the view of <em>Engineering AI Systems: Architecture and DevOps Essentials</em> (Bass et al., 2025) that
+    engineering AI systems extends the engineering of conventional systems. The quality of an AI system comes from
+    three contributors: the software architecture, the DevOps processes for building, testing, deploying, and
+    operating it, and the AI models together with the data they depend on. These areas have evolved in largely separate communities
+    with different views of quality. To a software engineer, performance means efficiency; to an AI specialist, the
+    accuracy of results; and to a DevOps specialist, how fast a change moves through the deployment pipeline. The
+    course brings the three together and treats the trade-offs between quality attributes as design decisions.
     <br><br>
-    You have trained models in notebooks &ndash; this course is about getting them into production. The primary
-    objective is to introduce software engineering practices that help organize, scale, deploy, and monitor AI systems
-    in production environments. The course combines a solid theoretical foundation with hands-on experience using
-    open-source and cloud-native frameworks, and it builds on real industrial AI challenges brought in by the students.
+    You have trained models in notebooks, and this course is about getting them into production. It introduces the
+    software engineering practices used to organize, deploy, scale, and monitor AI systems in operation. The course
+    combines a theoretical foundation with hands-on experience using open-source and cloud-native frameworks, and it
+    builds on the real industrial AI challenges you bring from your own companies.
   </p>
-  <p>
-    <strong>What you bring back to your organisation:</strong> a reviewed architecture, deployment and data-governance
-    design for a real problem in your company, documented with decision records your organisation can reuse, a
-    one-page recommendation for decision makers, and a working reference pipeline you have built and operated yourself.
-  </p>
-
-  <h2>Course Format</h2>
-  <ul>
-    <li><strong>Workload:</strong> 5 ECTS, about 137 hours in total &ndash; roughly 19 hours per week over 7 weeks,
-      including the three seminar days.</li>
-    <li><strong>Three seminar days</strong> (Fridays, 09:00&ndash;16:00, on-site at SDU Odense; rooms on the week pages), one per theme:
-      software architecture, the cloud continuum, and observability with knowledge graphs. Each day is led by a
-      lecturer of the day, who decides the format; expect a mix of discussion of the prep reading, short lectures and
-      labs. Every day opens with a welcome at 09:00 and has a talk by an industry speaker after lunch. Read the
-      preparation listed on the week page before each seminar.</li>
-    <li><strong>Self-study weeks</strong> between seminars with reading, slides and exercises on MLOps,
-      continuous delivery and observability. Questions during self-study weeks: course Discord server (invite follows by email).</li>
-    <!-- TODO: set up the course Discord server and email the invite to students before week 1. -->
-    <li><strong>A shared reference project</strong> that takes a notebook model all the way to a monitored production
-      service, step by step. Each week you then apply the same step to your own case.</li>
-    <li><strong>A Kubernetes cluster</strong> where each student/group gets its own namespace. You deploy and operate
-      everything yourselves &ndash; there are no shared services.</li>
-    <li><strong>Three portfolio assignments</strong> based on a problem from your own company, one per seminar theme.
-      Together they form the exam report. Confidential cases are handled by anonymising or using a fallback case. See
-      <a href="portfolio.html">Portfolio &amp; Exam</a>.</li>
-  </ul>
-  <p class="back-link"><a href="weeks/week1.html#before-week-1">&rarr; Before week 1: tools, accounts and
-      preparation</a></p>
 
   <h2>Weekly Schedule</h2>
   <table>
@@ -64,169 +54,115 @@
       <tr>
         <th>Week: Date</th>
         <th>Topic</th>
-        <th>Event</th>
+        <th>Event(s)</th>
         <th>Materials</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td>4: 25-29 Jan 2027</td>
+        <td>4: 25&#8209;29&nbsp;Jan&nbsp;2027</td>
         <td>SE for AI Systems &amp; Software Architecture</td>
-        <td><strong>Seminar 1</strong> (Fri 29 Jan)<br>Portfolio 1 brief</td>
-        <td><a href="weeks/week1.html">Week 1</a></td>
+        <td><strong>Seminar&nbsp;1</strong> (Fri&nbsp;29&nbsp;Jan)<br>Portfolio&nbsp;1 brief</td>
+        <td><a href="weeks/week1.html">Week&nbsp;1</a></td>
       </tr>
       <tr>
-        <td>5: 01-05 Feb 2027</td>
+        <td>5: 01&#8209;05&nbsp;Feb&nbsp;2027</td>
         <td>Architecting AI Systems: From Notebook to Code</td>
         <td>Self-study</td>
-        <td><a href="weeks/week2.html">Week 2</a></td>
+        <td><a href="weeks/week2.html">Week&nbsp;2</a></td>
       </tr>
       <tr>
-        <td>6: 08-12 Feb 2027</td>
+        <td>6: 08&#8209;12&nbsp;Feb&nbsp;2027</td>
         <td>The Cloud Continuum</td>
-        <td><strong>Portfolio 1 due</strong> (Mon 8 Feb)<br><strong>Seminar 2</strong> (Fri 12 Feb)</td>
-        <td><a href="weeks/week3.html">Week 3</a></td>
+        <td><strong>Portfolio&nbsp;1 due</strong> (Mon&nbsp;8&nbsp;Feb)<br><strong>Seminar&nbsp;2</strong> (Fri&nbsp;12&nbsp;Feb)</td>
+        <td><a href="weeks/week3.html">Week&nbsp;3</a></td>
       </tr>
       <tr>
-        <td>7: 15-19 Feb 2027</td>
+        <td>7: 15&#8209;19&nbsp;Feb&nbsp;2027</td>
         <td>MLOps &amp; GitOps</td>
         <td>Self-study</td>
-        <td><a href="weeks/week4.html">Week 4</a></td>
+        <td><a href="weeks/week4.html">Week&nbsp;4</a></td>
       </tr>
       <tr>
-        <td>8: 22-26 Feb 2027</td>
+        <td>8: 22&#8209;26&nbsp;Feb&nbsp;2027</td>
         <td>Observability with Knowledge Graphs</td>
-        <td><strong>Portfolio 2 due</strong> (Mon 22 Feb)<br><strong>Seminar 3</strong> (Fri 26 Feb)</td>
-        <td><a href="weeks/week5.html">Week 5</a></td>
+        <td><strong>Portfolio&nbsp;2 due</strong> (Mon&nbsp;22&nbsp;Feb)<br><strong>Seminar&nbsp;3</strong> (Fri&nbsp;26&nbsp;Feb)</td>
+        <td><a href="weeks/week5.html">Week&nbsp;5</a></td>
       </tr>
       <tr>
-        <td>9: 01-05 Mar 2027</td>
+        <td>9: 01&#8209;05&nbsp;Mar&nbsp;2027</td>
         <td>Observability &amp; Feedback Loops</td>
-        <td><strong>Portfolio 3 due</strong> (Wed 3 Mar)</td>
-        <td><a href="weeks/week6.html">Week 6</a></td>
+        <td><strong>Portfolio&nbsp;3 due</strong> (Wed&nbsp;3&nbsp;Mar)</td>
+        <td><a href="weeks/week6.html">Week&nbsp;6</a></td>
       </tr>
       <tr>
-        <td>10: 08-12 Mar 2027</td>
+        <td>10: 08&#8209;12&nbsp;Mar&nbsp;2027</td>
         <td>Exam</td>
-        <td><strong>Final report due</strong> (Mon 8 Mar)<br><strong>Oral exam</strong> (Fri 12 Mar)</td>
-        <td><a href="weeks/week7.html">Week 7</a></td>
+        <td><strong>Final report due</strong> (Mon&nbsp;8&nbsp;Mar)<br><strong>Oral exam</strong> (Fri&nbsp;12&nbsp;Mar)</td>
+        <td><a href="weeks/week7.html">Week&nbsp;7</a></td>
       </tr>
     </tbody>
   </table>
 
-  <h2>Recommended Prerequisites</h2>
+  <h2>Course Format</h2>
   <ul>
-    <li>Python, including libraries such as NumPy, pandas, scikit-learn, PyTorch or TensorFlow, and FastAPI or
-      similar.</li>
-    <li>Basic machine learning: supervised/unsupervised learning, model evaluation, overfitting; able to train and
-      evaluate basic ML models.</li>
-    <li>Basic software development: design principles, testing, version control (Git), command-line tools.</li>
-    <li>Experience with cloud computing and containers (e.g. Docker, Podman, Azure/AWS/GCP) is an advantage, but not
-      required. You must, however, be able to install Docker or Podman and the Kubernetes tools on your laptop (admin
-      rights needed).</li>
+    <li><strong>Workload:</strong> 5 ECTS, about 137 hours, roughly 19 hours per week over 7 weeks,
+      including the three seminar days.</li>
+    <li><strong>Three seminar days</strong> (Fridays, 09:00&ndash;16:00, on-site at SDU Odense, with rooms listed on
+      the week pages), one per theme: software architecture, the cloud continuum, and observability with knowledge
+      graphs. Each day is led by the lecturer of the day who decides the format. Expect a mix of discussion, short
+      lectures, and labs, built around the prep reading. Every day opens with a welcome and includes an industry talk after
+      lunch. Read the preparation listed on the week page for each seminar.</li>
+    <li><strong>Self-study weeks</strong> between seminars, with reading and exercises on software architecture, MLOps and
+      GitOps, and observability. Each self-study week follows a reading path through the main course
+      book, <em>Engineering AI Systems</em> (Bass et al., 2025), and each exercise names the book section it builds on.
+      For questions during self-study weeks, use the course Discord server (invite follows by email).</li>
+    <li><strong>Hands-on work on your own case</strong> that takes a notebook model all the way to a monitored
+      production service, step by step. The data is public or synthetic, with the same shape as your company data.
+    </li>
+    <li><strong>A shared Kubernetes environment</strong> where each student or group gets its own namespace. You
+      deploy and operate everything yourselves.</li>
+    <li><strong>Three portfolio assignments</strong> based on a problem from your own company, one per seminar theme.
+      Together they form the exam report. Confidential cases can be anonymized or replaced with an approved public or synthetic case.
+      See
+      <a href="portfolio.html">Portfolio &amp; Exam</a>.</li>
   </ul>
 
-  <h2>Learning Goals</h2>
-  <p>
-    The learning goals are the approved learning objectives of the module <em>Software Engineering af AI systemer</em>
-    (DSNITEV33), 2026/2027. The official wording is in Danish; the English translation is for convenience.
-  </p>
-
-  <h3>Knowledge</h3>
-  <p>The student can:</p>
-  <table>
-    <thead>
-      <tr>
-        <th>English</th>
-        <th>Official wording (Danish)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>Explain the lifecycle of AI systems and how they differ from traditional systems.</td><td>Forklare
-          livscyklussen for AI-systemer og forskelle fra traditionelle systemer</td></tr>
-      <tr><td>Describe central Machine Learning Operations (MLOps) principles (Continuous Integration/Continuous
-          Deployment (CI/CD), monitoring, data versioning).</td><td>Beskrive centrale Machine Learning (ML)
-          Ops-principper (Continuous Integration/Continuous Deployment (CI/CD), overvågning, dataversionering)</td>
-      </tr>
-      <tr><td>Identify technical debt in AI systems and its consequences.</td><td>Identificere teknisk gæld i
-          AI-systemer og dens konsekvenser</td></tr>
-    </tbody>
-  </table>
-
-  <h3>Skills</h3>
-  <p>The student will be able to:</p>
-  <table>
-    <thead>
-      <tr>
-        <th>English</th>
-        <th>Official wording (Danish)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>Design scalable software architectures for AI systems.</td><td>Designe skalerbare softwarearkitekturer
-          til AI-systemer</td></tr>
-      <tr><td>Implement Machine Learning (ML) models with containerisation and Continuous Integration/Continuous
-          Deployment (CI/CD) pipelines.</td><td>Implementere Machine Learning (ML)-modeller med containerisering og
-          Continuous Integration/Continuous Deployment (CI/CD)-pipelines</td></tr>
-      <tr><td>Set up monitoring of AI systems for Site Reliability Engineering (SRE) teams.</td><td>Opsætte
-          monitorering af AI-systemer for Site Reliability Engineering (SRE) teams</td></tr>
-    </tbody>
-  </table>
-
-  <h3>Competences</h3>
-  <p>The student applies knowledge and skills in context:</p>
-  <table>
-    <thead>
-      <tr>
-        <th>English</th>
-        <th>Official wording (Danish)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>Apply MLOps practices to manage the entire lifecycle.</td><td>Anvende MLOps-praksis til styring af hele
-          livscyklussen</td></tr>
-      <tr><td>Make informed decisions about architecture and quality attributes.</td><td>Træffe informerede
-          beslutninger om arkitektur og kvalitetsegenskaber</td></tr>
-      <tr><td>Communicate software architecture choices to stakeholders.</td><td>Formidle softwarearkitekturvalg til
-          interessenter</td></tr>
-    </tbody>
-  </table>
-
-  <h3>Programme and Module</h3>
+  <h2>Program and Module</h2>
   <p>
     This course is the module <em>Software Engineering af AI systemer</em> (DSNITEV33, 5 ECTS), the second of three
-    courses in the subject package <em>Udvikling af AI</em> (Development of AI) of the Master in Information Technology,
-    Software Construction (<em>Master i IT, softwarekonstruktion</em>) at Aalborg University, offered through IT-Vest.
+    courses in the subject package <em>Udvikling af AI</em> (Development of AI) within the Master in Information
+    Technology, Software Construction (<em>Master i IT, softwarekonstruktion</em>) at Aalborg University. It is
+    offered through IT-Vest.
   </p>
   <ul>
     <li>Curriculum: <a href="https://studieordninger.aau.dk/2026/60/6837"><em>Studieordning for master i IT,
           softwarekonstruktion, 2026</em></a></li>
-    <li>Module description: <a href="https://moduler.aau.dk/course/2026-2027/DSNITEV33?lang=da-DK"><em>Software
+    <li>Module description, with the official learning goals: <a href="https://moduler.aau.dk/course/2026-2027/DSNITEV33?lang=da-DK"><em>Software
           Engineering af AI systemer</em> (2026/2027)</a></li>
   </ul>
 
   <h2>Assessment &amp; Exam</h2>
   <p>
-    Throughout the course you work on a problem from your own company. The problem is developed through three
-    portfolio assignments, each peer-reviewed; P1 and P2 are also discussed at the following seminar. The final exam
-    report is a revised compilation of the three portfolio assignments plus a one-page recommendation for decision
-    makers and a reflection, and you are examined orally on it. You work individually by default; small groups are
-    allowed, but the oral exam and the grade are individual.
+    Throughout the course you work on a problem from your own company, developing it across three portfolio
+    assignments, each peer-reviewed. P1 and P2 are also discussed at the following seminar. The final exam report
+    compiles the three revised portfolio assignments, plus a one-page recommendation for decision-makers and a
+    reflection. You are examined orally on the report. You work individually by default. Small
+    groups are allowed, but the oral exam and the grade are individual.
   </p>
   <ul>
-    <li><strong>Format:</strong> Project report (revised portfolio) + individual oral exam of about 30 minutes, based
-      on the project, with an external examiner; Danish 7-point grading scale</li>
+    <li><strong>Format:</strong> Project report (revised portfolio) + individual oral exam of about 30 minutes, with
+      an external examiner, graded on the Danish 7-point scale</li>
     <li><strong>Submission system:</strong> Moodle (Aalborg University)</li>
     <li><strong>Final submission deadline:</strong> Monday 8 March 2027</li>
     <li><strong>Exam date:</strong> Friday 12 March 2027, SDU Odense, room U165 (individual schedule TBA)</li>
   </ul>
-  <p class="back-link"><a href="portfolio.html">&rarr; Portfolio assignments &amp; exam details</a></p>
+  <p class="back-link"><a href="portfolio.html#timeline">&rarr; Portfolio assignments &amp; exam details</a></p>
 
   <h2>Resources</h2>
   <ul>
     <li><a href="assets/course-books.html">Course Books</a></li>
     <li><a href="portfolio.html">Portfolio &amp; Exam</a></li>
-    <li>Reference project repository: [link TBD]</li>
     <li><a href="kubernetes.html">Kubernetes Cluster Guide</a></li>
     <li><a href="glossary.html">Glossary</a></li>
   </ul>
@@ -237,14 +173,13 @@
     <strong>Email:</strong> <a href="mailto:anbae@mmmi.sdu.dk">anbae@mmmi.sdu.dk</a><br>
     <strong>Phone:</strong> +45 6550 4579<br>
     <strong>Office:</strong> SDU Ø20-608b-2<br>
-    <strong>Module responsible (AAU):</strong> Manfred Jaeger<br>
-    <!-- <strong>Office hours:</strong> [Day TBD], [Time TBD] -->
+    <strong>Module lead (AAU):</strong> Manfred Jaeger<br>
   </div>
 
   <footer>
-    &copy;
-    <script>document.write(new Date().getFullYear())</script> Anders Launer Bæk-Petersen
+    &copy; <span id="year"></span> DECO Lab · University of Southern Denmark
   </footer>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 
 </body>
 
